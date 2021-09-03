@@ -1,0 +1,57 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../cells-demo-dropdown-menu/cells-demo-dropdown-menu.html">
+
+<!--
+`<cells-demo-lang-switcher>` is a dropdown menu
+that changes the language of a component, which uses `CellsBehaviors.i18nBehavior`
+
+
+Examples:
+
+__With default configuration:__
+```
+<cells-demo-lang-switcher></cells-demo-lang-switcher>
+```
+
+__With custom label, path to locales and langs:__
+```
+<cells-demo-lang-switcher
+  label="Idioma"
+  locales-path="custom-path-to-locales"
+  langs='["en","es","de","fr"]'>
+</cells-demo-lang-switcher>
+```
+
+## Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+:--- | :--- | :---
+--cells-demo-lang-switcher-dropdown | Empty mixin applied to dropown | {}
+
+@demo demo/index.html
+@hero cells-demo-lang-switcher.jpg
+-->
+<dom-module id="cells-demo-lang-switcher">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      .dropdown {
+        width: 100%;
+        @apply --cells-demo-lang-switcher-dropdown;
+      }
+    </style>
+
+    <cells-demo-dropdown-menu
+      class="dropdown"
+      label="[[label]]"
+      items="[[_langs]]"
+      selected="{{selected}}">
+    </cells-demo-dropdown-menu>
+  </template>
+  <script src="cells-demo-lang-switcher.js"></script>
+</dom-module>

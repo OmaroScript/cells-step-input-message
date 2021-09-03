@@ -1,0 +1,98 @@
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../cells-amount-behavior/cells-amount-behavior.html">
+<link rel="import" href="../cells-atom-icon/cells-atom-icon.html">
+<link rel="import" href="../cells-molecule-amount-input/cells-molecule-amount-input.html">
+<link rel="import" href="../cells-select-modal/cells-select-modal.html">
+<link rel="import" href="../cells-st-button/cells-st-button.html">
+<link rel="import" href="../cells-switch/cells-switch.html">
+
+<link rel="import" href="cells-validate-amount-input-styles.html">
+
+<!--
+# cells-validate-amount-input
+
+Enter amount component.
+
+Example:
+```html
+<cells-validate-amount-input></cells-validate-amount-input>
+```
+
+```
+
+## Styling
+
+The following custom properties and mixins are available for styling:
+
+| Custom property | Description     | Default        |
+|:----------------|:----------------|:--------------:|
+| --cells-validate-amount-input  | empty mixin     | {}             |
+| --cells-validate-amount-input-step-inactive  | empty mixin     | {}             |
+| --cells-validate-amount-input-step-inactive__txt  | empty mixin     | {}             |
+| --cells-validate-amount-input__txt  | empty mixin     | {}             |
+| --cells-validate-amount-input__btn  | empty mixin     | {}             |
+
+@demo demo/index.html
+-->
+<dom-module id="cells-validate-amount-input">
+  <template>
+    <style include="cells-validate-amount-input-styles cells-validate-amount-input-shared-styles"></style>
+
+    <div class="amount-container">
+      <!-- CURRENCY SELECTOR -->
+      <template is="dom-if" if=[[image]]>
+        <cells-select-modal
+          class="currency-selector"
+          image="[[image]]"
+          hide-selector-icon="[[hideSelectorIcon]]"
+        ></cells-select-modal>
+      </template>
+
+      <!-- AMOUNT -->
+      <cells-molecule-amount-input
+        id="enterAmountInput"
+        class$="[[__getAmountClasses(defaultAmountClasses, amountClasses)]]"
+        pattern="[[pattern]]"
+        set-amount="[[setAmount]]"
+        amount="{{amount}}"
+        max="[[maxChars]]"
+        name="[[name]]"
+        label="[[t(label)]]"
+        currency-code="[[currencyCode]]"
+        local-currency="[[localCurrency]]"
+        language="[[language]]"
+        icon-size="20"
+        icon-code="coronita:close"
+        numeral-positive-only="[[numeralPositiveOnly]]"
+        invalid="[[!_valid]]"
+        on-blur="_validate"
+        on-focusout="_validate"
+        on-amount-input-changed="__validateOnAmountChanged"
+        info-message-icon="coronita:info"
+        info-message="[[_computedInfoMessage]]"
+        error-message-icon="coronita:alert"
+        error-message="[[_computedErrorMessage]]"
+        img-src="[[amountImage]]"
+        disabled="[[disabled]]"
+        auto-format="[[autoFormat]]"
+        set-initial-decimals="[[setInitialDecimals]]"
+        show-right-currency-icon="[[showInputRightCurrencyIcon]]"
+        disable-decimal="[[disableDecimal]]"
+        on-keypress="_onKeyboardEnter"
+        type="[[type]]"
+        input-mode="[[inputMode]]"
+      ></cells-molecule-amount-input>
+
+    </div>
+
+    <slot id="extra" name="extra"></slot>
+
+    <cells-st-button class="secondary size-m" hidden$="[[hideContinueBtn]]">
+      <button id="enterAmountBtn" type="button" class="cells-validate-amount-input__btn" disabled$="[[!_buttonIsEnabled]]" on-click="_sendAmountOutput">[[t('cells-validate-amount-input-continue', 'Continue')]]
+      </button>
+    </cells-st-button>
+  </template>
+  <script src="cells-validate-amount-input.js"></script>
+</dom-module>

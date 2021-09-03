@@ -1,0 +1,192 @@
+<dom-module id="cells-list-file-styles"><template><style>
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: var(--cells-fontDefault, sans-serif);
+  @apply --cells-list-file;
+}
+
+:host([hidden]), [hidden] {
+  display: none !important;
+}
+
+p {
+  margin: 0 0 0.5rem;
+}
+
+.list-file-container {
+  display: flex;
+  align-items: flex-start;
+  @apply --cells-list-file-container;
+}
+
+.list-file-margin-left {
+  margin-left: 1.25rem;
+  @apply --cells-list-file-margin-left;
+}
+
+.list-file-margin {
+  margin: 2rem 1rem 2rem 1rem;
+  @apply --cells-list-file-margin;
+}
+
+.media {
+  width: 1.5rem;
+  height: 1.5rem;
+  @apply --cells-list-file-media;
+}
+.media__icon {
+  color: var(--cells-list-file-color-bodycopy--theme, var(--bbva-dark-medium-blue, #1973b8));
+  @apply --cells-list-file-media-icon;
+}
+.media__actionicon {
+  color: var(--cells-list-file-color-bodycopy--theme, var(--bbva-dark-medium-blue, #1973b8));
+  padding-right: 0.5rem;
+  width: var(--cells-list-file-icon-info-size, 1.5625rem);
+  margin-left: var(--cells-list-file-icon-info-margin-left, 0.125rem);
+  font-size: var(--cells-text-size-xxxxl, 1.5rem);
+  @apply --cells-list-file-media-action-icon;
+}
+
+.body {
+  flex: 1;
+  padding-left: 0.5rem;
+  line-height: 1.5;
+  @apply --cells-list-file-body;
+}
+.body__text {
+  color: var(--cells-list-file-color-bodycopy--theme, var(--bbva-dark-medium-blue, #1973b8));
+  margin-bottom: 0;
+  word-break: var(--cells-list-file-word-break, break-word);
+  @apply --cells-fontDefaultMedium;
+  @apply --cells-list-file-bodycopy-text;
+}
+.body__sub-text {
+  color: var(--cells-list-file-color-body-subtext--theme, var(--bbva-500, #666));
+  @apply --cells-fontDefaultLightItalic;
+  @apply --cells-list-file-body-sub-text;
+}
+
+:host(.on-dark) {
+  --cells-list-file-color-bodycopy--theme: var(--bbva-white, #fff);
+  --cells-list-file-color-body-subtext--theme: var(--bbva-white, #fff);
+  @apply --cells-list-file-on-dark;
+}
+
+.list-file__message {
+  padding: 0;
+  @apply --cells-list-file-message;
+}
+
+:host(.h-gutter) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  @apply --cells-list-file-gutter;
+}
+
+:host(.row-gap-bottom-l) {
+  margin-bottom: 1.5rem;
+  @apply --cells-list-file-row-gap-bottom-l;
+}
+
+:host(.row-gap-bottom-m) {
+  margin-bottom: 1rem;
+  @apply --cells-list-file-row-gap-bottom-m;
+}
+
+:host(.row-gap-top-xxl) {
+  margin-top: 2.5rem;
+  @apply --cells-list-file-row-gap-top-xxl;
+}
+
+:host(.body-break-word) {
+  @apply --cells-list-file-body-break-word;
+}
+:host(.body-break-word) .body__text {
+  word-break: break-word;
+  @apply --cells-list-file-body-break-word-text;
+}
+
+.container-items-with-separator {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  @apply --cells-list-file-item-separator;
+}
+.container-items-with-separator:not(:last-of-type) {
+  border-bottom: 1px solid var(--cells-list-file-item-separator-color, var(--bbva-300, #D3D3D3));
+  @apply --cells-list-file-item-separator-not-last-type;
+}
+
+.checkbox-selectable-item {
+  --checkbox-label-padding-top: 0px;
+  --cells-checkbox-left-icon-color: var(--cells-list-file-color-bodycopy--theme, var(--bbva-dark-medium-blue, #1973b8));
+  --cells-checkbox-button-checkbox-background-color: var(--bbva-white, #fff);
+  --cells-checkbox-left-label: {     color: var(--cells-list-file-color-bodycopy--theme , var(--bbva-600, #121212));     font-size: 1rem;     @apply --cells-list-file-checkbox-left-label;   };
+  --cells-checkbox-left-additional-label: {     color: var(--cells-list-file-color-bodycopy--theme , var(--bbva-500, #666));     @apply --cells-list-file-checkbox-left-additional-label;   };
+  @apply --cells-list-file-checkbox-selectable-item;
+}
+
+.spacing-xs {
+  margin: 4px 0;
+}
+.spacing-xs-top {
+  margin-top: 4px;
+}
+.spacing-xs-bottom {
+  margin-bottom: 4px;
+}
+.spacing-s {
+  margin: 8px 0;
+}
+.spacing-s-top {
+  margin-top: 8px;
+}
+.spacing-s-bottom {
+  margin-bottom: 8px;
+}
+.spacing-m, .spacing {
+  margin: 16px 0;
+}
+.spacing-m-top, .spacing-top {
+  margin-top: 16px;
+}
+.spacing-m-bottom, .spacing-bottom {
+  margin-bottom: 16px;
+}
+.spacing-l {
+  margin: 24px 0;
+}
+.spacing-l-top {
+  margin-top: 24px;
+}
+.spacing-l-bottom {
+  margin-bottom: 24px;
+}
+.spacing-xl {
+  margin: 32px 0;
+}
+.spacing-xl-top {
+  margin-top: 32px;
+}
+.spacing-xl-bottom {
+  margin-bottom: 32px;
+}
+.spacing-xxl {
+  margin: 40px 0;
+}
+.spacing-xxl-top {
+  margin-top: 40px;
+}
+.spacing-xxl-bottom {
+  margin-bottom: 40px;
+}
+.spacing-xxxl {
+  margin: 48px 0;
+}
+.spacing-xxxl-top {
+  margin-top: 48px;
+}
+.spacing-xxxl-bottom {
+  margin-bottom: 48px;
+}
+</style></template></dom-module>

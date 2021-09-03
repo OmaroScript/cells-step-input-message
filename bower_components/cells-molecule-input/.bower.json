@@ -1,0 +1,33 @@
+{
+  "name": "cells-molecule-input",
+  "version": "13.6.2",
+  "description": "A customized input component with a floating label and an optional icon",
+  "keywords": [
+    "molecule",
+    "input",
+    "validation"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "iron-input": "PolymerElements/iron-input#^2.0.0",
+    "iron-label": "PolymerElements/iron-label#^2.0.0",
+    "cells-i18n-behavior": "^13.0.0"
+  },
+  "devDependencies": {
+    "cells-sass": "^2.0.0",
+    "cells-demo-helper": "^12.0.0",
+    "cells-banking-theme": "^12.0.0",
+    "cells-coronita-base-theme": "^12.0.0",
+    "coronita-icons": "^12.0.0",
+    "webcomponentsjs": "^1.0.0",
+    "cells-st-button": "^12.0.0",
+    "web-component-tester": "^6.0.0"
+  },
+  "main": [
+    "cells-molecule-input.html"
+  ],
+  "_source": "art://bgcm/cells-molecule-input",
+  "_target": "^13.0.0",
+  "_release": "13.6.2",
+  "_originalSource": "cells-molecule-input"
+}

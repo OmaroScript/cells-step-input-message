@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../cells-st-button/cells-st-button.html">
+<link rel="import" href="../coronita-icons/coronita-icons.html">
+<link rel="import" href="cells-text-description-styles.html">
+<link rel="import" href="../cells-st-button/cells-st-button.html">
+<link rel="import" href="../coronita-icons/coronita-icons.html">
+<dom-module id="cells-text-description">
+  <template>
+
+    <style include="cells-text-description-styles cells-text-description-shared-styles"></style>
+
+    <template is="dom-repeat" items="[[description]]">
+     <dom-if if="[[item.decoratedImage]]">
+        <template>
+          <div class="icon-container">
+            <img id="imageAsTitle"
+                src$="[[item.decoratedImage]]"
+                alt="imagen">
+          </div>
+        </template>
+      </dom-if> 
+      <dom-if if="[[item.title]]">
+          <template>
+            <p class$="title [[item.class]]" data-selector$="title-[[index]]">[[t(item.title)]]
+              <template is="dom-if" if="[[titleIcon]]">
+                <cells-st-button class="transparent title-icon" on-click="_buttonClick" data-selector$="button-[[index]]">
+                    <button>
+                        <iron-icon class="btn-icon" icon="[[_formatIcon(titleIcon)]]"></iron-icon>
+                    </button>
+                </cells-st-button>
+              </template>
+            </p>
+          </template>
+      </dom-if>
+      <dom-if if="[[item.subtitle]]">
+        <template>
+          <p class$="subtitle [[item.class]]" data-selector$="subtitle-[[index]]" role$="[[roleAccesibilitySubtitle]]" aria-level$="[[ariaLevelSubtitle]]">[[t(item.subtitle)]]</p>
+        </template>
+      </dom-if>
+      <dom-if if="[[item.mainDescription]]">
+        <template>
+          <p class$="description mainDescription [[item.class]]" on-click="_onMainDescriptionClick" data-selector$="mainDescription-[[index]]">[[t(item.mainDescription)]]</p>
+        </template>
+      </dom-if>
+      <dom-if if="[[item.secondaryDescription]]">
+        <template>
+          <p class$="description secondaryDescription [[item.class]]" data-selector$="secondaryDescription-[[index]]">[[t(item.secondaryDescription)]]</p>
+        </template>
+      </dom-if>
+      <dom-if if="[[item.htmlDescription]]">
+        <template>
+          <p class$="description htmlDescription [[item.class]]" data-selector$="htmlDescription-[[index]]" inner-h-t-m-l="[[t(item.htmlDescription)]]"></p>
+        </template>
+      </dom-if>
+      <dom-if if="[[_existText(item)]]">
+        <template>
+          <cells-st-button id="linkButton" class$="link [[item.link.class]]" on-click="_onLinkClick">
+            <button class="btn btn-link" disabled="[[item.link.disabled]]">[[t(item.link.text)]]</button>
+          </cells-st-button>
+        </template>
+      </dom-if>
+    </template>
+
+  </template>
+  <script src="cells-text-description.js"></script>
+</dom-module>

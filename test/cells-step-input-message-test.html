@@ -1,0 +1,352 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="mocks/amount.js"></script>
+  <link rel="import" href="../cells-step-input-message.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-step-input-message></cells-step-input-message>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="withIsText">
+    <template>
+      <cells-step-input-message is-text></cells-step-input-message>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<cells-step-input-message>', function() {
+      var el;
+
+      setup(function() {
+        el = fixture('default');
+      });
+
+      test('reset should reset input value', () => {
+        el.input = 1234;
+        
+        el.reset();
+
+        expect(el.input).to.be.undefined;
+      });
+
+      test('isValid should return true if input is filled', () => {
+        el.isAmount = true;
+        el.input = { amount: 1234 };
+        
+        expect(el.isValid()).to.be.true;
+      });
+
+
+      test('isValid should return true if input is filled with amount', () => {
+        el.input = { amount: 1234 };
+        el.isAmount = true;
+
+        expect(el.isValid()).to.be.true;
+      });
+
+      test('isValid should return false if amount input is not set', () => {
+        el.isAmount = true;
+        expect(el.isValid()).to.be.false;
+      });
+
+      test('isValid should return manualDisableButtonValue in true', () => {
+        el.manualDisableButtonValue = true;
+        expect(el.isValid()).to.be.false;
+      });
+
+      test('isValid should return manualDisableButtonValue in true and regex validation', () => {
+        el.manualDisableButtonValue = true;
+        el.regexValidationFromInputText = /^([a-z]{4})([0-9]{6})([a-z]{6})([0-9]{2})$/i;
+        el.input = 'HEAO961119HMCRNM03';
+        el.maxChars = 18;
+        expect(el.isValid()).to.be.a('Array');
+      });
+
+      test('when focusOut should set state props into this', () => {
+        el.active = true;
+        el.input = { amount: 1234 };
+        el.isAmount = true;
+        el._onContinue(new CustomEvent('continue', {
+          detail: 1234
+        }));
+        expect(el._state).to.eql({input: {amount: 1234}});
+        el.input = { amount: 2345 };
+        el.collapsed = true;
+
+        expect(el.input).to.eql({amount: 1234});
+      });
+
+    });
+
+    suite('_onContinue', function() {
+      var el;
+
+      setup(function() {
+        el = fixture('default');
+        sinon.spy(el, 'dispatchEvent');
+      });
+
+      suiteTeardown(() => {
+        el.dispatchEvent.restore();
+      })
+
+      test('should dispatch an event with input', () => {
+        el.input = 1234;
+        el.isAmount = false;
+        el._onContinue(new Event('continue'))
+        expect(el.dispatchEvent).called;
+        expect(el.dispatchEvent.args[0][0].type).to.eql('input-changed');
+        expect(el.dispatchEvent.args[0][0].detail.value).to.eql(1234);
+      });
+
+      test('should dispatch an event with input without reason', (done) => {
+        const labelWithOutReason = 'cells-cancel-card-input-message-without-reason';
+        el.input = '';
+        el.isAmount = false;
+
+        flush(() =>{
+          const button = el.shadowRoot.querySelector('#enterAmountBtn');
+          button.click();
+          expect(el.dispatchEvent).called;
+          expect(el.dispatchEvent.args[0][0].type).to.eql('input-changed');
+          expect(el.dispatchEvent.args[1][0].detail).to.eql(labelWithOutReason);
+          done()
+        });
+        
+      });
+
+      test('should store state', () => {
+        el.input = { amount: 1234 };
+        el.isAmount = true;
+
+        el._onContinue(new CustomEvent('continue', {
+          detail: 1234
+        }));
+
+        expect(el._state).to.eql({input: el.input});
+      });
+    });
+
+    suite('reset', function() {
+      var el;
+
+      setup(function() {
+        el = fixture('default');
+        sinon.spy(el, 'dispatchEvent');
+      });
+
+      suiteTeardown(() => {
+        el.dispatchEvent.restore();
+      })
+
+      test('should reset input with undefined', () => {
+        el.input = 1234;
+        el.showRemaining = false;
+
+        el.reset();
+
+        expect(el.input).to.eql(undefined);
+      });
+
+      test('should reset input without undefined', () => {
+        el.input = 1234;
+        el.showRemaining = true;
+
+        el.reset();
+
+        expect(el.input).to.eql('');
+      });
+
+      test('should reset input state if resetState is true', () => {
+        el.input = 1234;
+        el.showRemaining = true;
+        el.resetState = true;
+
+        el.reset();
+
+        expect(el.input).to.eql('');
+      });
+    });
+
+    suite('_computeShowSkeleton', function() {
+      var el;
+      isVisible = el => {
+        return Boolean(el && !(el.offsetParent === null));
+      }
+      setup(function() {
+        el = fixture('default');
+        sinon.spy(el, 'dispatchEvent');
+      });
+
+      suiteTeardown(() => {
+        el.dispatchEvent.restore();
+      })
+
+      test('when showSkeleton is true and input is not set should return true', () => {
+        expect(el._computeShowSkeleton(true, true, '')).to.eql(true);
+      });
+
+      test('when showSkeleton is true and input is set should return false', () => {
+        expect(el._computeShowSkeleton(false, true, 1500)).to.eql(false);
+      });
+
+      test('when showSkeleton is false should return false', () => {
+        expect(el._computeShowSkeleton(false, false, 1500)).to.eql(false);
+        expect(el._computeShowSkeleton(false, false)).to.eql(false);
+      });
+
+      test('when showSkeleton is true and input is an object, should not display skeleton', (done) => {
+        el.showSkeleton = true;
+        el.input = { currency: 'USD', amount: 900 }
+        flush(()=>{
+          const skeleton = el.shadowRoot.querySelector('#skeleton-item');
+          expect(el._showSkeleton).to.be.false;
+          expect(isVisible(skeleton)).to.be.false;
+          done();
+        })
+      });
+      test('when showSkeleton is true and input has content, should not display skeleton', (done) => {
+        el.showSkeleton = true;
+        el.input = 'test test';
+        el.showSkeletonWithOutInputValidation = false;
+        flush(()=>{
+          const skeleton = el.shadowRoot.querySelector('#skeleton-item');
+          expect(el._showSkeleton).to.be.false;
+          expect(isVisible(skeleton)).to.be.false;
+          done();
+        })
+      });
+      test('when showSkeleton is true and input is undefined, should display skeleton', (done) => {
+        el.showSkeleton = true;
+        el.input = undefined;
+        el.showSkeletonWithOutInputValidation = true;
+        flush(()=>{
+          const skeleton = el.shadowRoot.querySelector('#skeleton-item');
+          expect(el._showSkeleton).to.be.true;
+          expect(isVisible(skeleton)).to.be.true;
+          done();
+        })
+      });
+    });
+
+    suite('_computeAmountSet', function() {
+      var el;
+
+      setup(function() {
+        el = fixture('default');
+        sinon.spy(el, 'dispatchEvent');
+      });
+
+      suiteTeardown(() => {
+        el.dispatchEvent.restore();
+      })
+
+      test('should set filledAmount object and input amount', () => {
+        el.input = {amount: 30, currency: 'USD'}
+        el._computeAmountSet({detail: 300});
+        expect(el.filledAmount.currency).to.be.eql('USD');
+        expect(el.filledAmount.amount).to.be.eql(300);
+        expect(el.input.amount).to.be.eql(300);
+      });
+    });
+
+    suite('_computedFilledTextInline', () => {
+      var el;
+
+      setup(function() {
+        el = fixture('default');
+      });
+      test('Show filled text inline', () => {
+        el.set('isFilledTextBlock', false);
+        expect(el._filledTextInline).to.be.equal('inline');
+      });
+      test('Show filled text inline', () => {
+        el.set('isFilledTextBlock', true);
+        expect(el._filledTextInline).to.be.empty;
+      });
+    });
+
+    suite('_onChangePressed', () => {
+      var el;
+
+      setup(function(){
+        el = fixture('default');
+        sinon.spy(el, 'dispatchEvent');
+      });
+
+      suiteTeardown(() => {
+        el.dispatchEvent.restore();
+      })
+
+      test('input should be blank', (done) => {
+        flush(() => {
+          const shadowRoot = el.shadowRoot;
+          let listener = (event) => {
+            expect(el.input).to.be.eql('');
+            el.removeEventListener('change-pressed', listener);
+            done();
+          }
+          el.addEventListener('change-pressed', listener);
+
+          el.showSkeletonWithOutInputValidation = true;
+          el.showSkeleton = true;
+          el.isText = true;
+          el.collapsed = true;
+          el.input = 'cells-cancel-card-input-message-without-reason';
+          const cellsStep = shadowRoot.querySelector('cells-step');
+          const button = cellsStep.$.changeBtn;
+          button.click();
+        });
+      });
+
+      test('dispatch event', () => {
+
+        flush(() => {
+          const shadowRoot = el.shadowRoot;
+          el.addEventListener('change-pressed', (event) => {
+            expect(el.dispatchEvent).called;
+            expect(el.dispatchEvent.args[0][0].type).to.eql('change-pressed');
+            done();
+          });
+
+          el.showSkeletonWithOutInputValidation = true;
+          el.showSkeleton = true;
+          el.isText = true;
+          el.collapsed = true;
+          const cellsStep = shadowRoot.querySelector('cells-step');
+          const button = cellsStep.$.changeBtn;
+          button.click();
+        });
+      });
+    });
+
+    suite('onShowLink', () => {
+      var el;
+
+      setup(() => {
+        el = fixture('default');
+      });
+
+      test('onShowLink pressed', () => {
+        const listener = sinon.spy();
+
+        el.addEventListener('show-link-list-file', listener);
+        el.onShowLink();
+        expect(listener).to.have.been.called;
+     });
+    });
+  </script>
+</body>
+
+</html>

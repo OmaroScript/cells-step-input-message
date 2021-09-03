@@ -1,0 +1,497 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../cells-molecule-input.html">
+</head>
+
+<body>
+
+  <test-fixture id="myEl">
+    <template>
+      <cells-molecule-input label="label" select-all-on-focus></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl2">
+    <template>
+      <cells-molecule-input label="label" value="Lorem" type="password" icon="coronita:visualize" icon-toggled="coronita:hide" extra-icon="coronita:close"></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl3">
+    <template>
+      <cells-molecule-input label="label" value="Lorem" icon="coronita:alert" extra-icon="coronita:visualize" extra-icon-toggled="coronita:hide" icon-visibility="always"
+        extra-icon-visibility="focused" icon-action="event"></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl4">
+    <template>
+      <cells-molecule-input label="label" auto-validate allowed-value="^[a-zA-Z]+$"></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl5">
+    <template>
+      <cells-molecule-input label="label" type="email" auto-validate></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl6">
+    <template>
+      <cells-molecule-input label="label" type="email" required></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl7">
+    <template>
+      <cells-molecule-input label="label" auto-validate allowed-value="^[a-zA-Z]+$" value="abc123"></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl8">
+    <template>
+      <cells-molecule-input label="label" auto-validate allowed-value="^[a-zA-Z]+$" custom-pattern="[a-zA-Z0-9]{1,}" value="abc123"></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl9">
+    <template>
+      <cells-molecule-input label="label" icon="coronita:search" icon-toggled="coronita:close" toggle-empty-fill-icons></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl10">
+    <template>
+      <cells-molecule-input label="label" allowed-value="^[a-zA-Z]+$" auto-validate allowed-chars="[0-9-a-c]"></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="myEl11">
+    <template>
+      <cells-molecule-input label="label" auto-validate allowed-chars="[0-9-a-c]"></cells-molecule-input>
+    </template>
+  </test-fixture>
+
+  <script>
+
+    suite('<cells-molecule-input> tag', function() {
+      var myEl;
+
+      setup(function() {
+        myEl = fixture('myEl');
+      });
+
+      suite('in general', function() {
+        test('changing value changes "hasContent" property', function() {
+          assert.equal(myEl.hasContent, false);
+          myEl.value = 'Test content';
+          assert.equal(myEl.hasContent, true);
+        });
+
+        test('focusing the component sets focus to the inner input', function() {
+          var innerInput = myEl.shadowRoot.querySelector('#input');
+          myEl.focus();
+          var active = document.activeElement || document.body;
+          while (active.root && active.shadowRoot.activeElement) {
+            active = active.shadowRoot.activeElement;
+          }
+          assert.equal(active, innerInput);
+        });
+
+        test('focusing the component sets focus to the inner input', function() {
+          myEl.reactOnFocus = true;
+          myEl.inputStatusValidate = true;
+          var innerInput = myEl.shadowRoot.querySelector('#input');
+          myEl.focus();
+          var active = document.activeElement || document.body;
+          while (active.root && active.shadowRoot.activeElement) {
+            active = active.shadowRoot.activeElement;
+          }
+          assert.equal(active, innerInput);
+        });
+
+        test('focusing the component send focus event with currentTarget', function(done) {
+          let currentTarget = {};
+          let listener = (event) => {
+            expect(event.detail.originalTarget).to.be.eql(currentTarget);
+            myEl.removeEventListener('cells-molecule-input-focus', listener);
+            myEl._selectOnFocus.restore();
+            done();
+          }
+
+          sinon.stub(myEl, '_selectOnFocus', () => {});
+          myEl.addEventListener('cells-molecule-input-focus', listener);
+          myEl._onFocus({currentTarget: currentTarget});
+        });
+
+        test('focusing the component send focus event without currentTarget', function(done) {
+          let listener = (event) => {
+            expect(event.detail.originalTarget).to.be.null;
+            myEl.removeEventListener('cells-molecule-input-focus', listener);
+            myEl._selectOnFocus.restore();
+            done();
+          }
+
+          myEl.excludeCurrentTargetOnFocusEvent = true;
+          sinon.stub(myEl, '_selectOnFocus', () => {});
+          myEl.addEventListener('cells-molecule-input-focus', listener);
+          myEl._onFocus({});
+        });
+      });
+    });
+
+    suite('<cells-molecule-input> tag with icons', function() {
+      var myEl2;
+      var myEl3;
+      var myEl9;
+
+      setup(function() {
+        myEl2 = fixture('myEl2');
+        myEl3 = fixture('myEl3');
+        myEl9 = fixture('myEl9');
+      });
+
+      suite('in general', function() {
+        test('click on clear icon should clear the input', function(done) {
+          var initialValue = myEl2.value;
+          assert.equal(initialValue, 'Lorem');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.secondary-icon .button');
+            button.click();
+            var newValue = myEl2.value;
+            assert.notEqual(initialValue, newValue);
+            assert.equal(newValue, '');
+            done();
+          })
+        });
+
+        test('spacebar on clear icon should clear the input', function(done) {
+          var initialValue = myEl2.value;
+          assert.equal(initialValue, 'Lorem');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.secondary-icon .button');
+            const event = new CustomEvent('keydown');
+            event.keyCode = 32;
+            button.dispatchEvent(event);
+            var newValue = myEl2.value;
+            assert.notEqual(initialValue, newValue);
+            assert.equal(newValue, '');
+            done();
+          })
+        });
+
+        test('enter key on clear icon should clear the input', function(done) {
+          var initialValue = myEl2.value;
+          assert.equal(initialValue, 'Lorem');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.secondary-icon .button');
+            const event = new CustomEvent('keydown');
+            event.keyCode = 13;
+            button.dispatchEvent(event);
+            var newValue = myEl2.value;
+            assert.notEqual(initialValue, newValue);
+            assert.equal(newValue, '');
+            done();
+          })
+        });
+
+        test('different key on clear icon should not clear the input', function(done) {
+          var initialValue = myEl2.value;
+          assert.equal(initialValue, 'Lorem');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.secondary-icon .button');
+            const event = new CustomEvent('keydown');
+            event.keyCode = 14;
+            button.dispatchEvent(event);
+            var newValue = myEl2.value;
+            assert.equal(initialValue, newValue);
+            assert.notEqual(newValue, '');
+            done();
+          })
+        });
+
+        test('click on toggle icon should change the input type to text and back to original type', function(done) {
+          assert.equal(myEl2.type, 'password');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.main-icon .button');
+            button.click();
+            assert.equal(myEl2.type, 'text');
+            button.click();
+            assert.equal(myEl2.type, 'password');
+            done();
+          })
+        });
+
+        test('spacebar on toggle icon should change the input type to text and back to original type', function(done) {
+          assert.equal(myEl2.type, 'password');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.main-icon .button');
+            const event = new CustomEvent('keydown');
+            event.keyCode = 32;
+            button.dispatchEvent(event);
+            assert.equal(myEl2.type, 'text');
+            button.dispatchEvent(event);
+            assert.equal(myEl2.type, 'password');
+            done();
+          })
+        });
+
+        test('enter key on toggle icon should change the input type to text and back to original type', function(done) {
+          assert.equal(myEl2.type, 'password');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.main-icon .button');
+            const event = new CustomEvent('keydown');
+            event.keyCode = 13;
+            button.dispatchEvent(event);
+            assert.equal(myEl2.type, 'text');
+            button.dispatchEvent(event);
+            assert.equal(myEl2.type, 'password');
+            done();
+          })
+        });
+
+        test('different key on toggle icon should not change the input type to text', function(done) {
+          assert.equal(myEl2.type, 'password');
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.main-icon .button');
+            const event = new CustomEvent('keydown');
+            event.keyCode = 14;
+            button.dispatchEvent(event);
+            assert.equal(myEl2.type, 'password');
+            done();
+          })
+        });
+
+        test('click on toggle icon multiple times should toggle between original and toggled icon', function(done) {
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.main-icon .button');
+            var buttonIcon = button.querySelector('iron-icon');
+            assert.equal(buttonIcon.icon, 'coronita:visualize');
+            button.click();
+            assert.equal(buttonIcon.icon, 'coronita:hide');
+            button.click();
+            assert.equal(buttonIcon.icon, 'coronita:visualize');
+            done();
+          })
+        });
+
+        test('click on toggle icon multiple fires event type-changed', function(done) {
+          var spy = sinon.spy();
+          myEl2.addEventListener('type-changed', spy);
+          flush(function() {
+            var button = myEl2.shadowRoot.querySelector('.main-icon .button');
+            var buttonIcon = button.querySelector('iron-icon');
+            button.click();
+            expect(spy.getCall(0).args[0].type).equal('type-changed')
+            done();
+          })
+        });
+
+        test('click on backspace key remove input value completely if type is password and the content is hidden and property backspacePwdFullDelete is true', function(done) {
+          assert.equal(myEl2.type, 'password');
+
+          myEl2.backspacePwdFullDelete = true;
+
+          flush(function() {
+            var e = new Event('keydown');
+            e.key = 'Backspace';
+            e.keyCode = e.key.charCodeAt(0);
+            e.which = e.keyCode;
+
+            myEl2._onDelete(e);
+            assert.equal(myEl2.value, '');
+            done();
+          })
+        });
+
+        test('click on backspace key remove input value completely if type is password and the content is hidden and property backspacePwdFullDelete is true', function(done) {
+          assert.equal(myEl2.type, 'password');
+
+          myEl2.backspacePwdFullDelete = true;
+          myEl2.customPattern = '[a-zA-Z]';
+
+          flush(function() {
+            var e = new Event('keydown');
+            e.key = 'Backspace';
+            e.keyCode = e.key.charCodeAt(0);
+            e.which = e.keyCode;
+
+            myEl2._onDelete(e);
+            assert.equal(myEl2.value, '');
+            done();
+          })
+        });
+
+
+        test('click on backspace key remove input value completely if type isn\'t password and the content is hidden and property backspacePwdFullDelete is true', function(done) {
+          myEl2.type = 'text';
+          assert.equal(myEl2.type, 'text');
+
+          myEl2.backspacePwdFullDelete = true;
+
+          flush(function() {
+            var e = new Event('keydown');
+            e.keyCode = 8;
+
+            myEl2._onDelete(e);
+            assert.equal(myEl2.value, 'Lorem');
+            done();
+          })
+        });
+
+        test('click on backspace key remove input value completely if type isn\'t password and the content is hidden and property backspacePwdFullDelete is true', function(done) {
+          myEl2.type = 'text';
+          assert.equal(myEl2.type, 'text');
+
+          myEl2.backspacePwdFullDelete = true;
+
+          flush(function() {
+            var e = new Event('keydown');
+            e.keyCode = 9;
+
+            myEl2._onDelete(e);
+            assert.equal(myEl2.value, 'Lorem');
+            done();
+          })
+        });
+        test('click on toggle extra icon multiple times should toggle between original and toggled icon', function(done) {
+          flush(function() {
+            var button = myEl3.shadowRoot.querySelector('.secondary-icon .button');
+            var buttonIcon = button.querySelector('iron-icon');
+            assert.equal(buttonIcon.icon, 'coronita:visualize');
+            button.click();
+            assert.equal(buttonIcon.icon, 'coronita:hide');
+            button.click();
+            assert.equal(buttonIcon.icon, 'coronita:visualize');
+            done();
+          })
+        });
+
+        test('click on icon with action event should not clear the value', function(done) {
+          assert.equal(myEl3.value, 'Lorem');
+          flush(function() {
+            var button = myEl3.shadowRoot.querySelector('.main-icon .button');
+            button.click();
+            assert.equal(myEl3.value, 'Lorem');
+            done();
+          })
+        });
+
+        test('visibility property should set visibility classes on icon', function(done) {
+          flush(function() {
+            var icon = myEl3.shadowRoot.querySelector('.main-icon');
+            var extraIcon = myEl3.shadowRoot.querySelector('.secondary-icon');
+            assert.isTrue(icon.classList.contains('visible-always'));
+            assert.isTrue(extraIcon.classList.contains('visible-focused'));
+            done();
+          })
+        });
+
+        test('iconAction equal to none', function(done) {
+          myEl3.iconAction='none';
+          flush(function() {
+            assert.equal(myEl3._iconAction, false);
+            done();
+          })
+        });
+
+        test('icon should change between empty and fill state', function() {
+          myEl9.value = 'test';
+          expect(myEl9._icon).to.equal(myEl9.iconToggled);
+          myEl9.value = '';
+          expect(myEl9._icon).to.equal(myEl9.icon);
+        });
+      });
+    });
+
+    suite('<cells-molecule-input> tag with validations', function() {
+      var myEl4;
+      var myEl5;
+      var myEl6;
+      var myEl7;
+      var myEl8;
+      var myEl10;
+      var myEl11;
+
+      setup(function() {
+        myEl4 = fixture('myEl4');
+        myEl5 = fixture('myEl5');
+        myEl6 = fixture('myEl6');
+        myEl7 = fixture('myEl7');
+        myEl8 = fixture('myEl8');
+        myEl10 = fixture('myEl10');
+        myEl11 = fixture('myEl11');
+      });
+
+      suite('in general', function() {
+        test('required input with no value should fail validation', function() {
+          assert.equal(myEl6.invalid, false);
+          myEl6.value = '';
+          myEl6.validate();
+          assert.equal(myEl6.invalid, true);
+        });
+        test('non required input with no validation rules should validate successfully', function() {
+          assert.equal(myEl6.invalid, false);
+          myEl6.value = '';
+          myEl6.validate();
+          assert.equal(myEl6.invalid, true);
+          myEl6.required = false;
+          myEl6.validate();
+          assert.equal(myEl6.invalid, false);
+        });
+        test('malformed email should fail native email type validation', function() {
+          assert.equal(myEl5.invalid, false);
+          myEl5.value = 'a@a.com.';
+          assert.equal(myEl5.invalid, true);
+        });
+        test('value not matching allowed-value regex should fail validation', function() {
+          assert.equal(myEl4.invalid, false);
+          myEl4.value = 'aaa';
+          assert.equal(myEl4.invalid, false);
+          myEl4.value = 'a2a1a';
+          assert.equal(myEl4.invalid, true);
+        });
+        test('auto-validate will launch validation on any default value in the input', function() {
+          assert.equal(myEl7.invalid, true);
+        });
+        test('Should enable auto mask ', function(done) {
+          var spy = sinon.spy();
+          const maskSpy = sinon.spy(myEl8, '_autoMaskedState');
+          myEl8.autoMask = true;
+          myEl8.shyPlaceholder = true;
+          myEl8.addEventListener('user-auto-mask', spy);
+          myEl8.value = '1234567890';
+          flush(function() {
+            myEl8.focus();
+            assert(maskSpy.calledWith(true));
+            assert.isTrue(spy.getCall(0).args[0].detail);
+            done();
+          });
+        });
+
+        test('Use allowed-value as validation pattern  and  allowed-chars to avoid users to enter  certain characters', function() {
+          myEl10.value = 'CELLScells';
+          assert.equal(myEl10.invalid, false);
+          myEl10.value = 'a2a1a';
+          assert.equal(myEl10.invalid, true);
+        });
+
+        test('Use allowed-multiple-values pattens', function() {
+          myEl11.allowedMultiplesValues=['[a-z]', '[0-9]'];
+          assert.equal(myEl11._allowedValue[0], '[a-z]');
+        });
+
+      });
+    });
+  </script>
+</body>
+
+</html>

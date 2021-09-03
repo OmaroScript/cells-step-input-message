@@ -1,0 +1,260 @@
+<dom-module id="cells-molecule-amount-input-styles"><template><style>
+:host {
+  display: block;
+  position: relative;
+  font-size: var(--cells-text-size-15, 0.9375rem);
+  @apply --cells-molecule-amount-input;
+}
+
+.field-wrapper {
+  align-items: center;
+  position: relative;
+  background-color: var(--cells-molecule-amount-input-background-color-theme, var(--cells-molecule-amount-input-background-color, var(--bbva-100, #F4F4F4)));
+  border-bottom: 1px solid var(--cells-molecule-amount-input-border-bottom-theme, var(--cells-molecule-amount-input-border-bottom, #666666));
+  border-radius: 1px;
+  box-sizing: border-box;
+  height: 3rem;
+  outline: none;
+  @apply --cells-molecule-amount-input-field-wrapper;
+}
+.field-wrapper :host([disabled]), :host([readonly]) .field-wrapper {
+  background-color: rgba(255, 255, 255, 0.4);
+  @apply --cells-molecule-amount-input-disabled;
+}
+.field-wrapper :host([disabled]) input, .field-wrapper :host([disabled]) .text-field, :host([readonly]) .field-wrapper input, :host([readonly]) .field-wrapper .text-field {
+  color: var(--bbva-300);
+  @apply --cells-molecule-amount-input-disabled-text-field;
+}
+.field-wrapper :host([disabled]) input.has-content ~ .text-field__label, .field-wrapper :host([disabled]) .text-field.has-content ~ .text-field__label, :host([readonly]) .field-wrapper input.has-content ~ .text-field__label, :host([readonly]) .field-wrapper .text-field.has-content ~ .text-field__label {
+  color: var(--bbva-300);
+}
+.field-wrapper :host([disabled]) .text-field__label, :host([readonly]) .field-wrapper .text-field__label {
+  color: var(--bbva-300);
+  @apply --cells-molecule-amount-input-disabled-text-field__label;
+}
+:host(.has-content) .field-wrapper {
+  --cells-molecule-amount-input-border-bottom-theme: var(--black, #121212);
+  @apply --cells-molecule-amount-input-has-content;
+}
+:host([has-content][invalid]) .field-wrapper {
+  --cells-molecule-amount-input-background-color-theme: var(--bbva-white-coral, #FCDFDF);
+  --cells-molecule-amount-input-border-bottom-theme: var(--cells-molecule-amount-input-invalid-border-bottom, var(--bbva-dark-coral, #d44b50));
+  --cells-molecule-amount-input-floated-label-color: var(--bbva-dark-red, #b92a45);
+  @apply --cells-molecule-amount-input-has-content-invalid;
+}
+:host([focused]) .field-wrapper {
+  --cells-molecule-amount-input-border-bottom-theme: var(--black, #121212);
+  @apply --cells-molecule-amount-input-focused;
+}
+:host([is-filled-blur]:not(.show-close-button)) .field-wrapper {
+  @apply --cells-molecule-amount-input-is-filled-blur;
+}
+:host([is-filled-blur]:not(.show-close-button)) .field-wrapper cells-st-button {
+  visibility: hidden;
+  @apply --cells-molecule-amount-input-button-is-filled-blur;
+}
+:host([with-icon]) .field-wrapper {
+  padding-right: 3.75rem;
+  @apply --cells-molecule-amount-input-with-icon;
+}
+:host([with-icon]) .field-wrapper .text-field__input {
+  padding-right: 0;
+  @apply --cells-molecule-amount-input-with-icon-input;
+}
+:host([with-icon]) .field-wrapper:not(.has-content) {
+  padding-right: 0;
+}
+:host([invalid]) .field-wrapper {
+  --cells-molecule-amount-input-background-color-theme: var(--bbva-white-coral, #FCDFDF);
+  --cells-molecule-amount-input-border-bottom-theme: var(--cells-molecule-amount-input-invalid-border-bottom, var(--bbva-dark-coral, #d44b50));
+  --cells-molecule-amount-input-floated-label-color: var(--bbva-dark-red, #b92a45);
+  @apply --cells-molecule-amount-input-invalid;
+}
+:host([invalid]) .field-wrapper .text-field__icon, :host([invalid]) .field-wrapper .text-field__label {
+  --cells-molecule-amount-input-placeholder-color-theme: var(--bbva-dark-red, #b92a45);
+  --cells-molecule-amount-input-text-field-color-theme: var(--bbva-dark-red, #b92a45);
+}
+.field-wrapper .text-field {
+  display: block;
+  position: relative;
+  height: 3rem;
+  @apply --cells-molecule-amount-input-text-field;
+}
+.field-wrapper .text-field__label, .field-wrapper .text-field__icon {
+  z-index: 1;
+  transition: all 200ms;
+}
+.field-wrapper .text-field__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+  color: var(--cells-molecule-amount-input-placeholder-color-theme, var(--cells-molecule-amount-input-placeholder-color, var(--bbva-500, #666)));
+  white-space: nowrap;
+  line-height: 1;
+  transition: all 200ms;
+  @apply --cells-molecule-amount-input-label;
+}
+.field-wrapper .text-field__icon {
+  color: var(--cells-molecule-amount-input-text-field-color-theme, var(--bbva-dark-medium-blue, #1973b8));
+  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: var(--cells-molecule-amount-input-text-field-icon-width, 3.625rem);
+  height: 3rem;
+  padding: var(--cells-molecule-amount-input-text-field-icon-padding, 0 1.0625rem);
+  text-align: center;
+  cursor: pointer;
+  @apply --cells-molecule-amount-input-icon;
+}
+.field-wrapper .text-field__icon[hidden] {
+  display: none;
+}
+.field-wrapper .text-field__right-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 3.625rem;
+  height: 100%;
+  font-size: var(--cells-text-size-15, 0.9375rem);
+  color: var(--bbva-500, #666666);
+  @apply --cells-molecule-amount-input-right-icon;
+}
+.field-wrapper .text-field__right-icon[hidden] {
+  display: none;
+}
+.field-wrapper .text-field .content-input {
+  display: inline-block;
+  width: calc(100% - 5rem);
+}
+.field-wrapper .text-field__input {
+  color: var(--cells-molecule-amount-input-input-color, var(--bbva-600));
+  width: 100%;
+  height: 100%;
+  padding: 1.875rem 1.1875rem 0 0;
+  line-height: 1.5;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  background: transparent;
+  @apply --cells-molecule-amount-input-input;
+}
+.field-wrapper .text-field__input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px var(--cells-molecule-amount-input-background, var(--bbva-100)) inset;
+}
+.field-wrapper .text-field__input.has-content {
+  padding: var(--cells-molecule-amount-input-has-content-padding, 2rem 1.25rem 0.75rem 0rem);
+  height: 0;
+  @apply --cells-molecule-amount-input-has-content;
+}
+.field-wrapper .text-field__input.has-content ~ .text-field__label {
+  font-size: var(--cells-text-size-12, 0.75rem);
+  -webkit-transform: translateY(-9px);
+          transform: translateY(-9px);
+  padding-bottom: 0;
+  color: var(--cells-molecule-amount-input-floated-label-color, var(--bbva-600));
+  @apply --cells-molecule-amount-input-floated-label;
+}
+.field-wrapper .currency-label {
+  display: inline-block;
+  @apply --cells-molecule-amount-input-currency-label;
+}
+.field-wrapper .currency-label[hidden] {
+  display: none;
+}
+.field-wrapper .currency-label .currency-label--left {
+  margin-left: 1rem;
+  color: var(--cells-molecule-amount-input-disabled-color, var(--bbva-500));
+  @apply --cells-molecule-amount-input-currency-label-left;
+}
+.field-wrapper .text-field.input-img {
+  display: flex;
+  align-items: center;
+  @apply --cells-molecule-amount-input-with-img;
+}
+.field-wrapper .text-field.input-img .img-container {
+  padding: 0.75rem 0 0.75rem 0.5rem;
+  width: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @apply --cells-molecule-amount-input-img-container;
+}
+.field-wrapper .text-field.input-img .img-container img {
+  height: 2.3125rem;
+  max-width: 100%;
+  cursor: pointer;
+  @apply --cells-molecule-amount-input-img;
+}
+.field-wrapper .text-field.input-img .text-field__label {
+  left: 4.25rem;
+  @apply --cells-molecule-amount-input-label-with-img;
+}
+.field-wrapper .text-field.input-img .content-input {
+  width: calc(100% - 155px);
+}
+.field-wrapper .text-field.input-img .currency-label {
+  padding: 1.75rem 0.125rem 0.5rem 0;
+  @apply --cells-molecule-amount-input-label-currency-label-img;
+}
+.field-wrapper .text-field.input-img .currency-label .currency-label--left {
+  margin-left: 0rem;
+  @apply --cells-molecule-amount-input-label-currency-label-left-img;
+}
+.field-wrapper cells-st-button {
+  display: block;
+  --cells-st-button-text-color-transparent: var(--bbva-dark-medium-blue, #1973b8);
+  --cells-st-button-text-color-transparent-hover: var(--bbva-dark-medium-blue, #1973b8);
+  @apply --cells-molecule-amount-input-button;
+}
+
+:host(.amount--xl) {
+  --cells-molecule-amount-input-has-content-padding: 2.5rem 1.25rem 0.75rem 0;
+}
+:host(.amount--xl) .text-field__icon {
+  top: 0.5rem;
+}
+:host(.amount--xl) .field-wrapper, :host(.amount--xl) .text-field {
+  height: 3.9375rem;
+}
+:host(.amount--xl) .text-field__input, :host(.amount--xl) .text-field__label {
+  font-size: var(--cells-molecule-amount-input-text-field--xl, 1.5rem);
+}
+:host(.amount--xl) .text-field__label {
+  padding-top: 1.25rem;
+}
+:host(.amount--xl) .text-field__input:not(.has-content) + .text-field__label {
+  font-size: var(--cells-text-size-15, 0.9375rem);
+  padding-top: 1.5rem;
+}
+:host(.amount--xl) .currency-label {
+  position: relative;
+  top: var(--cells-molecule-amount-input-currency-label-top--xl, -0.75rem);
+}
+:host(.amount--xl) .currency {
+  font-size: var(--cells-molecule-amount-input-currency-font-size--xl, var(--cells-text-size-12, 0.75rem));
+}
+:host(.amount--xl) .text-field__input.has-content ~ .text-field__label {
+  -webkit-transform: translateY(-11px);
+          transform: translateY(-11px);
+  font-size: var(--cells-text-size-xs, 0.75rem);
+}
+
+:host(.label-placeholder-removed) .text-field__label {
+  font-size: var(--cells-text-size-ml, 0.9375rem);
+  line-height: 1.5;
+}
+
+:host([disabled]) {
+  opacity: var(--cells-molecule-amount-input-disabled-opacity, 1);
+  @apply --cells-molecule-amount-input-disabled-prop;
+}
+
+cells-icon-message {
+  --cells-icon-message-color-theme: var(--cells-molecule-amount-cells-icon-message-color-theme, var(--bbva-600, #121212));
+}
+</style></template></dom-module>

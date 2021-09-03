@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../codemirror-imports.html">
+  <link rel="import" href="../cells-codemirror.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-codemirror></cells-codemirror>
+      <p>Hello <b>world</b>!</p>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="sourceElement">
+    <template>
+      <cells-codemirror source-element="#sample"></cells-codemirror>
+      <div id="sample">
+        <p>Hello <b>world</b>!</p>
+      </div>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="lineHighlight">
+    <template>
+      <cells-codemirror source-element="#sample"></cells-codemirror>
+      <div id="sample">
+        <p>line 1</p>
+        <p>line 2</p>
+        <p>line 3</p>
+        <p>line 4</p>
+      </div>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<cells-codemirror>', () => {
+      let el;
+      let paragraph;
+
+      setup(function() {
+        el = fixture('default')[0];
+        paragraph = fixture('default')[1];
+      });
+
+      test('Setting "content" calls CodeMirror with the proper configuration', () => {
+        const CodeMirrorStub = sinon.stub(window, 'CodeMirror');
+
+        el.content = paragraph.innerHTML;
+
+        const [nodeParam, configParam] = CodeMirrorStub.getCall(0).args;
+
+        assert.equal(nodeParam, el.$.editor);
+
+        // relevant options
+        assert.equal(configParam.value, paragraph.innerHTML.trim());
+        assert.equal(configParam.mode, el.mode, `sets mode as ${el.mode}`);
+        assert.equal(configParam.autofocus, el.autofocus, `sets autofocus as ${el.autofocus}`);
+        assert.equal(configParam.theme, el.theme, `sets theme as ${el.theme}`);
+        assert.equal(configParam.tabSize, el.tabSize, `sets tabSize as ${el.tabSize}`);
+        assert.equal(configParam.readOnly, el.readonly, `sets readonly as ${el.readonly}`);
+
+        CodeMirrorStub.restore();
+      });
+
+      test('Setting "readonly" and "nocursor" disables focusing the editor', () => {
+        const CodeMirrorStub = sinon.stub(window, 'CodeMirror');
+
+        el.readonly = true;
+        el.nocursor = true;
+        el.content = paragraph.innerHTML;
+
+        const [nodeParam, configParam] = CodeMirrorStub.getCall(0).args;
+
+        assert.equal(configParam.readOnly, 'nocursor');
+
+        CodeMirrorStub.restore();
+      });
+
+      test('Changing "content" updates the editor', () => {
+        el.content = paragraph.innerHTML;
+        el.content = paragraph.innerHTML + '<p></p>';
+
+        assert.equal(el.getValue(), el.content);
+      });
+
+      test('"getValue()" returns the editor content', () => {
+        assert.isUndefined(el.getValue(), 'calling getValue() when "content" is not set returns nothing');
+
+        el.content = paragraph.innerHTML;
+
+        assert.equal(el.getValue(), el.content);
+      });
+
+      suite('Using "source-element"', () => {
+        let el;
+        let content;
+
+        setup(() => {
+          el = fixture('sourceElement')[0];
+          content = fixture('sourceElement')[1];
+        });
+
+        test('Setting "source-element" sets editor value as the sourceElement "innerHTML"', (done) => {
+          flush(() => {
+            const expectedContent = content.innerHTML.trim();
+            assert.equal(el.getValue(), expectedContent);
+
+            done();
+          });
+        });
+      });
+
+      suite('Line highlight', () => {
+        let el;
+        let content;
+        let addLineClassSpy;
+
+        setup(() => {
+          el = fixture('lineHighlight')[0];
+          content = fixture('lineHighlight')[1];
+          el.content = content.innerHTML;
+          addLineClassSpy = sinon.spy(el, '_addLineClass');
+        });
+
+        teardown(() => {
+          addLineClassSpy.restore();
+        });
+
+        test('Setting "highlight-lines" as a single value (3) highlights the specified line', () => {
+          el.highlightLines = '3';
+
+          assert.isTrue(addLineClassSpy.calledWith(3));
+        });
+
+        test('Setting "highlight-lines" as multiple values (1,2) separated by commas highlights the specified lines', () => {
+          el.highlightLines = '1,2';
+
+          assert.strictEqual(addLineClassSpy.getCall(0).args[0], 1);
+          assert.strictEqual(addLineClassSpy.getCall(1).args[0], 2);
+        });
+
+        test('Setting "highlight-lines" as a range (1-3) highlights the lines in the range', () => {
+          el.highlightLines = '1-3';
+
+          assert.strictEqual(addLineClassSpy.getCall(0).args[0], 1);
+          assert.strictEqual(addLineClassSpy.getCall(1).args[0], 2);
+          assert.strictEqual(addLineClassSpy.getCall(2).args[0], 3);
+        });
+
+        test('Setting "highlight-lines" with an invalid range (3-1) does not highlight lines', () => {
+          el.highlightLines = '3-1';
+
+          assert.isFalse(addLineClassSpy.called);
+        });
+      });
+
+      suite('Format code', () => {
+        let el;
+        let paragraph;
+        let formatButton;
+
+        setup(() => {
+          el = fixture('default')[0];
+          paragraph = fixture('default')[1];
+          formatButton = el.shadowRoot.querySelector('.btn-format');
+        });
+
+        test('Setting "formatButton" as true shows the format button', () => {
+          assert.isTrue(formatButton.hidden, 'format button is hidden by default');
+          el.formatButton = true;
+          assert.isFalse(formatButton.hidden, 'format button is visible when formatButton is true');
+        });
+
+        test('Format button is disabled until a selection is made', () => {
+          el.formatButton = true;
+          el.content = paragraph.innerHTML;
+
+          assert.isTrue(formatButton.disabled, 'format button is disabled by default');
+
+          CodeMirror.commands['selectAll'](el.editor);
+          assert.isFalse(formatButton.disabled, 'format button is not disabled after selecting text');
+        });
+
+        test('Clicking format button formats the code', () => {
+          el.formatButton = true;
+          el.content = paragraph.innerHTML;
+
+          const formatSpy = sinon.spy(el.editor, 'autoFormatRange');
+
+          CodeMirror.commands['selectAll'](el.editor);
+
+          formatButton.click();
+          assert.isTrue(formatSpy.called);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="cells-molecule-input-styles.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-label/iron-label.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+
+<dom-module id="cells-molecule-input">
+  <template>
+    <style include="cells-molecule-input-styles cells-molecule-input-shared-styles"></style>
+
+    <div class="field-icons-wrapper" data-selector="input-content">
+
+      <label class="field">
+        <iron-input id="ironInput" bind-value="{{value}}" allowed-pattern="[[allowedChars]]" prevent-invalid-input="[[preventInvalidInput]]">
+          <input id="input" pattern="[[allowedValue]]" class="field__input" name$="[[name]]" type$="[[type]]" value="{{value::input}}" required$="[[required]]" disabled$="[[disabled]]" autocomplete$="[[autocompleteValue]]" autocorrect$="[[autocorrectValue]]" autofocus$="[[autofocus]]" maxlength$="[[maxLength]]" on-focus="_onFocus" on-blur="_onBlur" on-keydown="_onDelete" autocapitalize$="[[autocapitalize]]" step$="[[step]]" max$="[[max]]" min$="[[min]]" readonly$="[[readonly]]" inputmode$="[[inputMode]]">
+        </iron-input>
+        <span class="field__label" hidden$="[[_hidePlaceholder]]">[[t(label)]] <span hidden$="[[_asteriskCheck(required, hideAsterisk)]]">*</span></span>
+      </label>
+
+      <dom-if if="[[!_iconAction]]">
+        <template>
+          <div class$="icon secondary-icon decorative [[_iconVisible(_extraIconVisibility)]]" hidden$="[[!extraIcon]]">
+            <iron-icon icon$="[[_extraIcon]]" class$="icon-size-[[iconSize]]" aria-hidden="true">
+            </iron-icon>
+            <span class="icon__text">[[t(extraIconLabel)]]</span>
+          </div>
+        </template>
+      </dom-if>
+      <dom-if if="[[_iconAction]]">
+        <template>
+          <div class$="icon secondary-icon [[_iconVisible(_extraIconVisibility)]]" hidden$="[[!extraIcon]]">
+            <span class="button" is-filled-blur$="[[isFilledBlur]]" tabindex="0" type="button" on-keydown="_extraIconKeydown" on-tap="_extraIconTap" on-focus="_onFocus" on-blur="_onBlur">
+              <iron-icon icon$="[[_extraIcon]]" class$="icon-size-[[iconSize]]" aria-hidden="true">
+              </iron-icon>
+              <span class="icon__text">[[t(extraIconLabel)]]</span>
+            </span>
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[!_extraIconAction]]">
+        <template>
+          <div class$="icon main-icon decorative [[_iconVisible(_iconVisibility)]]" hidden$="[[!icon]]">
+            <iron-icon icon$="[[_icon]]" class$="icon-size-[[iconSize]]" aria-hidden="true">
+            </iron-icon>
+            <span class="icon__text">[[t(iconLabel)]]</span>
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[_extraIconAction]]">
+        <template>
+          <div class$="icon main-icon [[_iconVisible(_iconVisibility)]]" hidden$="[[!icon]]">
+            <span id="btnMainIcon" is-filled-blur$="[[isFilledBlur]]" tabindex="0" role="button" class="button ripple" on-keydown="_iconKeydown" on-tap="_iconTap" on-focus="_onFocus" on-blur="_onBlur">
+              <iron-icon icon$="[[_icon]]" class$="icon-size-[[iconSize]]" aria-hidden="true">
+              </iron-icon>
+              <span class="icon__text">[[t(iconLabel)]]</span>
+            </span>
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[errorIcon]]">
+        <template>
+          <div class="icon error-icon" hidden$="[[!invalid]]">
+            <iron-icon icon$="[[errorIcon]]" class$="icon-size-[[iconSize]]" aria-hidden="true">
+            </iron-icon>
+          </div>
+        </template>
+      </dom-if>
+    </div>
+
+    <dom-if if="[[infoMessage]]">
+      <template>
+        <div class="info-message-wrapper" data-selector="info-message">
+          <iron-icon hidden$="[[!infoMessageIcon]]" icon$="[[infoMessageIcon]]" class$="icon-size-[[infoMessageIconSize]]" aria-hidden="true"></iron-icon>
+          <iron-label for="input" class="info">
+            [[t(infoMessage)]]
+            <slot name="info-content"></slot>
+          </iron-label>
+        </div>
+      </template>
+    </dom-if>
+
+    <dom-if if="[[_showErrorMessage(invalid)]]">
+      <template>
+        <div class="error-message-wrapper" data-selector="error-message">
+          <iron-icon hidden$="[[!errorMessageIcon]]" icon$="[[errorMessageIcon]]" class$="icon-size-[[errorMessageIconSize]]" aria-hidden="true"></iron-icon>
+          <iron-label for="input" class="error" hidden$="[[!errorMessage]]">
+            [[t(errorMessage)]]
+            <slot name="error-content"></slot>
+          </iron-label>
+        </div>
+      </template>
+    </dom-if>
+
+  </template>
+
+  <script src="cells-molecule-input.js"></script>
+</dom-module>

@@ -1,0 +1,13 @@
+{
+  "cells-step-input-message-welcome": "Welcome to ",
+  "cells-step-input-message-curp-alert": "_Por seguridad este campo no se puede editar_",
+  "cells-step-input-message-curp-description": "_Ingresa tu clave._",
+  "cells-step-input-message-curp-description-two": "_Verifica que tu clave sea correcta._",
+  "cells-step-input-message-curp-info-message": "_Al continuar validaremos tu CURP con Renapo (Registro Nacional de Población e Identidad) la unidad encargada de registrar y acreditar la identidad de las personas._",
+  "cells-step-input-message-curp-main-text-dexcription": "_Antes de continuar, consulta el aviso de privacidad._",
+  "cells-step-input-message-curp-security-message": "_Aviso de privacidad_",
+  "cells-step-input-message-curp-title": "_CURP_",
+  "cells-step-input-message-curp-title-text-description": "_TRATAMIENTO DE DATOS PERSONALES_",
+  "cells-step-input-message-curp-title-two": "_Añadir CURP_",
+  "cells-step-input-message-step-change-label-secondary": "_Consultar_"
+}

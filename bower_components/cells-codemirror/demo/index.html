@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Demo cells-codemirror</title>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="lazy-import" href="../codemirror-imports.html">
+    <link rel="lazy-import" href="../cells-codemirror.html">
+    <link rel="lazy-import" href="css/demo-styles.html">
+  </head>
+  <body unresolved ontouchstart>
+    <cells-demo-helper resolution="desktop">
+      <cells-demo-case heading="Default theme with line numbers using &quot;source-element&quot;">
+        <template>
+          <cells-codemirror line-numbers source-element="#sample">
+            <template id="sample">
+              <!--
+              SAMPLE MULTILINE COMMENT
+              This is the "htmlmixed" mode that renders HTML, CSS and JavaScript code.
+              This sample uses "source-element" attribute to set the code.
+              -->
+
+              <style>
+                .sample-class {
+                  width: 200px;
+                  text-transform: uppercase;
+                }
+              </style>
+
+              <script>
+                {
+                  const sampleObject = {
+                    one: 'Foo',
+                    two: 'Bar'
+                  };
+
+                  function saySomething() {
+                    alert('Hello woooorld!');
+                  }
+                }
+              </script>
+
+              <sample-tag class="sample-class"></sample-tag>
+            </template>
+          </cells-codemirror>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Default theme with line numbers using &quot;content&quot;">
+        <template>
+          <template id="sample">
+            <!--
+            SAMPLE MULTILINE COMMENT
+            This is the "htmlmixed" mode that renders HTML, CSS and JavaScript code.
+            This sample uses "content" property to set the code.
+            -->
+
+            <style>
+              .sample-class {
+                width: 200px;
+                text-transform: uppercase;
+              }
+            </style>
+
+            <script>
+              {
+                const sampleObject = {
+                  one: 'Foo',
+                  two: 'Bar'
+                };
+
+                function saySomething() {
+                  alert('Hello woooorld!');
+                }
+              }
+            </script>
+
+            <sample-tag class="sample-class"></sample-tag>
+          </template>
+
+          <cells-codemirror line-numbers></cells-codemirror>
+
+          <script>
+            document.addEventListener('WebComponentsReady', () => {
+              const demo = document.querySelector('cells-codemirror');
+              const content = document.querySelector('#sample').innerHTML;
+              demo.content = content;
+            });
+          </script>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Material theme with line numbers">
+        <template>
+          <cells-codemirror line-numbers theme="material" source-element="#sample">
+            <template id="sample">
+              <!--
+              SAMPLE MULTILINE COMMENT
+              Using "material" theme.
+              -->
+
+              <style>
+                .sample-class {
+                  width: 200px;
+                  text-transform: uppercase;
+                }
+              </style>
+
+              <script>
+                {
+                  const sampleObject = {
+                    one: 'Foo',
+                    two: 'Bar'
+                  };
+
+                  function saySomething() {
+                    alert('Hello woooorld!');
+                  }
+                }
+              </script>
+
+              <sample-tag class="sample-class"></sample-tag>
+            </template>
+          </cells-codemirror>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Monokai theme with line numbers">
+        <template>
+          <template id="sample">
+            <!--
+            SAMPLE MULTILINE COMMENT
+            Using "monokai" theme.
+            -->
+
+            <style>
+              .sample-class {
+                width: 200px;
+                text-transform: uppercase;
+              }
+            </style>
+
+            <script>
+              {
+                const sampleObject = {
+                  one: 'Foo',
+                  two: 'Bar'
+                };
+
+                function saySomething() {
+                  alert('Hello woooorld!');
+                }
+              }
+            </script>
+
+            <sample-tag class="sample-class"></sample-tag>
+          </template>
+
+          <cells-codemirror theme="monokai" line-numbers source-element="#sample"></cells-codemirror>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="MDN Like theme with line numbers">
+        <template>
+          <template id="sample">
+            <!--
+            SAMPLE MULTILINE COMMENT
+            Using "mdn-like" theme.
+            -->
+
+            <style>
+              .sample-class {
+                width: 200px;
+                text-transform: uppercase;
+              }
+            </style>
+
+            <script>
+              {
+                const sampleObject = {
+                  one: 'Foo',
+                  two: 'Bar'
+                };
+
+                function saySomething() {
+                  alert('Hello woooorld!');
+                }
+              }
+            </script>
+
+            <sample-tag class="sample-class"></sample-tag>
+          </template>
+
+          <cells-codemirror theme="mdn-like" line-numbers source-element="#sample"></cells-codemirror>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Without line numbers">
+        <template>
+          <template id="sample">
+            <!--
+            SAMPLE MULTILINE COMMENT
+            Without line numbers.
+            -->
+
+            <style>
+              .sample-class {
+                width: 200px;
+                text-transform: uppercase;
+              }
+            </style>
+
+            <script>
+              {
+                const sampleObject = {
+                  one: 'Foo',
+                  two: 'Bar'
+                };
+
+                function saySomething() {
+                  alert('Hello woooorld!');
+                }
+              }
+            </script>
+
+            <sample-tag class="sample-class"></sample-tag>
+          </template>
+
+          <cells-codemirror theme="mdn-like" source-element="#sample"></cells-codemirror>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Modes">
+        <template>
+          <style>
+            .sample {
+              height: 33.33%;
+              box-sizing: border-box;
+            }
+
+            .sample:not(:last-child) {
+              border-bottom: 1px solid #fff;
+            }
+          </style>
+
+          <div class="sample">
+            <cells-codemirror
+              line-numbers
+              theme="material"
+              source-element="#htmlSample">
+              <template id="htmlSample">
+                <!-- "htmlmixed" mode (default) -->
+
+                <sample-tag attribute="value" class="something"></sample-tag>
+              </template>
+            </cells-codemirror>
+          </div>
+
+          <div class="sample">
+            <cells-codemirror
+              line-numbers
+              mode="javascript"
+              theme="material"
+              source-element="#jsSample">
+              <script type="dummy" id="jsSample">
+                // "javascript" mode
+
+                document.addEventListener('WebComponentsReady', () => {
+                  const content = document.querySelector('#sample').innerHTML;
+                  const codeMirror = document.querySelector('cells-codemirror');
+                  codeMirror.content = content;
+                });
+              </script>
+            </cells-codemirror>
+          </div>
+
+          <div class="sample">
+            <cells-codemirror
+              line-numbers
+              mode="css"
+              theme="material"
+              source-element="#cssSample">
+              <template id="cssSample">
+                /* "css" mode */
+
+                .CodeMirror-linenumber {
+                  padding: 0 3px 0 5px;
+                  min-width: 20px;
+                  text-align: right;
+                  color: #999;
+                  white-space: nowrap;
+                }
+
+                .CodeMirror-guttermarker {
+                  color: black;
+                }
+              </template>
+            </cells-codemirror>
+          </div>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="readonly and nocursor">
+        <template>
+          <style>
+            .sample {
+              height: 50%;
+              box-sizing: border-box;
+            }
+
+            .sample:not(:last-child) {
+              border-bottom: 1px solid #fff;
+            }
+          </style>
+
+          <div class="sample">
+            <cells-codemirror
+              line-numbers
+              readonly
+              mode="javascript"
+              source-element="#jsSample">
+              <script type="dummy" id="jsSample">
+              // "readonly" sets the editor as not editable.
+
+              document.addEventListener('WebComponentsReady', () => {
+                const content = document.querySelector('#sample').innerHTML;
+                const codeMirror = document.querySelector('cells-codemirror');
+                codeMirror.content = content;
+              });
+              </script>
+            </cells-codemirror>
+          </div>
+
+          <div class="sample">
+            <cells-codemirror
+              line-numbers
+              readonly
+              nocursor
+              source-element="#htmlSample">
+              <template id="htmlSample">
+                <!-- "nocursor" disallows focusing the editor. -->
+
+                <cells-codemirror readonly nocursor></cells-codemirror>
+              </template>
+            </cells-codemirror>
+          </div>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Highlight lines">
+        <template>
+          <style>
+            .sample {
+              height: 33.33%;
+              box-sizing: border-box;
+            }
+
+            .sample:not(:last-child) {
+              border-bottom: 1px solid #fff;
+            }
+          </style>
+
+          <cells-codemirror class="sample" source-element="#sample1" mode="css" highlight-lines="4" line-numbers>
+            <template id="sample1">
+              /* Using a single value (highlight-lines="4") */
+
+              .CodeMirror-linenumber {
+                padding: 0 3px 0 5px;
+                min-width: 20px;
+                text-align: right;
+                color: #999;
+                white-space: nowrap;
+              }
+            </template>
+          </cells-codemirror>
+
+          <cells-codemirror class="sample" theme="material" source-element="#sample2" mode="css" highlight-lines="4,5,8" line-numbers>
+            <template id="sample2">
+              /* Using multiple values separated by commas (highlight-lines="4,5,8") */
+
+              .CodeMirror-linenumber {
+                padding: 0 3px 0 5px;
+                min-width: 20px;
+                text-align: right;
+                color: #999;
+                white-space: nowrap;
+              }
+            </template>
+          </cells-codemirror>
+
+          <cells-codemirror class="sample" theme="monokai" source-element="#sample3" mode="css" highlight-lines="4-6,8" line-numbers>
+            <template id="sample3">
+              /* Using a combination of a range and single values separated by commas (highlight-lines="4-6,8") */
+
+              .CodeMirror-linenumber {
+                padding: 0 3px 0 5px;
+                min-width: 20px;
+                text-align: right;
+                color: #999;
+                white-space: nowrap;
+              }
+            </template>
+          </cells-codemirror>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Format selection button" description="Select all the code or a part to enable the format button">
+        <template>
+          <cells-codemirror line-numbers source-element="#sample" format-button>
+            <template id="sample">
+              <div class="row"> <cells-badge label="Default"></cells-badge> <cells-badge label="Default filled" class="fill"></cells-badge> </div> <div class="row"> <cells-badge label="Financiable" class="success"></cells-badge> <cells-badge label="Financiable" class="success fill"></cells-badge> </div> <div class="row"> <cells-badge label="Blocked" class="error"></cells-badge> <cells-badge label="Blocked" class="error fill"></cells-badge> </div> <div class="row"> <cells-badge label="Warning" class="warning"></cells-badge> <cells-badge label="Warning" class="warning fill"></cells-badge> </div> <div class="row"> <cells-badge label="Neutral" class="neutral"></cells-badge> <cells-badge label="Neutral" class="neutral fill"></cells-badge> </div> <div class="row"> <cells-badge label="Full radius" class="full-radius"></cells-badge> <cells-badge label="Full radius" class="full-radius fill"></cells-badge> </div> </template>
+          </cells-codemirror>
+        </template>
+      </cells-demo-case>
+    </cells-demo-helper>
+  </body>
+</html>

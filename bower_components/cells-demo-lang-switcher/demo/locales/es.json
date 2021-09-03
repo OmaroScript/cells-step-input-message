@@ -1,0 +1,8 @@
+{
+  "x-demo-lang-hello-world": {
+    "message": "Hola Mundo"
+  },
+  "x-demo-lang-lang": {
+    "message": "Lang"
+  }
+}

@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>Demo cells-key-values</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.disabled = true;
+  </script>
+
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="lazy-import" href="../../polymer/lib/elements/dom-bind.html">
+  <link rel="lazy-import" href="../../polymer/lib/elements/dom-repeat.html">
+  <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+  <link rel="lazy-import" href="../../cells-st-button/cells-st-button.html">
+  <link rel="lazy-import" href="../../iron-icon/iron-icon.html">
+  <link rel="lazy-import" href="../cells-key-values-list-styles.html">
+  <link rel="lazy-import" href="../cells-key-values.html">
+  <link rel="lazy-import" href="css/demo-styles.html">
+</head>
+
+<body unresolved ontouchstart style="margin: 0;">
+  <cells-demo-helper available-themes='["cells-coronita-base-theme", "cells-glomo-theme"]' events='["dummy-event"]'>
+    <cells-demo-case heading="Default layout" description="Key above value. Custom content, like the example icon, can be placed in light DOM. The sample list is rendered using a dom-repeat template.">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+
+            <ul class="cells-key-values-list">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values key="[[item.key]]" value="[[item.value]]" masked="[[item.masked]]" icon-masked="[[item.iconMasked]]"
+                      icon-not-masked="[[item.iconNotMasked]]">
+                      <cells-st-button class="btn transparent right-icon" hidden$="[[!item.icon]]">
+                        <button aria-label="Copy to clipboard" on-click="fireDummyEvent">
+                          <iron-icon icon="[[item.icon]]" aria-hidden="true" style="width: 18px; height: 18px;"></iron-icon>
+                        </button>
+                      </cells-st-button>
+                    </cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'String as value',
+                value: 'Lorem ipsum dolor'
+              }, {
+                key: 'sample-translation-key',
+                value: 'Sample with translation key for the key'
+              }, {
+                key: 'Number as value and custom content',
+                value: 1234567894,
+                icon: 'coronita:copy'
+              }, {
+                key: 'Amount as value',
+                value: [
+                  {
+                    amount: 12500,
+                    currencyCode: 'EUR',
+                    decimalsHidden: true
+                  }
+                ]
+              }, {
+                key: 'Amount as value with all decimals',
+                value: [
+                  {
+                    amount: 12500.9999999,
+                    currencyCode: 'EUR',
+                    decimalsHidden: false,
+                    showAllDecimals: true
+                  }
+                ]
+              }, {
+                key: 'Date passed as string',
+                value: '23 Abril 2015'
+              }, {
+                key: 'Masked value',
+                value: 987987987123123,
+                masked: true
+              }, {
+                key: 'Masked value with mask icon',
+                value: 871231239879879,
+                masked: true,
+                iconMasked: 'coronita:visualize',
+                iconNotMasked: 'coronita:hide'
+              }
+            ];
+            demo.fireDummyEvent = function(e) {
+              demo.dispatchEvent(new CustomEvent('dummy-event', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                  item: e.model.item
+                }
+              }));
+            };
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Inline layout" description="Use the class 'inline' to display the key and value in the same line.">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles">
+                .value-italic {
+                  --cells-key-values-value: {
+                    font-style: italic;
+                  }
+                }
+              </style>
+            </custom-style>
+            <ul class="cells-key-values-list inline">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class$="inline [[item.class]]" key="[[item.key]]" local-currency="USD" language="en"
+                      value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'Cuenta simple',
+                value: 12345678901,
+                class: 'value-italic'
+              }, {
+                key: 'Contable',
+                class: 'inline',
+                value: [
+                  {
+                    currencyCode: 'USD',
+                    amount: 123500,
+                    decimalsHidden: true
+                  }
+                ]
+              }, {
+                key: 'Consumido línea de crédito',
+                value: [
+                  {
+                    currencyCode: 'USD',
+                    amount: 234980,
+                    decimalsHidden: true
+                  }
+                ]
+              }, {
+                key: 'Cupo total línea de crédito',
+                value: [
+                  {
+                    currencyCode: 'USD',
+                    amount: 10283500,
+                    decimalsHidden: true
+                  }
+                ]
+              }
+            ];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Reversed" description="Use the class 'reversed' to display the value above the key, both centered.">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list reversed">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="reversed" key="[[item.key]]" local-currency="EUR" language="en" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'Disponible',
+                value: [
+                  {
+                    currencyCode: 'USD',
+                    amount: 3500000,
+                    decimalsHidden: true,
+                    class: 'amount-huge'
+                  }
+                ]
+              }, {
+                key: 'Línea de crédito',
+                value: [
+                  {
+                    currencyCode: 'USD',
+                    amount: 10300000,
+                    decimalsHidden: true,
+                    class: 'amount-medium'
+                  }
+                ]
+              }
+            ];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Reversed with multiple values for the same key" description="An array can be used for the value. The array can contain objects with any of the properties admited by cells-atom-amount or primitive values like strings or numbers.">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list reversed">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="reversed" key="[[item.key]]" local-currency="EUR" language="en" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'Disponible',
+                value: [
+                  {
+                    currencyCode: 'GBP',
+                    amount: 3500000.20,
+                    class: 'amount-huge'
+                  }, {
+                    currencyCode: 'USD',
+                    amount: 1070734928,
+                    decimalsHidden: true
+                  }
+                ]
+              }, {
+                key: 'Línea de crédito',
+                value: [
+                  {
+                    currencyCode: 'GBP',
+                    amount: 10300000.20,
+                    class: 'amount-large'
+                  }, {
+                    currencyCode: 'USD',
+                    amount: 340928,
+                    decimalsHidden: true
+                  }
+                ]
+              }
+            ];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Inline with multiple values for the same key">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list inline">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="inline" key="[[item.key]]" local-currency="EUR" language="en" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'Disponible',
+                value: [
+                  {
+                    currencyCode: 'GBP',
+                    amount: 775345.20,
+                    class: 'amount-medium'
+                  }, {
+                    currencyCode: 'USD',
+                    amount: 34928,
+                    decimalsHidden: true
+                  }
+                ]
+              }, {
+                key: 'Línea de crédito',
+                value: [
+                  {
+                    currencyCode: 'GBP',
+                    amount: 10300000.20,
+                    class: 'amount-medium'
+                  }, {
+                    currencyCode: 'USD',
+                    amount: 34928,
+                    decimalsHidden: true
+                  }
+                ]
+              }
+            ];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Amount without currency symbol">
+      <template>
+        <dom-bind>
+          <template>
+            <p>
+              <cells-key-values key="Some key" value="[[value1]]"></cells-key-values>
+            </p>
+            <p>
+              <cells-key-values key="Value with hidden decimals" value="[[value2]]"></cells-key-values>
+            </p>
+            <p>
+              <cells-key-values key="Value with no trailing zeros" value="[[value3]]"></cells-key-values>
+            </p>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.value1 = {
+              amount: 12500.2334
+            };
+
+            demo.value2 = {
+              amount: 12500.2334,
+              decimalsHidden: true
+            };
+
+            demo.value3 = {
+              amount: 12500.2300,
+              trailingZeroDecimalsHidden: true
+            };
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Dl list">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list inline">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="dl" key="[[item.key]]" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'String as value',
+                value: 'Lorem ipsum dolor'
+              }, {
+                key: 'sample-translation-key',
+                value: 'Sample with translation key for the key'
+              }];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Dl reversed list">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list inline">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="dl-reversed center" key="[[item.key]]" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'String as value',
+                value: 'Lorem ipsum dolor'
+              }, {
+                key: 'sample-translation-key',
+                value: 'Sample with translation key for the key'
+              }];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Center list">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list inline">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="dl center" key="[[item.key]]" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'String as value',
+                value: 'Lorem ipsum dolor'
+              }, {
+                key: 'sample-translation-key',
+                value: 'Sample with translation key for the key'
+              }];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Simple list one column on dark">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list dark-background">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="list-simple on-dark masked-value" key="[[item.key]]" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'String as value',
+                value: '•le@example.com'
+              }, {
+                key: 'sample-translation-key',
+                value: '•le2@example2.com'
+              }];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Dl Light">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="dl-light" key="[[item.key]]" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'Data title',
+                value: 'Data description'
+              }, {
+                key: 'Data title',
+                value: 'Data description'
+              }];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Full masked value">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list">
+              <li>
+                <cells-key-values
+                  key="Card pin" 
+                  value="12345"
+                  masked
+                  mask-chars="•"
+                  visible-chars="0"
+                  show-full-mask
+                  data-type="key-value">
+                </cells-key-values>
+              </li>
+            </ul>
+          </template>
+        </dom-bind>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Title with differents font size">
+      <template>
+        <dom-bind>
+          <template>
+            <p>Title with font size ml:</p>
+            <cells-key-values
+              key="Data title" 
+              value="Data description"
+              class="font-size-ml"
+            ></cells-key-values>
+            <p>Title with font size xxl:</p>
+            <cells-key-values
+              key="Data title" 
+              value="Data description"
+              class="font-size-xxl"
+            ></cells-key-values>
+          </template>
+        </dom-bind>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Reversed with icon" description="Use the class 'reversed' to display the value above the key, both centered and pass icon value">
+      <template>
+        <dom-bind>
+          <template>
+            <custom-style>
+              <style include="cells-key-values-list-styles"></style>
+            </custom-style>
+            <ul class="cells-key-values-list reversed">
+              <dom-repeat items="[[list]]">
+                <template>
+                  <li>
+                    <cells-key-values class="reversed" key="[[item.key]]" key-icon=[[item.keyIcon]] local-currency="EUR" language="en" value="[[item.value]]"></cells-key-values>
+                  </li>
+                </template>
+              </dom-repeat>
+            </ul>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            var demo = document.querySelector('dom-bind');
+            demo.list = [
+              {
+                key: 'Disponible',
+                keyIcon: 'coronita:help',
+                value: [
+                  {
+                    currencyCode: 'USD',
+                    amount: 3500000,
+                    decimalsHidden: true,
+                    class: 'amount-huge'
+                  }
+                ]
+              }, {
+                key: 'Línea de crédito',
+                keyIcon: 'coronita:help',
+                value: [
+                  {
+                    currencyCode: 'USD',
+                    amount: 10300000,
+                    decimalsHidden: true,
+                    class: 'amount-medium'
+                  }
+                ]
+              }
+            ];
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

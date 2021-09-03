@@ -1,0 +1,382 @@
+@import "bower_components/cells-sass/main";
+
+
+/**
+ * Defaut
+ *************************************************************************** */
+
+:host {
+  color: var(--cells-atom-amount-default-color, inherit);
+  display: inline-flex;
+  white-space: nowrap;
+  font-family: var(--cells-fontDefault, sans-serif);
+  font-size: var(--cells-atom-amount-font-size, inherit);
+
+  .minus {
+    @apply(--cells-atom-amount-minus);
+
+    &--left {
+      @apply(--cells-atom-amount-minus-left);
+    }
+    &--right {
+      @apply(--cells-atom-amount-minus-right);
+    }
+  }
+
+  .integer {
+    @apply(--cells-atom-amount-integer);
+  }
+
+  .fractional {
+    @apply(--cells-atom-amount-fractional);
+  }
+
+  .separator {
+    @apply(--cells-atom-amount-separator);
+  }
+
+  .currency {
+    font-size: var(--cells-atom-amount-font-size__currency, inherit);
+    --cells-atom-amount-margin-right__currency: #{rem(2px)};
+
+    @apply(--cells-atom-amount-currency);
+
+    &--left {
+      @apply(--cells-atom-amount-currency-left);
+      margin-right: var(--cells-atom-amount-margin-right__currency, unset);
+    }
+    &--right {
+      @apply(--cells-atom-amount-currency-right);
+    }
+  }
+
+  .abbreviation {
+    margin-left: rem(5px);
+    @apply(--cells-atom-amount-abbreviation);
+  }
+  
+  .sr-only{
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  @apply(--cells-atom-amount);
+}
+
+:host(.negative) {
+  @apply(--cells-atom-amount-negative);
+}
+
+:host([hidden]), [hidden] {
+  display: none;
+}
+
+.amount-wrapper {
+  display: inline-flex !important;
+  white-space: nowrap;
+
+  @apply(--cells-atom-amount-wrapper);
+}
+
+
+/**
+ * Styles for all <cells-atom-amount> with "amount-*" classes.
+ *************************************************************************** */
+
+:host([class*="amount-"]) {
+  --cells-atom-amount-font-size: #{rem(16px)};
+  --cells-atom-amount-font-size__currency: #{rem(14px)};
+  --cells-atom-amount-default-color: var(--cells-atom-amount-color, #121212);
+  --cells-atom-amount-margin__currency: #{rem(2px)};
+
+  .currency--right {
+    margin-left: var(--cells-atom-amount-margin__currency, unset);
+  }
+
+  line-height: 1;
+
+  @apply(--cells-fontDefaultNormal);
+
+  .fractional {
+    font-size: var(--cells-atom-amount-font-size__currency, rem(14px));
+  }
+
+  .currency,
+  .fractional {
+    line-height: 1;
+    padding-top: rem(1px);
+  }
+
+  .integer {
+    margin-left: var(--cells-atom-amount-margin-left-integer, rem(2px));
+  }
+
+  .separator {
+    @include visuallyhidden;
+  }
+
+  &.negative {
+    @apply(--cells-atom-amount-class-negative);
+  }
+}
+
+/**
+ * Styles for all <cells-atom-amount> with "currency-*" classes.
+ *************************************************************************** */
+
+:host([class*="currency-"]) {
+  --cells-atom-amount-margin__currency: #{rem(2px)};
+  line-height: 1;
+
+  .currency {
+    line-height: normal;
+  }
+
+  .currency--left {
+    margin-right: var(--cells-atom-amount-margin__currency, unset);
+  }
+
+  .currency--right {
+    margin-left: var(--cells-atom-amount-margin__currency, unset);
+  }
+}
+
+/**
+ * currency-l
+ */
+:host(.currency-l) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-font-size--l, #{rem(18px)});
+  --cells-atom-amount-font-size__currency: var(--cells-atom-amount-font-size__currency--l, #{rem(12px)});
+}
+
+/**
+ * amount large size
+ */
+:host(.amount-large) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-large-font-size, #{rem(20px)});
+
+  @apply --cells-atom-amount-large;
+}
+
+/**
+ * amount-xl
+ */
+:host(.amount-xl) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-xl-font-size, #{rem(20px)});
+  --cells-atom-amount-font-size__currency: #{rem(12px)};
+
+  .currency {
+    top: 0;
+    @apply --cells-atom-amount-xl-currency;
+  }
+
+  .fractional {
+    font-size: var(--cells-atom-amount-xl-font-size, rem(20px));
+    padding: 0;
+    @apply --cells-atom-amount-xl-fractional;
+  }
+
+  .separator {
+    height: initial;
+    margin: initial;
+    position: static;
+    width: initial;
+    @apply --cells-atom-amount-xl-decimals-separator;
+  }
+
+  @apply --cells-atom-amount-xl;
+}
+
+/**
+ * currency-xl
+ */
+:host(.currency-xl) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-font-size--xl, #{rem(20px)});
+  --cells-atom-amount-font-size__currency: var(--cells-atom-amount-font-size__currency--xl, #{rem(12px)});
+}
+
+/**
+ * currency-xxxl
+ */
+:host(.currency-xxxl) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-font-size--xxxl, #{rem(24px)});
+  --cells-atom-amount-font-size__currency: var(--cells-atom-amount-font-size__currency--xxxl, #{rem(12px)});
+}
+
+/**
+ * currency-xxxxl
+ */
+:host(.currency-xxxxl) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-font-size--xxxxl, #{rem(32px)});
+  --cells-atom-amount-font-size__currency: var(--cells-atom-amount-font-size__currency--xxxxl, #{rem(20px)});
+
+  font-weight: 200;
+}
+
+/**
+ * amount huge size
+ */
+:host(.amount-huge) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-huge-font-size, #{rem(36px)});
+  --cells-atom-amount-font-size__currency: #{rem(22px)};
+
+  .currency {
+    &--left {
+      padding-top: rem(2px);
+      @apply --cells-atom-amount-huge-currency-left;
+    }
+    @apply --cells-atom-amount-huge-currency;
+  }
+
+  .fractional {
+    font-size: rem(22px);
+    @apply --cells-atom-amount-huge-fractional;
+  }
+
+  @apply --cells-atom-amount-huge;
+}
+
+
+/**
+ * amount huge size with huge decimals
+ */
+:host(.amount-huge-decimals) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-huge-decimals-font-size, var(--cells-atom-amount-huge-font-size, #{rem(36px)}));
+  --cells-atom-amount-font-size__currency: #{rem(20px)};
+
+  .currency {
+
+    &--left {
+      padding-top: var(--cells-atom-amount-huge-decimals-currency-left-padding-top, 0);
+      @apply --cells-atom-amount-huge-decimals-currency-left;
+    }
+    @apply --cells-atom-amount-huge-decimals-currency;
+  }
+
+  .fractional {
+    font-size: var(--cells-atom-amount-huge-decimals-fractional-font-size, var(--cells-atom-amount-huge-font-size, #{rem(36px)}));
+    padding: 0;
+    @apply --cells-atom-amount-huge-decimals-fractional;
+  }
+
+  .integer {
+    margin-right: 0;
+    @apply --cells-atom-amount-huge-decimals-integer;
+  }
+
+  .separator {
+    clip: initial;
+    height: initial;
+    margin: initial;
+    position: static;
+    width: initial;
+    @apply --cells-atom-amount-huge-decimals-separator;
+  }
+
+  @apply --cells-atom-amount-huge-decimals;
+}
+
+/**
+ * currency-xxxxxl
+ */
+:host(.currency-xxxxxl) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-font-size--xxxxxl, #{rem(48px)});
+  --cells-atom-amount-font-size__currency: var(--cells-atom-amount-font-size__currency--xxxxxl, #{rem(28px)});
+
+  font-weight: 200;
+}
+
+/**
+ * currency-s
+ */
+:host(.currency-s) {
+  --cells-atom-amount-font-size: var(--cells-atom-amount-font-size--l, #{rem(18px)});
+  --cells-atom-amount-font-size__currency: var(--cells-atom-amount-font-size__currency--s, #{rem(16px)});
+
+  .fractional {
+    padding-top: 0;
+  }
+}
+
+/**
+  * amount-big-decimals
+*/
+:host(.amount-big-decimals) {
+  --cells-atom-amount-font-size: #{rem(18px)};
+  --cells-atom-amount-font-size__currency: #{rem(14px)};
+
+  .fractional {
+    font-size: var(--cells-atom-amount-font-size, rem(18px));
+    line-height: initial;
+    @apply --cells-atom-amount-big-decimals-fractional;
+  }
+
+  .currency {
+    line-height: 1;
+    padding-top: rem(1px);
+    font-size: var(--cells-atom-amount-font-size__currency, rem(14px));
+    @apply --cells-atom-amount-big-decimals-currency;
+  }
+
+  .separator {
+      clip: initial;
+      height: initial;
+      margin: initial;
+      position: static;
+      width: initial;
+      @apply --cells-atom-amount-big-decimals-separator;
+  }
+
+  @apply --cells-atom-amount-big-decimals;
+}
+
+/**
+ * Classes Modifies
+ *************************************************************************** */
+
+ /**
+  * decimals-hidden
+  */
+ :host([decimals-hidden]) {
+   // hide separator if decimals are hidden
+   .separator {
+     display: none;
+   }
+   .integer {
+     margin-right: 0;
+   }
+ }
+
+ /**
+  * spaced-currency
+  */
+ :host(.spaced-currency), :host(.spaced-subheader-currency) {
+   .currency--left {
+     margin-right: .25rem;
+     @apply --cells-atom-amount-spaced-currency-left;
+   }
+   .currency--right {
+     margin-left: .25rem;
+     @apply --cells-atom-amount-spaced-currency-right;
+   }
+   @apply --cells-atom-amount-spaced-currency;
+ }
+
+:host(.spaced-subheader-currency) {
+  .currency--right {
+    margin-left: .125rem;
+  }
+}
+
+:host(.amount-large-second) {
+  font-size: var(--cells-atom-amount-large-second-font-size, 1.25rem);
+  color: var(--bbva-500, #66666659);
+  @apply --cells-atom-amount-large-second;
+}
+span.currency.currency--left {
+  font-size: var(--cells-atom-amount-span-currency-currency-left, 0.813rem);
+  @apply --cells-atom-amount-span-currency-currency-left;
+ }

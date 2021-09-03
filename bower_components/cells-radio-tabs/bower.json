@@ -1,0 +1,31 @@
+{
+  "name": "cells-radio-tabs",
+  "version": "13.2.0",
+  "description": "Display a list of navigation tabs.",
+  "keywords": [
+    "responsive",
+    "tabs",
+    "navigation"
+  ],
+  "ignore": [],
+  "dependencies": {
+    "cells-i18n-behavior": "^13.0.0",
+    "iron-icon": "^2.0.0",
+    "polymer": "^2.0.0",
+    "bbva-badge-notification": "^0.2.0"
+  },
+  "devDependencies": {
+    "cells-coronita-base-theme": "^12.0.0",
+    "cells-demo-helper": "^12.0.0",
+    "cells-sass": "^2.0.0",
+    "coronita-icons": "^12.0.0",
+    "iron-pages": "^2.0.0",
+    "iron-test-helpers": "^2.0.0",
+    "paper-input": "^2.0.0",
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "^1.0.0"
+  },
+  "main": [
+    "cells-radio-tabs.html"
+  ]
+}

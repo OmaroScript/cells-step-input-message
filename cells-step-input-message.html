@@ -1,0 +1,195 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../cells-state-behavior/cells-state-behavior.html">
+<link rel="import" href="cells-step-input-message-styles.html">
+<link rel="import" href="../cells-step/cells-step.html">
+<link rel="import" href="../cells-step-behavior/cells-step-behavior.html">
+<link rel="import" href="../cells-step-behavior/cells-step-focus-behavior.html">
+<link rel="import" href="../cells-molecule-input/cells-molecule-input.html">
+<link rel="import" href="../cells-icon-message-change-data/cells-icon-message-change-data.html">
+<link rel="import" href="../coronita-icons/coronita-icons.html">
+<link rel="import" href="../cells-st-button/cells-st-button.html">
+<link rel="import" href="../cells-validate-amount-input/cells-validate-amount-input.html">
+<link rel="import" href="../cells-skeleton-item/cells-skeleton-item.html">
+<link rel="import" href="../cells-key-values/cells-key-values.html">
+<link rel="import" href="../cells-atom-icon/cells-atom-icon.html">
+<link rel="import" href="../cells-text-description/cells-text-description.html">
+<link rel="import" href="../cells-list-file/cells-list-file.html">
+
+
+<dom-module id="cells-step-input-message">
+  <template>
+    <style include="cells-step-input-message-styles cells-step-input-message-shared-styles">
+    </style>
+    <cells-step id="stepCardInputMessageContainer"
+      class$="[[stepClass]]"
+      active="{{active}}"
+      collapsed="{{collapsed}}"
+      hidden = "[[hidden]]"
+      skip = "[[skip]]"
+      step-title="[[t(title)]]"
+      hide-header="{{hiddenHeader}}"
+      current-step="[[currentStep]]"
+      max-steps="[[maxSteps]]"
+      hide-current-step-label="[[hideCurrentStepLabel]]"
+      change-label="[[t(stepChangeLabel,'Cambiar')]]"
+      last-step="[[lastStep]]"
+      previous="[[previous]]"
+      next="[[next]]"
+      disable-change="[[disableChange]]"
+      scrolled="[[scrolled]]"
+      no-dividers="[[noDividers]]"
+      decorated="[[decorated]]"
+      on-change-pressed="_onChangePressed"
+      show-help-icon="[[showHelpIcon]]">
+
+      <div slot="filled">
+        <div class="filled">
+          <div class="cells-step-input-message__filled">
+            <template is="dom-if" if="[[isAmount]]">
+              <cells-key-values
+                class$="[[_filledTextInline]]"
+                key="[[filledInputLabel]]"
+                value="[[filledAmount]]"
+                language="[[language]]"
+                local-currency="[[localCurrency]]"
+              ></cells-key-values>
+            </template>
+            <template is="dom-if" if="[[!isAmount]]">
+              <p class$="[[filledTextValueClass]]">[[_inputValueFilled(input)]]</p>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <div slot="full">
+        <div class="full">
+          <template is="dom-if" if="[[description]]">
+            <p  class="cells-step-input-message__description">[[t(description)]]</p>
+          </template>
+
+          <template is="dom-if" if="[[_showSkeleton]]">
+            <cells-molecule-input
+              class="cells-step-input"
+              disabled="[[!active]]"
+              type$="[[_inputType]]"
+              label="[[inputLabel]]"
+              value="{{input}}"
+              max-length="[[maxChars]]"
+              icon="[[icon]]"
+              invalid="[[invalidInputValue]]"
+              error-message="[[errorMessage]]"
+              error-message-icon="[[iconErrorMessage]]"
+              readonly=[[readOnly]]>
+            </cells-molecule-input>
+            <template is="dom-if" if="[[showIconMessage]]">
+              <div class$="info-alert-message-show-skeleton [[iconAlertColor]]">
+                <cells-atom-icon slot="before-key" icon="coronita:info"></cells-atom-icon>
+                <cells-key-values key="[[infoAlertKeyText]]"></cells-key-values>
+              </div>
+            </template>
+            <template is="dom-if" if="[[!showSkeletonRemaining]]">
+              <template is="dom-if" if="[[!showRemaining]]">
+                <div class="skeleton">
+                  <cells-atom-icon icon="coronita:info"></cells-atom-icon>
+                  <cells-skeleton-item id="skeleton-item" show-single></cells-skeleton-item>
+                </div>
+              </template>
+
+              <template is="dom-if" if="[[showRemaining]]">
+                <div class="remaining-text">
+                  <p>[[_getRemainingAmountText(_remainingAmount, remainingAmountText)]]</p>
+                </div>
+              </template>
+            </template>
+
+            <template is="dom-if" if="[[isAmount]]">
+              <cells-st-button class="secondary size-m">
+                <button id="enterAmountBtn" type="button" class="cells-enter-limited-amount__btn" disabled$="[[!isValid(input)]]" on-click="_onContinue">[[t(continueButton, 'Continue')]]
+                </button>
+              </cells-st-button>
+            </template>
+
+          </template>
+
+          <template is="dom-if" if="[[!_showSkeleton]]">
+
+            <template is="dom-if" if="[[isAmount]]">
+              <cells-validate-amount-input
+                id="step-input-message-limited-amount"
+                amount="{{inputAmount}}"
+                set-amount="[[input.amount]]"
+                currency-code="[[input.currency]]"
+                local-currency="[[localCurrency]]"
+                language="[[language]]"
+                name="maxAndMin"
+                icon-size="[[iconSize]]"
+                max="[[max]]"
+                min="[[min]]"
+                info-message="[[infoMessage]]"
+                custom-error-message="[[errorMessage]]"
+                custom-error-message-min="[[errorMessageMin]]"
+                custom-error-message-max="[[errorMessageMax]]"
+                error-prefix="[[amountErrorPrefix]]"
+                validate-on-input-change="[[validateOnInputChange]]"
+                hide-decimals-message="[[hideDecimalsMessage]]"
+                label="[[inputLabel]]"
+                on-amount-input-changed="_computeAmountSet"
+                button-event-name="validate-button-pressed"
+                on-validate-button-pressed="_onContinue"
+                max-chars="[[maxChars]]"
+                disable-decimal="[[disableDecimal]]"
+              ></cells-validate-amount-input>
+            </template>
+
+            <template is="dom-if" if="[[!isAmount]]">
+              <cells-molecule-input
+                class="cells-step-input"
+                disabled="[[!active]]"
+                type="number"
+                label="[[t(inputPlaceholder)]]"
+                icon="coronita:close"
+                value="{{input}}">
+              </cells-molecule-input>
+            </template>
+
+          </template>
+
+          <template is="dom-if" if="[[additionalInfo]]">
+            <cells-text-description
+              title="[[titleTextDescription]]"
+              main-description="[[mainTextDescription]]">
+            </cells-text-description>
+          </template>
+
+          <template is="dom-if" if="[[listFile]]">
+            <cells-list-file
+              list='[[listFileInfo]]'>
+            </cells-list-file>
+          </template>
+
+          <template is="dom-if" if="[[additionalLink]]">
+            <div class="link-margin">
+              <cells-st-button class="transparent" on-click="onShowLink"><button>[[t(additionalLinkLabel)]]</button></cells-st-button>
+            </div>
+          </template>
+
+          <template is="dom-if" if="[[infoMessageDescription]]">
+            <cells-icon-message-change-data
+              type="[[infoMessageType]]"
+              message="[[infoMessageDescription]]">
+            </cells-icon-message-change-data>
+          </template>
+
+          <cells-st-button class="secondary size-m" hidden$="[[isAmount]]">
+            <button id="enterAmountBtn" type="button" class="cells-enter-limited-amount__btn" disabled$="[[!isValid(input)]]" on-click="_onContinue">[[t(continueButton, 'Continue')]]
+            </button>
+          </cells-st-button>
+        </div>
+      </div>
+
+    </cells-step>
+
+  </template>
+  <script src="cells-step-input-message.js"></script>
+</dom-module>

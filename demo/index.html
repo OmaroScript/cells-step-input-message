@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Demo cells-step-input-message</title>
+    <script>
+      window.I18nMsg = {};
+      window.I18nMsg.url = '../locales';
+    </script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../test/mocks/amount.js"></script>
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="lazy-import" href="../cells-step-input-message.html">
+    <link rel="lazy-import" href="css/demo-styles.html">
+  </head>
+  <body unresolved ontouchstart>
+    <cells-demo-helper i18n langs='["es","en"]' available-themes='["cells-glomo-theme", "cells-coronita-base-theme"
+      ]' resolution="mobile"
+      events='["amount-set", "continue-pressed"]'
+      breakpoints='{"mobile": { "width": 320, "height": 640, "name": "Mobile" }}'>
+
+      <cells-demo-case heading="With skeleton and amount filled and a maximum of two characters" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                is-amount
+                max="25"
+                min="10"
+                hide-decimals-message
+                show-skeleton
+                language="es-pe"
+                max-chars="2"
+              ></cells-step-input-message>
+              <script>
+                /* globals amountMock */
+                const demo = document.getElementById('demo');
+                setTimeout(() => {
+                  demo.input = amountMock;
+                  demo.active = true;
+                }, 3000);
+              </script>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Collapsed and With amount filled" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                is-amount
+                max="25"
+                min="10"
+                hide-decimals-message
+                language="es-pe"
+                collapsed
+              ></cells-step-input-message>
+              <script>
+                /* globals amountMock */
+                const demo = document.getElementById('demo');
+                demo.filledAmount = Object.assign({}, amountMock, {currencyCode: amountMock.currency});
+                </script>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With amount filled" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                is-amount
+                max="25"
+                min="10"
+                hide-decimals-message
+                language="es-pe"
+                active
+              ></cells-step-input-message>
+              <script>
+                /* globals amountMock */
+                const demo = document.getElementById('demo');
+                demo.input = amountMock;
+              </script>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With commercial value not found" description="A basic example">
+          <template>
+            <dom-bind>
+              <template>
+                <cells-step-input-message
+                  id="demo" class="cells-step-container"
+                  title="cells-step-input-message-title"
+                  active
+                  language="es-pe"
+                  info-message="cells-validate-amount-input-message"
+                  input-label="validate-amount-input-label"
+                  description=""
+                  input='{
+                    "currency": "USD"}'
+                  is-amount
+                ></cells-step-input-message>
+              </template>
+            </dom-bind>
+          </template>
+        </cells-demo-case>
+
+      <cells-demo-case heading="With empty amount" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                is-amount
+                max="2500"
+                min="1500"
+                hide-decimals-message
+                active
+              ></cells-step-input-message>
+              <script>
+                /* globals amountMock */
+                const demo = document.getElementById('demo');
+                demo.input = {
+                  currency: 'PEN'
+                };
+              </script>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With empty amount and without the possibility of insert decimals" description="A basic example">
+        <template>
+          <cells-step-input-message
+            class="cells-step-container"
+            title="cells-step-input-message-title"
+            description="cells-step-input-message-description"
+            is-amount
+            disable-decimal
+            hide-decimals-message
+            active
+          ></cells-step-input-message>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With empty number input" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                active
+              ></cells-step-input-message>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With number input filled, info message and continue button" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                input="5000"
+                info-message-description="cells-info-message-description"
+                show-continue-button
+                active
+              ></cells-step-input-message>
+          </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With skeleton, number input filled, info message and continue button" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                info-message-description="cells-info-message-description"
+                show-continue-button
+                show-skeleton
+                active
+              ></cells-step-input-message>
+              <script>
+                const demo = document.getElementById('demo');
+                setTimeout(() => {
+                  demo.input = 500;
+                }, 3000);
+              </script>
+          </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Number input and collapsed" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                info-message-description="cells-info-message-description"
+                show-continue-button
+                input="500"
+                show-skeleton
+                collapsed
+              ></cells-step-input-message>
+          </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With skeleton, text input and remaining characters" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                is-text
+                active
+                show-skeleton
+                show-skeleton-with-out-input-validation
+                hide-decimals-message
+                language="es"
+                show-remaining
+                max-chars=500
+              ></cells-step-input-message>
+            </template>
+          </dom-bind>
+          <script>
+            /* globals amountMock */
+            const demo = document.getElementById('demo');
+            setTimeout(() => {
+              demo.input = amountMock;
+              demo.active = true;
+            }, 3000);
+          </script>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Validate amount while typing" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                title="cells-step-input-message-title"
+                description="cells-step-input-message-description"
+                is-amount
+                max="5000"
+                min="1000"
+                error-message-min="The minimum amount to invest must be 1000"
+                error-message-max="Insufficient balance"
+                validate-on-input-change
+                hide-decimals-message
+                active
+              ></cells-step-input-message>
+              <script>
+                /* globals amountMock */
+                const demo = document.getElementById('demo');
+                demo.input = {
+                  currency: 'PEN'
+                };
+              </script>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="CURP" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                step-class="curp-class"
+                title="cells-step-input-message-curp-title"
+                description="cells-step-input-message-curp-description"
+                input-placeholder="cells-step-input-message-curp-title"
+                info-message-description="cells-step-input-message-curp-info-message"
+                title-text-descriptionl="cells-step-input-message-curp-title-text-description"
+                main-text-description="cells-step-input-message-curp-main-text-dexcription"
+                additional-info
+                additional-link
+                show-continue-button
+                show-skeleton
+                show-help-icon
+                show-skeleton-with-out-input-validation
+                show-skeleton-remaining
+                manual-validation-text-input
+                active
+              ></cells-step-input-message>
+              <script>
+                const demo = document.getElementById('demo');
+                demo.regexValidationFromInputText = /^([a-z]{4})([0-9]{6})([a-z]{6})([0-9]{2})$/i;
+              </script>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="CURP with data and button" description="A basic example">
+        <template>
+          <dom-bind>
+            <template>
+              <cells-step-input-message
+                id="demo" class="cells-step-container"
+                step-class="curp-class"
+                title="cells-step-input-message-curp-title"
+                description="cells-step-input-message-curp-description"
+                input-placeholder="cells-step-input-message-curp-title"
+                info-message-description="cells-step-input-message-curp-info-message"
+                title-text-descriptionl="cells-step-input-message-curp-title-text-description"
+                main-text-description="cells-step-input-message-curp-main-text-dexcription"
+                additional-info
+                additional-link
+                show-continue-button
+                show-skeleton
+                show-help-icon
+                show-icon-message
+                show-skeleton-with-out-input-validation
+                show-skeleton-remaining
+                manual-validation-text-input
+                read-only
+                active
+              ></cells-step-input-message>
+              <script>
+                const demo = document.getElementById('demo');
+                demo.inputLabel = 'HEAO961119HMCRNM03';
+              </script>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+    </cells-demo-helper>
+  </body>
+</html>

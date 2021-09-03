@@ -1,0 +1,332 @@
+@import "bower_components/cells-sass/main";
+
+:host {
+  margin: var(--cells-key-values-margin, 0);
+  padding: 0;
+  font-size: rem(14px);
+  box-sizing: border-box;
+  font-family: var(--cells-fontDefault, sans-serif);
+  color: var(--cells-key-values-color, #121212);
+  @apply --cells-key-values;
+}
+
+:host([hidden]), [hidden] { display: none; }
+
+/**
+ * Default layout (stacked)
+ * key above value
+ */
+.key {
+  color: var(--cells-key-values-key-color, #666);
+  margin-bottom: var(--cells-key-values-key-value-margin, rem(5px));
+  @apply --cells-key-values-key;
+
+  & span {
+    @apply --cells-key-values-key-span;
+  }
+
+  .alt-key {
+    text-align: center;
+    display: block;
+    margin: 0 auto rem(14px);
+  }
+
+  cells-atom-icon {
+    margin-left: rem(5px);
+    color: var(--bbva-dark-medium-grey, #777777);
+    @apply --cells-key-values-key-icon;
+  }
+}
+
+.value {
+  margin: 0;
+  font-size: var(--cells-key-values-value-font-size, 1rem);
+  @apply --cells-key-values-value;
+}
+
+/**
+ * Inline layout
+ * value to the right of the key
+ */
+:host(.inline) {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  @apply --cells-key-values-inline;
+
+  .key {
+    flex: 1;
+    margin-bottom: 0;
+    font-size: var(--cells-key-values-inline-key-font-size, inherit);
+    color: var(--cells-key-values-inline-key-color, inherit);
+    margin-right: var(--cells-key-values-inline-key-margin-right, 0);
+    @apply --cells-key-values-inline-key;
+  }
+  .value {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    font-size: var(--cells-key-values-inline-value-font-size, inherit);
+    color: var(--cells-key-values-inline-value-color, inherit);
+    @apply --cells-key-values-inline-value;
+
+    > div:not(:first-of-type) {
+      margin-top: rem(2px);
+      margin-bottom: rem(8px);
+      color: var(--cells-key-values-key-color, #666);
+      @apply --cells-key-values-inline-value-not-first-child;
+    }
+  }
+}
+
+/**
+ * Stacked reversed layout
+ * Value above key, both centered
+ */
+:host(.reversed) {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  @apply --cells-key-values-reversed;
+
+  .key {
+    margin-bottom: 0;
+    @apply --cells-key-values-reversed-key;
+  }
+  .value {
+    text-align: center;
+    margin-bottom: var(--cells-key-values-key-value-margin, rem(5px));
+    flex-direction: column;
+    @apply --cells-key-values-reversed-value;
+
+    > div:not(:first-child) {
+      color: var(--cells-key-values-key-color, #666);
+      @apply --cells-key-values-reversed-value-not-first-child;
+    }
+
+    .value-item-1 {
+      margin-top: rem(5px);
+      margin-bottom: rem(-3px);
+      @apply --cells-key-values-reversed-value-second-child;
+    }
+  }
+}
+
+/* Modify */
+:host(.description-list) {
+  --cells-key-values-inline-key-font-size: var(--cells-text-size-ml, #{rem(15px)});
+
+  @apply --cells-key-values-dl;
+}
+
+
+
+/* values @apply */
+:host(.dl) {
+  display: block;
+  margin-bottom: rem(16px);
+  .key {
+    color: var(--bbva-600, #121212);
+    @apply --cells-fontDefaultLight;
+  }
+  .value {
+    color: var(--bbva-600, #121212);
+    @apply --cells-fontDefaultMedium;
+  }
+  @apply --cells-key-values-dl;
+}
+
+:host(.dl-reversed) {
+  display: block;
+  padding-bottom: rem(8px);
+  padding-top: rem(8px);
+  .key {
+    font-size: var(--cells-text-size-xl, rem(18px));
+    color: var(--bbva-600, #121212);
+    line-height: rem(24px);
+    margin-bottom: 0;
+    @apply --cells-fontDefaultMedium;
+  }
+  .value {
+    font-size: var(--cells-text-size-ml, rem(15px));
+    color: var(--cells-key-values-key-color, #666);
+    line-height: rem(24px);
+    @apply --cells-fontDefaultNormal;
+  }
+  @apply --cells-key-values-dl-reversed;
+}
+
+:host(.list-simple) {
+  display: block;
+  margin-bottom: rem(16px);
+  .key {
+    color: var(--bbva-600, #121212);
+    @apply --cells-fontDefaultMedium;
+  }
+  .value {
+    color: var(--bbva-600, #121212);
+    @apply --cells-fontDefaultLight;
+  }
+  @apply --cells-key-values-list-simple;
+}
+
+:host(.on-dark) {
+  .key, .value, .value-mask, .on-dark {
+    color: var(--bbva-white, #fff);
+  }
+  @apply --cells-key-values-on-dark;
+}
+
+:host(.masked-value) {
+  .value {
+    @apply --cells-fontDefaultLightItalic;
+  }
+  @apply --cells-key-values-masked-value;
+}
+
+:host(.center) {
+  text-align: center;
+
+  .value {
+    justify-content: center;
+  }
+  @apply --cells-key-values-center;
+}
+
+.value-item {
+  @apply --cells-key-values-value-item;
+}
+.value-amount {
+  @apply --cells-key-values-value-amount;
+}
+.value-mask {
+  @apply --cells-key-values-value-mask;
+}
+.value-simple {
+  @apply --cells-key-values-value-simple;
+}
+
+:host(.dl-light) {
+  display: block;
+  margin-bottom: rem(8px);
+  .key {
+    font-size: var( --cells-text-size-ml, rem(15px));
+    color: var(--cells-key-values-dl-light-color, var(--bbva-600, #121212));
+    line-height: rem(24px);
+    margin-bottom: 0;
+    @apply --cells-fontDefaultMedium;
+  }
+  .value {
+    font-size: var( --cells-text-size-ml, rem(15px));
+    color: var(--cells-key-values-dl-light-color, var(--bbva-600, #121212));
+    line-height: rem(24px);
+    margin-bottom: 0;
+    @apply --cells-fontDefaultNormal;
+  }
+  @apply --cells-key-values-dl-light;
+}
+
+:host(.key-bold) {
+  .key {
+    span {
+      font-weight: 500;
+    }
+  }
+}
+
+:host(.value-bold) {
+  .value {
+    span {
+      font-weight: 500;
+    }
+  }
+}
+
+:host(.key-size-ml) {
+  .key {
+    span {
+      font-size: var(--cells-text-size-ml, rem(15px));
+    }
+  }
+  @apply --cells-key-values-key-size-ml;
+}
+
+:host(.value-size-ml) {
+  .value {
+    span {
+      font-size: var(--cells-text-size-ml, rem(15px));
+    }
+  }
+  @apply --cells-key-values-value-size-ml;
+}
+
+:host(.molecule-mask-bold-gray) cells-molecule-mask {
+  font-weight: 500;
+  font-style: normal;
+  font-size: var(--cells-text-size-ml, rem(15px));
+  color: #666666;
+}
+
+/* Helpers Class */
+:host(.h-gutter) {
+  margin-left:  rem(16px);
+  margin-right: rem(16px);
+  @apply --cells-key-values-h-gutter;
+}
+
+:host(.margin-m) {
+  margin-bottom: rem(8px);
+  margin-top: rem(8px);
+  @apply --cells-key-values-margin-m;
+}
+
+:host(.margin-l) {
+  margin-bottom: rem(24px);
+  margin-top: rem(24px);
+  @apply --cells-key-values-margin-l;
+}
+
+:host(.h-align-start) {
+  align-items: flex-start;
+  @apply --cells-key-values-h-align-start;
+}
+
+:host(.h-align-end) {
+  align-items: flex-end;
+  @apply --cells-key-values-h-align-end;
+}
+
+:host(.inline-vertical-align__key) {
+  .key {
+    display: flex;
+    align-items: center;
+
+    @apply --cells-key-values-inline-vertical-align-key;
+  }
+}
+
+:host(.margin-xxl) {
+  margin: var(--cells-key-values-margin-xxl-margin, 2.5rem 0);
+  @apply --cells-key-values-margin-xxl;
+}
+
+:host(.margin-xl) {
+  margin: var(--cells-key-values-margin-xl-margin, 2rem 0);
+  @apply --cells-key-values-margin-xl;
+}
+
+:host(.light-key) {
+  .key {
+    color: var(--cells-key-values-key-color, #666);
+    @apply --cells-key-values-light-key;
+  }
+}
+:host(.font-size-ml) {
+  font-size: var(--cells-text-size-ml, 0.9375rem);
+  @apply --cells-key-values-font-size-ml;
+}
+
+:host(.font-size-xxl) {
+  font-size: var(--cells-text-size-xxl, 1.25rem);
+  @apply --cells-key-values-font-size-xxl;
+}

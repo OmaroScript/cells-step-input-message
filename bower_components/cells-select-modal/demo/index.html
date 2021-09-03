@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Demo cells-select-modal</title>
+    <script>
+      window.I18nMsg = {};
+      window.I18nMsg.url = '../locales';
+    </script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../coronita-icons/coronita-icons.html">
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="import" href="../cells-select-modal.html">
+    <link rel="import" href="css/demo-styles.html">
+  </head>
+  <body unresolved ontouchstart>
+    <cells-demo-helper i18n available-themes='["cells-glomo-theme", "cells-coronita-base-theme"]' events='["open-document-modal-selector"]'>
+      <cells-demo-case heading="Input with title" description="Example using a title">
+        <template>
+          <cells-select-modal is-input-style title="Select item" id="1DFD92"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input with title and value" description="Example using a title and a value">
+        <template>
+          <cells-select-modal is-input-style title="Select item" item-selected="Value" item-id="1234"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input size XL with title and value" description="Example using a title and a value">
+        <template>
+          <cells-select-modal class="size-xl" is-input-style title="Select item" item-selected="Value"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Flag and selector" description="Example using flag selector">
+        <template>
+          <cells-select-modal image="images/flag-usa.svg"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Flag and no selector" description="Example using flag and no selector icon">
+        <template>
+          <cells-select-modal image="images/flag-usa.svg" hide-selector-icon></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Flag with aria label" description="Example using aria label">
+        <template>
+          <cells-select-modal image="images/flag-usa.svg" aria-label="Select item"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input with Flag selector with secondary and underlined" description="Example using flag selector">
+        <template>
+          <cells-select-modal is-input-style image="images/flag-usa.svg" item-selected="Soles" secondary-selected="PEN"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input size XL with flag selector with secondary and underlined" description="Example using size XL and flag selector">
+        <template>
+          <cells-select-modal class="size-xl" is-input-style image="images/flag-usa.svg" item-selected="Soles" secondary-selected="PEN"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input with ellipsis" description="Example with ellipsis">
+        <template>
+          <cells-select-modal ellipsis is-input-style item-selected="THIS IS A EXAMPLE WITH ELLIPSIS FOR LARGE TEXT AAAAAA" title="Titulo"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input disabled" description="Example using an input disabled">
+        <template>
+          <cells-select-modal is-input-style disabled title="Select item" item-selected="Value"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="The image does not exist and there is no default image" description="Without default image">
+        <template>
+          <cells-select-modal is-input-style image="images/flag-pe.svg" item-selected="Soles" secondary-selected="PEN"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="The image does not exist and a default image exists" description="With default image">
+        <template>
+          <cells-select-modal default-image="images/default-image.svg" is-input-style image="images/flag-pe.svg" item-selected="Soles" secondary-selected="PEN"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input with custom icon" description="Example using a custom icon">
+        <template>
+          <cells-select-modal input-icon="coronita:calendar" is-input-style title="Select item"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Input with host margin-modal-content" description="Example using host margin-modal-content">
+        <template>
+          <cells-select-modal class='margin-modal-content' is-input-style title="Select item" item-selected="Value" item-id="1234"></cells-select-modal>
+        </template>
+      </cells-demo-case>
+    </cells-demo-helper>
+  </body>
+</html>

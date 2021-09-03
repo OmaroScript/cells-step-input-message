@@ -1,0 +1,89 @@
+@import "bower_components/cells-sass/main";
+
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: var(--cells-fontDefault, sans-serif);
+  font-size: var(--cells-text-size-15, .9375rem);
+  @apply --cells-icon-message-change-data;
+}
+
+:host([hidden]), [hidden] {
+  display: none !important;
+}
+
+:host {
+  --cells-icon-message-message: #{unquote('{
+    font-size: var(--cells-icon-message-message-font-host, --cells-text-size-15, .9375rem);
+    @apply --cells-fontDefaultLight;
+    line-height: 1.5rem;
+  }')};
+
+  cells-icon-message.inline{
+    font-size: var(--cells-icon-message-message-inline-font-size, --cells-text-size-12);
+    color: var(--cells-icon-message-message-font-color, --bbva-600);
+  }
+
+  cells-icon-message:not(.inline):not(.no-padding) {
+    font-size: var(--cells-icon-message-message-not-inline-font-size, --cells-text-size-15);
+    padding: 2rem 1rem;
+    @apply --cells-icon-message-change-data-icon-message;
+  }
+
+  cells-icon-message.small-message {
+    --cells-icon-message-message: #{unquote('{
+      line-height: ' + rem(16px) +  ';
+      font-size:' + var(--cells-text-size-12, rem(12px)) + ';
+      @apply --cells-fontDefaultLight;
+    }')};
+  }
+
+  cells-icon-message.heading-margin-sm {
+    --cells-icon-message-header-margin: #{rem(8px)};
+  }
+
+  cells-icon-message.font-normal {
+    --cells-icon-message-message: #{unquote('{
+      @apply --cells-fontDefaultNormal;
+    }')};
+  }
+
+  .data {
+    margin: 0.5rem 0;
+    font-size: var(--cells-text-size-15, .9375rem);
+    @apply --cells-fontDefaultMediumItalic;
+    color: var(--bbva-600, #121212);
+    outline: none;
+    @apply --cells-icon-message-change-data-icon-message-data;
+  }
+
+  .actions {
+    margin: 0.5rem 0 0 0;
+    @apply --cells-icon-message-change-data-icon-message-actions;
+  }
+
+  cells-st-link.link a {
+    font-size: var(--cells-text-size-15, .9375rem);
+    @apply --cells-fontDefaultMedium;
+    color: var(--bbva-white-core-blue, #1464A5);
+    @apply --cells-icon-message-change-data-icon-message-link;
+  }
+
+  .h-gutter {
+    margin: 0 #{rem(16px)};
+    @apply --cells-icon-message-h-gutter;
+  }
+
+  @apply --cells-icon-message-change-data;
+}
+
+:host([disable-link]) {
+  cells-st-link.link a  {
+    pointer-events: none;
+    color: var(--bbva-500, #666);
+    cursor: default;
+  }
+  .data {
+    color: var(--bbva-400, #BDBDBD);
+  }
+}

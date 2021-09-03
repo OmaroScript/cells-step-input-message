@@ -1,0 +1,335 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <link rel="import" href="../cells-dropdown-menu.html">
+  </head>
+  <body>
+
+    <test-fixture id="myEl">
+      <template>
+        <cells-dropdown-menu></cells-dropdown-menu>
+      </template>
+    </test-fixture>
+
+    <script>
+    suite('<cells-dropdown-menu> tag', function() {
+      var myEl;
+      var data;
+
+      suite('in general', function() {
+        setup(function() {
+          myEl = fixture('myEl');
+          data = [
+            {
+              'name': 'elem1',
+              'value': 'elem1'
+            }, {
+              'name': 'elem2',
+              'value': 'elem2'
+            }, {
+              'name': 'elem3',
+              'value': 'elem3'
+            }, {
+              'name': 'elem4',
+              'value': 'elem4',
+              'disabled': true
+            }, {
+              'name': 'elem5',
+              'value': 'elem5'
+            }, {
+              'name': 'elem6',
+              'value': 'elem6'
+            }
+          ];
+          myEl.items = data;
+          Polymer.flush();
+        });
+
+        test('down key opens the layer', function(done) {
+          assert.isFalse(myEl.opened);
+          const event = new CustomEvent('keydown');
+          event.keyCode = 37;
+          myEl.dispatchEvent(event);
+          setTimeout(() => {
+            assert.isTrue(myEl.$.layer.opened);
+            done();
+          }, 30);
+        });
+
+        test('maxItems set a max height property', function() {
+          myEl.maxItemsShown = 3;
+          assert.equal(myEl.style[0], '--cells-dropdown-layer-layer-max-height');
+        });
+
+        test('up arrow changes selected', function() {
+          myEl.opened = true;
+          assert.isNull(myEl.$.layer.querySelector('.selected'));
+          const event = new CustomEvent('keydown');
+          event.keyCode = 37;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem6');
+        });
+
+        test('left arrow changes selected', function() {
+          myEl.opened = true;
+          assert.isNull(myEl.$.layer.querySelector('.selected'));
+          const event = new CustomEvent('keydown');
+          event.keyCode = 38;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem6');
+        });
+
+        test('down arrow changes selected', function() {
+          myEl.opened = true;
+          assert.isNull(myEl.$.layer.querySelector('.selected'));
+          const event = new CustomEvent('keydown');
+          event.keyCode = 39;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem2');
+        });
+
+        test('right arrow changes selected', function() {
+          myEl.opened = true;
+          assert.isNull(myEl.$.layer.querySelector('.selected'));
+          const event = new CustomEvent('keydown');
+          event.keyCode = 40;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem2');
+        });
+
+        test('left arrow on closed menu with checked item does set selected state to checked item', function() {
+          myEl.selected = 1;
+          Polymer.flush();
+          const event = new CustomEvent('keydown');
+          event.keyCode = 37;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem2');
+        });
+
+        test('left arrow on first item returns selected to last item', function() {
+          myEl.selected = 1;
+          myEl.opened = true;
+          assert.isNull(myEl.$.layer.querySelector('.selected'));
+          const event = new CustomEvent('keydown');
+          event.keyCode = 37;
+          myEl.dispatchEvent(event);
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem6');
+        });
+
+        test('right arrow on a disabled item select the next that is not disabled', function() {
+          myEl.selected = 3;
+          myEl.opened = true;
+          assert.isNull(myEl.$.layer.querySelector('.selected'));
+          const event = new CustomEvent('keydown');
+          event.keyCode = 40;
+          myEl.dispatchEvent(event);
+          myEl.dispatchEvent(event);
+          myEl.dispatchEvent(event);
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem5');
+        });
+
+        test('right arrow on last item returns selected to first item', function() {
+          myEl.selected = 5;
+          myEl.opened = true;
+          assert.isNull(myEl.$.layer.querySelector('.selected'));
+          const event = new CustomEvent('keydown');
+          event.keyCode = 40;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem1');
+        });
+
+        test('click on item selects item', function() {
+          myEl.selected = 5;
+          myEl.opened = true;
+          const item2 = myEl.shadowRoot.querySelectorAll('.item')[1];
+          item2.dispatchEvent(new CustomEvent('click'));
+          assert.equal(myEl.selected, 1);
+        });
+
+        test('Enter key checks selected item', function() {
+          myEl.selected = 0;
+          myEl.opened = true;
+          const event = new CustomEvent('keydown');
+          event.keyCode = 39;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem2');
+          event.keyCode = 32;
+          myEl.dispatchEvent(event);
+          assert.equal(myEl.selected, 1);
+        });
+
+        test('Enter key on closed layer opens layer', function(done) {
+          const event = new CustomEvent('keydown');
+          event.keyCode = 32;
+          myEl.dispatchEvent(event);
+          setTimeout(() => {
+            assert.isTrue(myEl.opened);
+            done();
+          }, 30);
+        });
+
+        test('Enter key on opened layer without selected item does not check item', function(done) {
+          assert.equal(myEl.selected, -1);
+          myEl.opened = true;
+          const event = new CustomEvent('keydown');
+          event.keyCode = 32;
+          myEl.dispatchEvent(event);
+          setTimeout(() => {
+            assert.equal(myEl.selected, -1);
+            done();
+          }, 30);
+        });
+
+        test('Enter key on closed layer with checked item set the checked item as selected', function(done) {
+          myEl.selected = 1;
+          const event = new CustomEvent('keydown');
+          event.keyCode = 32;
+          myEl.dispatchEvent(event);
+          setTimeout(() => {
+            assert.isTrue(myEl.opened);
+            assert.equal(myEl.shadowRoot.querySelector('.selected').querySelector('.label').innerText, 'elem2');
+            done();
+          }, 30);
+        });
+
+        test('Esc key closes layer', function(done) {
+          myEl.opened = true;
+          const event = new CustomEvent('keydown');
+          event.keyCode = 27;
+          myEl.$.layer.dispatchEvent(event);
+          setTimeout(() => {
+            assert.isFalse(myEl.opened);
+            done();
+          }, 30);
+        });
+
+        test('Esc key closes layer', function(done) {
+          myEl.opened = true;
+          Polymer.flush();
+          let spy = sinon.spy(myEl.$.layer, 'focus');
+          const event = new CustomEvent('keydown');
+          event.keyCode = 27;
+          myEl.dispatchEvent(event);
+          setTimeout(() => {
+            sinon.assert.calledOnce(spy);
+            done();
+          }, 30);
+        });
+
+        test('Esc key on closed layer does not move focus', function(done) {
+          myEl.opened = false;
+          Polymer.flush();
+          let spy = sinon.spy(myEl.$.layer, 'focus');
+          const event = new CustomEvent('keydown');
+          event.keyCode = 27;
+          myEl.dispatchEvent(event);
+          setTimeout(() => {
+            sinon.assert.notCalled(spy);
+            done();
+          }, 30);
+        });
+
+        test('changing selected after initialization fires event', function(done) {
+          setTimeout(() => {
+            let spy = sinon.spy();
+            document.addEventListener('cells-dropdown-menu-value', spy);
+            myEl.selected = 1;
+            sinon.assert.calledOnce(spy);
+            done();
+          }, 10);
+        });
+
+        test('closing required menu without checking option set an error on layer', function() {
+          myEl.required = true;
+          myEl.opened = true;
+          myEl.opened = false;
+          assert.equal(myEl.$.layer.error, myEl.requiredMsg);
+        });
+      });
+
+      suite('with selected', function(){
+        setup(function() {
+          myEl = fixture('myEl');
+          data = [
+            {
+              'name': 'elem1',
+              'value': 'elem1'
+            }, {
+              'name': 'elem2',
+              'value': 'elem2'
+            }, {
+              'name': 'elem3',
+              'value': 'elem3'
+            }, {
+              'name': 'elem4',
+              'value': 'elem4'
+            }, {
+              'name': 'elem5',
+              'value': 'elem5'
+            }, {
+              'name': 'elem6',
+              'value': 'elem6'
+            }
+          ];
+          myEl.selected = 0;
+          myEl.items = data;
+          Polymer.flush();
+        });
+
+        test('changing items sets again selected', function() {
+          const newData = [{
+            'name': 'elemNew1',
+            'value': 'elemNew1'
+          }, {
+            'name': 'elemNew2',
+            'value': 'elemNew2'
+          }];
+          myEl.selected = 0;
+          myEl.items = newData;
+          Polymer.flush();
+        });
+      });
+
+      suite('with errors', function() {
+        setup(function() {
+          myEl = fixture('myEl');
+          data = [
+            {
+              'name': 'elem1',
+              'value': 'elem1'
+            }, {
+              'name': 'elem2',
+              'value': 'elem2',
+              'error': {
+                'msg': 'error msg'
+              }
+            }
+          ];
+          myEl.items = data;
+          Polymer.flush();
+        });
+
+        test('hasError is true', function() {
+          assert.isTrue(myEl.hasError);
+        });
+
+        test('when select some item with errors, porperty error get that value', function() {
+          myEl.opened = true;
+          const item = myEl.shadowRoot.querySelectorAll('.item')[1];
+          item.dispatchEvent(new CustomEvent('click'));
+          assert.equal(myEl.selected, 1);
+          assert.equal(myEl.error.msg, myEl.items[1].error.msg);
+        });
+      });
+
+    });
+    </script>
+  </body>
+</html>

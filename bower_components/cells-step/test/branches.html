@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+    <link rel="import" href="../../polymer/polymer.html"/>
+    <link rel="import" href="../../test-fixture/test-fixture.html"/>
+
+    <link rel="import" href="../cells-step.html">
+  </head>
+  <body>
+
+    <test-fixture id="myEl">
+      <template>
+        <cells-step id="fake-step"></cells-step>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cells-step/> tag', function() {
+        var myEl;
+
+        setup(function() {
+          myEl = fixture('myEl');
+        });
+
+        teardown(function() {
+          myEl.remove();
+        });
+
+        suite('_onChange method branches', function() {
+          test('composedPath() exists', function(done) {
+            var fakeEvent = {
+              composedPath: function() {
+                return [];
+              }
+            };
+            myEl._onChange(fakeEvent);
+            done();
+          });
+          test('composedPath() don\'t exists', function(done) {
+            var fakeEvent = {
+              composedPath: null
+            };
+            myEl._onChange(fakeEvent);
+            done();
+          });
+        });
+
+      });
+    </script>
+  </body>
+</html>

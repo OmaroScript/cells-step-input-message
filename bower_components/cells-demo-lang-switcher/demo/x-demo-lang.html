@@ -1,0 +1,32 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../cells-i18n-behavior/cells-i18n-behavior.html">
+
+<dom-module id="x-demo-lang">
+  <template>
+    <style>
+      :host {
+        display: block;
+        outline: 1px solid #ccc;
+        padding: 20px;
+        background-color: #fff;
+      }
+
+    </style>
+    <p>[[t('x-demo-lang-hello-world', 'Fallback String')]]</p>
+  </template>
+
+</dom-module>
+<script>
+  class XDemoLang extends CellsBehaviors.i18nBehavior(Polymer.Element) {
+    constructor() {
+      super();
+    }
+
+    static get is() {
+      return 'x-demo-lang';
+    }
+  }
+
+  customElements.define('x-demo-lang', XDemoLang);
+
+</script>

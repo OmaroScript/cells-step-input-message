@@ -1,0 +1,74 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="cells-select-modal-styles.html">
+<link rel="import" href="../cells-st-button/cells-st-button.html">
+<link rel="import" href="../cells-atom-icon/cells-atom-icon.html">
+<!--
+`<cells-select-modal>` description.
+
+Example:
+
+```html
+<cells-select-modal></cells-select-modal>
+```
+
+## Icons
+
+Since this component uses icons, it will need an [iconset](https://bbva.cellsjs.com/guides/best-practices/cells-icons.html) in your project as an [application level dependency](https://bbva.cellsjs.com/guides/advanced-guides/application-level-dependencies.html). In fact, this component uses an iconset in its demo.
+
+## Styling
+
+The following custom properties and mixins are available for styling:
+
+| Custom property                        | Description                            | Default    |
+|:---------------------------------------|:---------------------------------------|:-----------|
+| --cells-select-modal                   | Mixin applied to :host                 | {}         |
+| --cells-fontDefault                    | Font family of :host                   | sans-serif |
+
+| --cells-select-modal-icon              | Mixin applied to cells-atom-icon       |            |
+| --cells-select-modal-header-texts      | Mixin applied to the wrapper of texts  |            |
+| --cells-select-modal-header-title      | Mixin applied to header-title class    |            |
+| --cells-select-modal-label             | Mixin applied to label class           |            |
+| --cells-select-modal-placeholder       | Mixin applied to placeholder class     |            |
+| --cells-select-modal-document-selector | Mixin applied to the hole button       |            |
+| --cells-select-modal-st-button         | Mixin applied to cells-st-button       |            |
+| --cells-select-modal-disabled          | Mixin applied to the hole button       | {}         |
+
+@customElement
+@polymer
+@demo demo/index.html
+-->
+<dom-module id="cells-select-modal">
+  <template>
+    <style include="cells-select-modal-styles cells-select-modal-shared-styles"></style>
+    <slot></slot>
+    <cells-st-button class="link">
+      <button type="button"
+        id="documentTypeSelector"
+        class="document-selector"
+        on-tap="_openDocumentModalSelector"
+        aria-label="[[t(ariaLabel)]]">
+        <template is="dom-if" if=[[image]]>
+          <div class="img-container">
+            <img id="avatarImg" src="[[image]]" on-error="_onImageError">
+          </div>
+        </template>
+
+        <div class="header-texts">
+          <template is="dom-if" if=[[title]]>
+              <span class="header-title">[[t(title)]]</span>
+          </template>
+          <template is="dom-if" if="[[itemSelected]]">
+            <span class="placeholder" style$="[[customStyle]]">[[t(itemSelected)]]</span>
+          </template>
+        </div>
+
+        <template is="dom-if" if="[[secondarySelected]]">
+          <span id="label" class="secondary">[[secondarySelected]]</span>
+        </template>
+        <cells-atom-icon icon="[[inputIcon]]" class="modal-icon" hidden$="[[hideSelectorIcon]]"></cells-atom-icon>
+      </button>
+    </cells-st-button>
+  </template>
+  <script src="cells-select-modal.js"></script>
+</dom-module>

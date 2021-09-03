@@ -1,0 +1,169 @@
+<dom-module id="cells-step-input-message-styles"><template><style>
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: var(--cells-fontDefault, sans-serif);
+  font-size: var(--cells-text-size-15, 0.9375rem);
+  --cells-enter-limited-amount__txt: {     font-size: var(--cells-text-size-12, .75rem);     font-weight: 300;   };
+  @apply --cells-step-input-message;
+}
+:host .cells-step-input-message__description {
+  line-height: 1.5rem;
+  margin-top: 0;
+}
+:host cells-enter-limited-amount {
+  padding-top: 0.5rem;
+}
+:host cells-validate-amount-input {
+  margin: 0.5rem 0;
+}
+:host .cells-step-input {
+  margin: 0.5rem 0;
+}
+:host cells-st-button {
+  display: flex;
+  margin: 2rem 0 0.5rem 0;
+}
+:host cells-st-button button {
+  margin: auto;
+  font-size: var(--cells-text-size-15, 0.9375rem);
+  font-weight: var(--cells-fontDefaultMedium, 500);
+}
+:host .filled .cells-step-input-message__filled {
+  @apply --cells-fontDefaultLight;
+  --cells-key-values-inline-key: {         font-size: var(--cells-text-size-15, 0.9375rem);         color: var(--bbva-white, #FFF);       };
+  --cells-key-values-key: {         font-size: var(--cells-text-size-15, 0.9375rem);         color: var(--bbva-white, #FFF);       };
+  --cells-key-values-value-amount: {         color: var(--bbva-white, #FFF);       };
+  --cells-atom-amount-huge-decimals-currency: {         line-height: initial;       };
+}
+:host cells-text-description {
+  margin: 1rem 0 1.5rem 0;
+}
+:host cells-list-file {
+  display: flex;
+  margin: 1rem 0 1.5rem 0;
+}
+
+:host(.no-padding-header) {
+  --diy-step-opx-template-cells-step-container-header-collapsed-padding: 1rem 1rem 0 1rem ;
+}
+
+:host(:not([active])) {
+  pointer-events: none;
+  --cells-molecule-input-border-bottom: var(--bbva-400, #BDBDBD);
+}
+:host(:not([active])) cells-molecule-input {
+  opacity: 0.4;
+  background-color: var(--bbva-100, #f4f4f4);
+}
+:host(:not([active])) .full cells-validate-amount-input {
+  --cells-icon-message-icon-info: {         --cells-icon-message-icon-color-theme: var(--bbva-300, #d3d3d3);       };
+  --cells-molecule-amount-input-label: {         z-index: 0;         color: var(--bbva-300, #d3d3d3);       };
+  --cells-icon-message-info: {         color: var(--bbva-300, #d3d3d3);       } --cells-molecule-amount-input-border-bottom-theme: var(--bbva-300, #d3d3d3);
+}
+:host(:not([active])) p {
+  color: var(--bbva-300, #D3D3D3);
+}
+:host(:not([active])) #enterAmountBtn {
+  pointer-events: none;
+  background-color: var(--bbva-200, #E9E9E9);
+  color: var(--bbva-300, #D3D3D3);
+}
+:host(:not([active])) cells-icon-message-change-data {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  --cells-icon-message-color: var(--bbva-300, #D3D3D3);
+}
+:host(:not([active])) cells-icon-message-change-data p {
+  color: var(--bbva-300, #D3D3D3);
+}
+
+:host([hidden]), [hidden] {
+  display: none !important;
+}
+
+.filled .cells-step-input-message__filled {
+  font-size: var(--cells-text-size-15, 0.9375rem);
+}
+.filled .cells-step-input-message__filled__title {
+  margin-bottom: 0;
+  margin-top: 0;
+  @apply --cells-fontDefaultMedium;
+}
+.filled .cells-step-input-message__filled__value {
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @apply --cells-fontDefaultNormalItalic;
+}
+.filled .cells-step-input-message__filled__value-not-ellipsis {
+  margin: 0;
+  @apply --cells-fontDefaultNormalItalic;
+}
+.filled .cells-step-input-message__filled__normal {
+  @apply --cells-fontDefaultNormal;
+}
+
+:host(.cancel-insurance) .cells-step-input-message__filled__value {
+  @apply --cells-fontDefaultNormal;
+}
+
+.full {
+  padding: 0 1rem;
+}
+
+.skeleton {
+  --cells-atom-icon: {     float: left;     margin: 0 0.5rem 0 1rem;     color: var(--bbva-300, #D3D3D3);   };
+  --cells-skeleton-item-box-width-first-child: 100%;
+  @apply --cells-step-input-message-skeleton;
+}
+
+.remaining-text {
+  text-align: right;
+  font-size: var(--cells-text-size-xs, 0.75rem);
+  color: var(--bbva-500, #666666);
+  @apply --cells-fontDefaultNormal;
+}
+
+.curp-class {
+  --cells-step-cells-atom-icon: { position: initial; margin-left: 0.5rem; --cells-atom-icon-size: 1.5rem; } @apply --cells-step-input-message-curp-class;
+}
+
+.info-alert-message-show-skeleton {
+  display: -webkit-inline-box;
+  @apply --cells-step-input-message-info-message-show-skeleton;
+}
+.info-alert-message-show-skeleton cells-key-values {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  --cells-key-values-key:  {       text-align: left;       display: flex;       align-items: flex-start;       font-size: var(--cells-text-size-13, 0.8125rem);     };
+}
+.info-alert-message-show-skeleton cells-atom-icon {
+  display: flex;
+  margin-left: 1.375rem;
+  margin-right: 0.25rem;
+}
+.info-alert-message-show-skeleton.color-light-blue cells-atom-icon {
+  color: var(--bbva-light-blue, #5BBEFF);
+}
+.info-alert-message-show-skeleton.color-dark-core cells-atom-icon {
+  color: var(--bbva-dark-core-blue, #043263);
+}
+.info-alert-message-show-skeleton.color-bbva-navy cells-atom-icon {
+  color: var(--bbva-navy, #072146);
+}
+
+.link-margin {
+  padding-bottom: 1rem;
+  @apply --cells-step-input-message-info-message-st-link;
+}
+.link-margin cells-st-button {
+  display: table;
+}
+.link-margin cells-st-button button {
+  margin: 0;
+  @apply --cells-fontDefaultBold;
+}
+</style></template></dom-module>

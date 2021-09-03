@@ -1,0 +1,498 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+  <link rel="import" href="../cells-skeleton-item.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-skeleton-item></cells-skeleton-item>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<cells-skeleton-item> tag', () => {
+      var myEl;
+
+      setup(() => {
+        myEl = fixture('default')
+      });
+
+      teardown(() => {
+        myEl.remove();
+      });
+
+      suite('The title bar is not shown', () => {
+        setup(() => {
+          myEl.showTitle = false;
+        });
+
+        test('showTitle value should be false', () => {
+          expect(myEl.showTitle).to.be.false;
+        });
+
+        test('title should not be shown', () => {
+          title = myEl.shadowRoot.querySelectorAll('.title');
+          expect(title.length).to.be.equal(0);
+        });
+      });
+
+
+
+      suite('A title bar is shown', () => {
+        setup(() => {
+          myEl.showTitle = true;
+        });
+        
+        test('showTitle should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.showTitle).not.to.be.null;
+            done();
+          });
+        });
+
+        test('showTitle value should be true', (done) => {
+          flush(function () {
+            expect(myEl.showTitle).to.be.true;
+            done();
+          });
+        });
+
+        test('title should be shown', (done) => {
+          flush(function () {
+            title = myEl.shadowRoot.querySelectorAll('.title');
+            expect(title.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('A header bar is not shown', () => {
+        setup(() => {
+          myEl.showHeader = false;
+        });
+
+        test('showHeader value should be false', (done) => {
+          flush(function () {
+            expect(myEl.showHeader).to.be.false;
+            done();
+          });
+        });
+
+        test('header should not be shown', (done) => {
+          flush(function () {
+            header = myEl.shadowRoot.querySelectorAll('.header');
+            expect(header.length).to.be.equal(0);
+            done();
+          });
+        });
+      });
+
+      suite('A header bar is shown', () => {
+        setup(() => {
+          myEl.showHeader = true;
+        });
+        
+        test('showHeader should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.showHeader).not.to.be.null;
+            done();
+          });
+        });
+
+        test('showHeader value should be true', (done) => {
+          flush(function () {
+            expect(myEl.showHeader).that.is.true;
+            done();
+          });
+        });
+
+        test('header should be shown', (done) => {
+          flush(function () {
+            header = myEl.shadowRoot.querySelectorAll('.header');
+            expect(header.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('An icon disc is not shown', () => {
+        test('showIcon value should be false', () => {
+          expect(myEl.showIcon).to.be.false;
+        });
+
+        test('icon should not be shown', () => {
+          icon = myEl.shadowRoot.querySelector('.icon');
+          expect(icon.hidden).to.be.true;
+        });
+      });
+
+      suite('An icon disc is shown to the left of the line', () => {
+        setup(() => {
+          myEl.showIcon = true;
+        });
+        
+        test('showIcon should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.showIcon).not.to.be.null;
+          done();
+          });
+        });
+
+        test('showIcon value should be true', (done) => {
+          flush(function () {
+            expect(myEl.showIcon).that.is.true;
+            done();
+          });
+        });
+
+        test('icon should be shown', (done) => {
+          flush(function () {
+            icon = myEl.shadowRoot.querySelector('.icon');
+            expect(icon.hidden).to.be.false;
+            done();
+          });
+        });
+      });
+
+
+
+      suite('The skeleton lines do not have a separation from the margin', () => {
+        test('firstIndentation value should be false', () => {
+          expect(myEl.firstIndentation).to.be.false;
+        });
+
+        test('skeleton lines should not have a separation from the margin', () => {
+          line = myEl.shadowRoot.querySelectorAll('.indent--first');
+          expect(line.length).to.be.equal(0);
+        });
+      });
+
+      suite('The skeleton lines have a separation from the left and right margin', () => {
+        setup(() => {
+          myEl.firstIndentation = true;
+        });
+        
+        test('firstIndentation should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.firstIndentation).not.to.be.undefined;
+            done();
+          });
+        });
+
+        test('firstIndentation value should be true', (done) => {
+          flush(function () {
+            expect(myEl.firstIndentation).to.be.true;
+            done();
+          });
+        });
+
+        test('skeleton lines should have a separation from the margin', (done) => {
+          flush(function () {
+            line = myEl.shadowRoot.querySelectorAll('.indent--first');
+            expect(line.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('The skeleton lines do not have a separation from the margin', () => {
+        test('secondIndentation value should be false', () => {
+          expect(myEl.secondIndentation).to.be.false;
+        });
+
+        test('skeleton lines should not have a separation from the margin', () => {
+          line = myEl.shadowRoot.querySelectorAll('.indent--second');
+          expect(line.length).to.be.equal(0);
+        });
+      });
+
+      suite('The skeleton lines have a bigger separation from the left and right margin', () => {
+        setup(() => {
+          myEl.secondIndentation = true;
+        });
+        
+        test('secondIndentation should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.secondIndentation).not.to.be.undefined;
+            done();
+          });
+        });
+
+        test('secondIndentation value should be true', (done) => {
+          flush(function () {
+            expect(myEl.secondIndentation).to.be.true;
+            done();
+          });
+        });
+
+        test('skeleton lines should have a big separation from the margin', (done) => {
+          flush(function () {
+            line = myEl.shadowRoot.querySelectorAll('.indent--second');
+            expect(line.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('The background of the line is shown as normal', () => {
+        test('showBackground value should be false', () => {
+          expect(myEl.showBackground).to.be.false;
+        });
+
+        test('background should not be shown', () => {
+          background = myEl.shadowRoot.querySelectorAll('.background');
+          expect(background.length).to.be.equal(0);
+        });
+      });
+
+      suite('The background of the line is shown in a darker color', () => {
+        setup(() => {
+          myEl.showBackground = true;
+        });
+        
+        test('showBackground should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.showBackground).not.to.be.null;
+          done();
+          });
+        });
+
+        test('showBackground value should be true', (done) => {
+          flush(function () {
+            expect(myEl.showBackground).that.is.true;
+            done();
+          });
+        });
+
+        test('background should be darker', (done) => {
+          flush(function () {
+            background = myEl.shadowRoot.querySelectorAll('.line--background');
+            expect(background.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('Two pairs of grey bars are shown for each line', () => {
+        setup(() => {
+          myEl.showSingle = false;
+        });
+
+        test('showSingle value should be false', (done) => {
+          flush(function () {
+            expect(myEl.showSingle).to.be.false;
+            done();
+          });
+        });
+      });
+
+      suite('A single pair of grey bars is shown in each line', () => {
+        setup(() => {
+          myEl.showSingle = true;
+        });
+        
+        test('showSingle should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.showSingle).not.to.be.null;
+            done();
+          });
+        });
+
+        test('showSingle value should be true', (done) => {
+          flush(function () {
+            expect(myEl.showSingle).that.is.true;
+            done();
+          });
+        });
+
+        test('should show only a single line', (done) => {
+          flush(function () {
+            dualLine = myEl.shadowRoot.querySelectorAll('.content--bottom');
+            expect(dualLine.length).to.be.equal(0);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('The lines are drawn with a standard heigth of 18px', () => {
+        setup(() => {
+          myEl.showSingle = true;
+          myEl.thickLine = false;
+        });
+
+        test('thickLine value should be false', (done) => {
+          flush(function () {
+            expect(myEl.thickLine).to.be.false;
+            done();
+          });
+        });
+
+        test('there should not be any 26px tall lines', (done) => {
+          flush(function () {
+            line = myEl.shadowRoot.querySelectorAll('.box--thick');
+            expect(line.length).to.be.equal(0);
+            done();
+          });
+        });
+      });
+
+
+      suite('The lines are drawn thicker, with a heigth of 26px', () => {
+        setup(() => {
+          myEl.showSingle = true;
+          myEl.thickLine = true;
+        });
+        
+        test('thickLine should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.thickLine).not.to.be.null;
+            done();
+          });
+        });
+
+        test('thickLine value should be true', (done) => {
+          flush(function () {
+            expect(myEl.thickLine).that.is.true;
+            done();
+          });
+        });
+
+        test('should show a 26px tall line', (done) => {
+          flush(function () {
+            line = myEl.shadowRoot.querySelectorAll('.box--thick');
+            expect(line.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('No header is shown', () => {
+        setup(() => {
+          myEl.showAvatar = false;
+        });
+
+        test('showAvatar value should be false', (done) => {
+          flush(function () {
+            expect(myEl.showAvatar).to.be.false;
+            done();
+          });
+        });
+      });
+
+      suite('A blue header with a white disc in the center is shown', () => {
+        setup(() => {
+          myEl.showAvatar = true;
+        });
+        
+        test('showAvatar should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.showAvatar).not.to.be.null;
+            done();
+          });
+        });
+
+        test('showAvatar value should be true', (done) => {
+          flush(function () {
+            expect(myEl.showAvatar).that.is.true;
+            done();
+          });
+        });
+
+        test('should show a blue header with a white disc at its center', (done) => {
+          flush(function () {
+            avatar = myEl.shadowRoot.querySelectorAll('.avatar');
+            expect(avatar.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+
+
+      suite('No header is shown', () => {
+        setup(() => {
+          myEl.showBullets = false;
+        });
+
+        test('showBullets value should be false', (done) => {
+          flush(function () {
+            expect(myEl.showBullets).to.be.false;
+            done();
+          });
+        });
+      });
+
+      suite('A blue header with four grey discs is shown', () => {
+        setup(() => {
+          myEl.showBullets = true;
+        });
+        
+        test('showBullets should be in the document', (done) => {
+          flush(function () {
+            expect(myEl.showBullets).not.to.be.null;
+            done();
+          });
+        });
+
+        test('showBullets value should be true', (done) => {
+          flush(function () {
+            expect(myEl.showBullets).that.is.true;
+            done();
+          });
+        });
+
+        test('should show a blue header with four grey discs', (done) => {
+          flush(function () {
+            bullets = myEl.shadowRoot.querySelectorAll('.actions');
+            expect(bullets.length).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+    });
+
+    suite('Amount group skeleton functions', () => {
+      var myEl;
+
+      setup(() => {
+        myEl = fixture('default')
+      });
+
+      teardown(() => {
+        myEl.remove();
+      });
+
+      test('method _generateSkeletonElements return an array of numberSkeletonElements ', () => {
+        expect(myEl._generateAmountGroupSkeletonElements(4).length).to.equal(4);
+      });
+    });
+
+  </script>
+</body>
+
+</html>

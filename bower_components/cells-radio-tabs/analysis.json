@@ -1,0 +1,611 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "# cells-radio-tabs\n\n![Certificated](https://img.shields.io/badge/certificated-yes-brightgreen.svg)\n![Polymer 2.x](https://img.shields.io/badge/Polymer-2.x-green.svg)\n\n[Demo of component in Cells Catalog](https://catalogs.platform.bbva.com/cells)\n\n`<cells-radio-tabs>` displays a list of tabs from its `options` property.\nThe `options` property can be an array of strings or an array of objects with an optional `icon` property and a `label` property that will be used as the tab text.\n\nExample with simple options:\n\n```html\n<cells-radio-tabs options='[\"Home\", \"Accounts\"]'></cells-radio-tabs>\n```\n\nExample with text and icons:\n\n```html\n<cells-radio-tabs options='[{\n  \"icon\": \"coronita:home\",\n  \"label\": \"Home\"\n}, {\n  \"icon\": \"coronita:alarm\",\n  \"label\": \"Alerts\"\n}]'></cells-radio-tabs>\n```\n\n## Icons\n\nSince this component uses icons, it will need an [iconset](https://bbva.cellsjs.com/guides/best-practices/cells-icons.html) in your project as an [application level dependency](https://bbva.cellsjs.com/guides/advanced-guides/application-level-dependencies.html). In fact, this component uses an iconset in its demo.\n\n## Styling\n\nThe following custom properties and mixins are available for styling:\n\n### Custom Properties\n| Custom Property                                 | Selector                          | CSS Property        | Value                   |\n| ----------------------------------------------- | --------------------------------- | ------------------- | ----------------------- |\n| --cells-radio-tabs-font-size                    | :host                             | font-size           | 0.8125rem               |\n| --cells-radio-tabs-color                        | :host                             | color               | --bbva-300              |\n| --cells-radio-tabs-item-height                  | :host                             | height              | 3.4375rem               |\n| --cells-radio-tabs-bg-color                     | :host                             | background-color    | --bbva-white            |\n| --cells-radio-tabs-border-radius                | :host                             | border-radius       | `No fallback value`     |\n| --cells-radio-tabs-option-flex                  | :host button                      | flex                | 1                       |\n| --cells-radio-tabs-border-bottom-color          | :host button                      | border-bottom       | 1px solid --bbva-200    |\n| --cells-radio-tabs-color                        | :host button                      | color               | --bbva-300              |\n| --cells-radio-tabs-color-selected               | :host button[active] .tab-content | color               | --bbva-core-blue        |\n| --cells-radio-tabs-span-min-height              | :host span                        | min-height          | 2.75rem                 |\n| --cells-radio-tabs-span-min-width               | :host span                        | min-width           | 2.75rem                 |\n| --cells-radio-tabs-icon-margin                  | :host .icon                       | margin              | 0 0.625rem 0 0          |\n| --radio-tabs-item-width                         | :host #indicator                  | width               | `No fallback value`     |\n| --cells-radio-tabs-border-radius                | :host #indicator                  | border-radius       | `No fallback value`     |\n| --cells-radio-tabs-indicator-bg-color           | :host #indicator                  | background-color    | --bbva-core-blue        |\n| --cells-radio-tabs-font-size                    | :host .label                      | font-size           | 0.9375rem               |\n| --cells-radio-tabs-font-wight                   | :host .label                      | font-weight         | normal                  |\n| --cells-radio-tabs-total-order                  | :host .total                      | order               | 2                       |\n| --cells-radio-tabs-total-padding-left           | :host .total                      | padding-left        | 0.75rem                 |\n| --cells-radio-tabs-active-font-weight           | :host button[active] .label       | font-weight         | --cells-fontDefaultBold |\n| --cells-radio-tabs-round-color                  | :host(.round-total)               | color               | --bbva-500              |\n| --cells-radio-tabs-round-border-bottom-color    | :host(.round-total) button        | border-bottom-color | --bbva-300              |\n| --cells-radio-tabs-round-label-order            | :host(.round-total) button .label | order               | 2                       |\n| --cells-radio-tabs-round-label-font-size        | :host(.round-total) button .label | font-size           | 0.9375rem               |\n| --cells-radio-tabs-round-total-order            | :host(.round-total) button .total | order               | 1                       |\n| --cells-radio-tabs-round-total-font-size        | :host(.round-total) button .total | font-size           | 0.875rem                |\n| --cells-radio-tabs-total-margin-right           | :host(.round-total) button .total | margin-right        | 1rem                    |\n| --cells-radio-tabs-total-margin-left            | :host(.round-total) button .total | margin-left         | 0                       |\n| --cells-radio-tabs-round-total-color            | :host(.round-total) button .total | color               | --bbva-white            |\n| --cells-radio-tabs-round-total-background-color | :host(.round-total) button .total | background-color    | --bbva-500              |\n### @apply\n| Mixins                                | Selector                                 | Value |\n| ------------------------------------- | ---------------------------------------- | ----- |\n| --cells-radio-tabs                    | :host                                    | {}    |\n| --cells-radio-tabs-option             | :host button                             | {}    |\n| --cells-radio-tabs-selected           | :host button[active] .tab-content        | {}    |\n| --cells-radio-tabs-tab-hover          | :host button:hover .tab-content          | {}    |\n| --cells-radio-tabs-span               | :host span                               | {}    |\n| --cells-radio-tabs-content            | :host .tab-content                       | {}    |\n| --cells-radio-tabs-icon               | :host .icon                              | {}    |\n| --cells-ratio-tabs-indicator          | :host #indicator                         | {}    |\n| --cells-ratio-tabs-label              | :host .label                             | {}    |\n| --cells-ratio-tabs-total              | :host .total                             | {}    |\n| --cells-radio-tabs-option-focus-label | :host button[active] .label              | {}    |\n| --cells-radio-tabs-round-label        | :host(.round-total) button               | {}    |\n| --cells-radio-tabs-round-label-class  | :host(.round-total) button .label        | {}    |\n| --cells-ratio-tabs-round-total        | :host(.round-total) button .total        | {}    |\n| --cells-ratio-tabs-round-total-before | :host(.round-total) button .total:before | {}    |",
+      "summary": "Display a list of navigation tabs.",
+      "path": "cells-radio-tabs.js",
+      "properties": [
+        {
+          "name": "options",
+          "type": "Array",
+          "description": "List of options.\nCan be an array of Strings used as labels for each tab or Objects with a \"label\" key and and optional \"icon\" key to display\nan icon to the left of the text.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 115,
+              "column": 6
+            },
+            "end": {
+              "line": 121,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_optionsChanged\"",
+              "attributeType": "Array"
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "iconSize",
+          "type": "number | null | undefined",
+          "description": "Size for the icons.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 126,
+              "column": 6
+            },
+            "end": {
+              "line": 129,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          },
+          "defaultValue": "24"
+        },
+        {
+          "name": "selected",
+          "type": "number | null | undefined",
+          "description": "Index of the selected option.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 134,
+              "column": 6
+            },
+            "end": {
+              "line": 138,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "Number"
+            }
+          },
+          "defaultValue": "0"
+        },
+        {
+          "name": "_uniqueID",
+          "type": "number | null | undefined",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 140,
+              "column": 6
+            },
+            "end": {
+              "line": 145,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "_hasLabels",
+          "type": "boolean | null | undefined",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 147,
+              "column": 6
+            },
+            "end": {
+              "line": 150,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "notifyMouseEvents",
+          "type": "boolean | null | undefined",
+          "description": "Set to true to fire `tab-mouseevent` event when a tab receives mouseenter / mouseleave.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 6
+            },
+            "end": {
+              "line": 158,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "role",
+          "type": "string | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 160,
+              "column": 6
+            },
+            "end": {
+              "line": 165,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"tablist\""
+        }
+      ],
+      "methods": [
+        {
+          "name": "_optionsChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 175,
+              "column": 2
+            },
+            "end": {
+              "line": 181,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "newValue"
+            },
+            {
+              "name": "previousValue"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_updateTabStylesAfterResettingSelected",
+          "description": "Prevents changing the width and the position of the indicator at the same time.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 184,
+              "column": 2
+            },
+            "end": {
+              "line": 191,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_resetSelected",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 193,
+              "column": 2
+            },
+            "end": {
+              "line": 202,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_setTabStyles",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 204,
+              "column": 2
+            },
+            "end": {
+              "line": 218,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_setSelected",
+          "description": "Selects the item on click event and on keydown only if the key pressed is space or enter.\nPrevents selecting an item while navigating through tabs using the tab key.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 224,
+              "column": 2
+            },
+            "end": {
+              "line": 239,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_computeChecked",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 241,
+              "column": 2
+            },
+            "end": {
+              "line": 243,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selected"
+            },
+            {
+              "name": "index"
+            }
+          ]
+        },
+        {
+          "name": "_computeCheckedString",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 245,
+              "column": 2
+            },
+            "end": {
+              "line": 249,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selected"
+            },
+            {
+              "name": "index"
+            }
+          ]
+        },
+        {
+          "name": "_labelDisabled",
+          "description": "Returns if the label has to be disabled",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 257,
+              "column": 2
+            },
+            "end": {
+              "line": 261,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selected",
+              "type": "Number"
+            },
+            {
+              "name": "index",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "desc": "String"
+          }
+        },
+        {
+          "name": "_tabindex",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 263,
+              "column": 2
+            },
+            "end": {
+              "line": 266,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selected"
+            },
+            {
+              "name": "index"
+            }
+          ]
+        },
+        {
+          "name": "_tabId",
+          "description": "Returns id for tab getted and translated from item",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 273,
+              "column": 2
+            },
+            "end": {
+              "line": 284,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "desc": "String"
+          }
+        },
+        {
+          "name": "_selectedChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 286,
+              "column": 2
+            },
+            "end": {
+              "line": 291,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selected"
+            },
+            {
+              "name": "options"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_computeHasLabels",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 293,
+              "column": 2
+            },
+            "end": {
+              "line": 295,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "options"
+            }
+          ]
+        },
+        {
+          "name": "_onMouseEvent",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 297,
+              "column": 2
+            },
+            "end": {
+              "line": 314,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 101,
+          "column": 0
+        },
+        "end": {
+          "line": 315,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "Polymer.Element",
+      "name": "CellsRadioTabs",
+      "attributes": [
+        {
+          "name": "options",
+          "description": "List of options.\nCan be an array of Strings used as labels for each tab or Objects with a \"label\" key and and optional \"icon\" key to display\nan icon to the left of the text.",
+          "sourceRange": {
+            "start": {
+              "line": 115,
+              "column": 6
+            },
+            "end": {
+              "line": 121,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "icon-size",
+          "description": "Size for the icons.",
+          "sourceRange": {
+            "start": {
+              "line": 126,
+              "column": 6
+            },
+            "end": {
+              "line": 129,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "selected",
+          "description": "Index of the selected option.",
+          "sourceRange": {
+            "start": {
+              "line": 134,
+              "column": 6
+            },
+            "end": {
+              "line": 138,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "notify-mouse-events",
+          "description": "Set to true to fire `tab-mouseevent` event when a tab receives mouseenter / mouseleave.",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 6
+            },
+            "end": {
+              "line": 158,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "role",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 160,
+              "column": 6
+            },
+            "end": {
+              "line": 165,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "cells-radio-tabs-styles-updated",
+          "description": "Fired after updating the tab styles.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "selected-tab",
+          "description": "Fired when tab was selected",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "tab-mouseevent",
+          "description": "Fired on tab mouseenter / mouseleave",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "selected-changed",
+          "description": "Fired when the `selected` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cells-radio-tabs"
+    }
+  ]
+}

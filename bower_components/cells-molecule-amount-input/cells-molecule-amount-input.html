@@ -1,0 +1,150 @@
+<link rel="import" href="../cells-amount-behavior/cells-amount-behavior.html">
+<link rel="import" href="../cells-atom-icon/cells-atom-icon.html">
+<link rel="import" href="../cells-cleave-import/cells-cleave-import.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../cells-icon-message/cells-icon-message.html">
+<link rel="import" href="../cells-st-button/cells-st-button.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../polymer/polymer-element.html">
+
+<link rel="import" href="cells-molecule-amount-input-styles.html">
+
+<!--
+# cells-molecule-amount-input
+
+A customized amount input component with a floating label and an optional icon.
+
+Example:
+```html
+<cells-molecule-amount-input></cells-molecule-amount-input>
+```
+
+## Properties
+
+Example:
+```html
+<cells-molecule-amount-input
+  id="myId"
+  name="myName"
+  label="My label"
+  iconSize="myIconSize"
+  iconCode="myIconCode"
+  currencyCode="myurrencyCode"
+  localCurrency="myLocalCurrency"
+  language="myLanguage"
+  disabled
+  auto-format
+  setAmount="mySetAmount">
+</cells-molecule-amount-input>
+```
+
+## Styling
+
+The following custom properties and mixins are available for styling:
+
+### Custom Properties
+| Custom Property                                        | Selector                                                          | CSS Property                                          | Value                                                                                                        |
+| ------------------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| --bbva-300                                             | .field-wrapper >  > .text-field > .has-content~.text-field__label | color                                                 | `No fallback value`                                                                                          |
+| --bbva-300                                             | .field-wrapper >  > .text-field                                   | color                                                 | `No fallback value`                                                                                          |
+| --bbva-300                                             | .field-wrapper >  > .text-field__label                            | color                                                 | `No fallback value`                                                                                          |
+| --cells-molecule-amount-input-background-color-theme   | .field-wrapper >  >                                               | background-color                                      | --cells-molecule-amount-input-background-color)                                                              |
+| --cells-molecule-amount-input-border-bottom-theme      | .field-wrapper >  >                                               | border-bottom                                         | 1px solid --cells-molecule-amount-input-border-bottom                                                        |
+| --bbva-300                                             | .field-wrapper >  >                                               | color                                                 | `No fallback value`                                                                                          |
+| --black                                                |                                                                   | --cells-molecule-amount-input-border-bottom-theme     | ![#121212](https://placehold.it/15/121212/000000?text=+) #121212                                             |
+| --bbva-white-coral                                     |                                                                   | --cells-molecule-amount-input-background-color-theme  | ![#FCDFDF](https://placehold.it/15/FCDFDF/000000?text=+) #FCDFDF                                             |
+| --cells-molecule-amount-input-invalid-border-bottom    |                                                                   | --cells-molecule-amount-input-border-bottom-theme     | --bbva-dark-coral                                                                                            |
+| --black                                                |                                                                   | --cells-molecule-amount-input-border-bottom-theme     | ![#121212](https://placehold.it/15/121212/000000?text=+) #121212                                             |
+| --bbva-white-coral                                     |                                                                   | --cells-molecule-amount-input-background-color-theme  | ![#FCDFDF](https://placehold.it/15/FCDFDF/000000?text=+) #FCDFDF                                             |
+| --cells-molecule-amount-input-invalid-border-bottom    |                                                                   | --cells-molecule-amount-input-border-bottom-theme     | --bbva-dark-coral                                                                                            |
+| --bbva-dark-red                                        |                                                                   | --cells-molecule-amount-input-placeholder-color-theme | ![#b92a45](https://placehold.it/15/b92a45/000000?text=+) #b92a45                                             |
+| --bbva-dark-red                                        |                                                                   | --cells-molecule-amount-input-text-field-color-theme  | ![#b92a45](https://placehold.it/15/b92a45/000000?text=+) #b92a45                                             |
+|  --cells-molecule-amount-input-placeholder-color-theme |                                                                   | color                                                 | var( --cells-molecule-amount-input-placeholder-color-theme, --cells-molecule-amount-input-placeholder-color) |
+| --cells-molecule-amount-input-text-field-color-theme   |                                                                   | color                                                 | --bbva-dark-medium-blue                                                                                      |
+| --cells-molecule-amount-input-input-color              |                                                                   | color                                                 | --bbva-600                                                                                                   |
+| --cells-molecule-amount-input-has-content-padding      |                                                                   | padding                                               | rem(32px rem(20px rem(12px 0 rem(20px) rem(12px) 0)                                                          |
+| --cells-molecule-amount-input-disabled-color           |                                                                   | color                                                 | --bbva-500                                                                                                   |
+| --bbva-dark-medium-blue                                |                                                                   | color                                                 | ![#1973b8](https://placehold.it/15/1973b8/000000?text=+) #1973b8                                             |
+| --bbva-dark-medium-blue                                |                                                                   | color                                                 | ![#1973b8](https://placehold.it/15/1973b8/000000?text=+) #1973b8                                             |
+| --cells-molecule-amount-input-text-field--xl           |                                                                   | font-size                                             | 24px                                                                                                         |
+### @apply
+| Mixins                                                      | Selector                               | Value |
+| ----------------------------------------------------------- | -------------------------------------- | ----- |
+| --cells-molecule-amount-input                               | :host                                  | {}    |
+| --cells-molecule-amount-input-disabled-text-field           | .field-wrapper >  > .text-field        | {}    |
+| --cells-molecule-amount-input-disabled-text-field__label    | .field-wrapper >  > .text-field__label | {}    |
+| --cells-molecule-amount-input-field-wrapper                 | .field-wrapper >  >                    | {}    |
+| --cells-molecule-amount-input-disabled-text-field__label    | .field-wrapper >  >                    | {}    |
+| --cells-molecule-amount-input-has-content                   |                                        | {}    |
+| --cells-molecule-amount-input-has-content-invalid           |                                        | {}    |
+| --cells-molecule-amount-input-focused                       |                                        | {}    |
+| --cells-molecule-amount-input-button-is-filled-blur         |                                        | {}    |
+| --cells-molecule-amount-input-is-filled-blur                |                                        | {}    |
+| --cells-molecule-amount-input-with-icon-input               |                                        | {}    |
+| --cells-molecule-amount-input-with-icon                     |                                        | {}    |
+| --cells-molecule-amount-input-invalid                       |                                        | {}    |
+| --cells-molecule-amount-input-label                         |                                        | {}    |
+| --cells-molecule-amount-input-icon                          |                                        | {}    |
+| --cells-molecule-amount-input-has-content                   |                                        | {}    |
+| --cells-molecule-amount-input-floated-label                 |                                        | {}    |
+| --cells-molecule-amount-input-input                         |                                        | {}    |
+| --cells-molecule-amount-input-text-field                    |                                        | {}    |
+| --cells-molecule-amount-input-currency-label-left           |                                        | {}    |
+| --cells-molecule-amount-input-currency-label                |                                        | {}    |
+| --cells-molecule-amount-input-img                           |                                        | {}    |
+| --cells-molecule-amount-input-img-container                 |                                        | {}    |
+| --cells-molecule-amount-input-label-with-img                |                                        | {}    |
+| --cells-molecule-amount-input-label-currency-label-left-img |                                        | {}    |
+| --cells-molecule-amount-input-label-currency-label-img      |                                        | {}    |
+| --cells-molecule-amount-input-with-img                      |                                        | {}    |
+| --cells-molecule-amount-input-button-transparent            |                                        | {}    |
+| --cells-molecule-amount-input-button-transparent-hover      |                                        | {}    |
+| --cells-molecule-amount-input-button                        |                                        | {}    |
+
+@demo demo/index.html
+-->
+<dom-module id="cells-molecule-amount-input">
+  <template>
+    <style include="cells-molecule-amount-input-styles cells-molecule-amount-input-shared-styles"></style>
+    <div class="field-wrapper" on-focusout="_onFocusOut">
+      <label id="label" class$="{{_getInputClasses(imgSrc)}}">
+        <template is="dom-if" if="{{imgSrc}}">
+          <div class="img-container" on-click="_handleImgClick">
+            <img src$="[[imgSrc]]">
+          </div>
+        </template>
+
+        <div class="currency-label" hidden$="[[!_showCurrencies]]">
+          <span class="currency currency-label--left" aria-hidden="true">[[_currency]]</span>
+        </div>
+
+        <div class="content-input">
+          <input is="iron-input" type="[[type]]" input-mode="[[inputMode]]" pattern="[[pattern]]" id="input"
+            class$="[[name]]Input text-field__input" name$="[[name]]" value="{{_formattedAmount::input}}"
+            max-length="[[max]]" required$="[[required]]" readonly$="[[disabled]]" step="0,01" autocorrect="off"
+            autocomplete="off" on-focus="_onInputFocus" on-blur="_onInputBlur" on-focusout="_onInputFocusOut" aria-label="[[_screenReaderOnlyText]]">
+          <span class="text-field__label" aria-hidden="true">[[label]] <span hidden$="[[!required]]" >*</span></span>
+          <span id="right-icon" class="text-field__right-icon"
+            hidden="[[!_rightCurrencyIconShown]]">[[_currency]]</span>
+        </div>
+      </label>
+
+      <cells-st-button id="icon-wrapper" class="composed transparent" on-click="_onIconClick" role="button"
+        aria-label="[[t(_iconAriaLabel)]]" hidden="[[!isFilled]]">
+        <cells-atom-icon id="icon" class$="text-field__icon [[iconSize]]" icon$="[[iconCode]]">
+        </cells-atom-icon>
+      </cells-st-button>
+    </div>
+
+    <template is="dom-if" if="[[_showInfoMessage(infoMessage, invalid)]]">
+      <cells-icon-message icon="[[infoMessageIcon]]" class="message-input" message="[[infoMessage]]" icon-size="16"
+        type="info" role="alert"></cells-icon-message>
+    </template>
+    <template is="dom-if" if="[[_showErrorMessage(invalid)]]">
+      <cells-icon-message icon="[[errorMessageIcon]]" class="message-input" message="[[errorMessage]]" icon-size="16"
+        type="error" role="alert"></cells-icon-message>
+    </template>
+  </template>
+
+  <script src="cells-molecule-amount-input.js"></script>
+</dom-module>

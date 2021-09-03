@@ -1,0 +1,34 @@
+{
+  "name": "cells-select-modal",
+  "version": "3.15.0",
+  "description": "cells-select-modal",
+  "keywords": [
+    "i18n",
+    "web-component"
+  ],
+  "main": [
+    "cells-select-modal.html"
+  ],
+  "dependencies": {
+    "cells-atom-icon": "^12.1.0",
+    "cells-i18n-behavior": "^13.1.0",
+    "cells-st-button": "^13.0.0",
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "cells-coronita-base-theme": "^1.0.0",
+    "cells-glomo-theme": "^16.0.0",
+    "cells-demo-helper": "^12.0.0",
+    "cells-sass": "^2.0.0",
+    "coronita-icons": "^10.0.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "composer": {},
+  "ignore": [],
+  "_source": "art://cells-select-modal/cells-select-modal",
+  "_target": "^3.0.0",
+  "_release": "3.15.0",
+  "_originalSource": "cells-select-modal"
+}

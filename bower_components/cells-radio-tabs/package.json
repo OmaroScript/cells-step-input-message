@@ -1,0 +1,26 @@
+{
+  "name": "cells-radio-tabs",
+  "version": "13.1.0",
+  "description": "Display a list of navigation tabs.",
+  "main": "cells-radio-tabs.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@globaldevtools.bbva.com:7999/cellscomponentscataloglegacy/cells-radio-tabs.git"
+  },
+  "keywords": [
+    "responsive",
+    "tabs",
+    "navigation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axe-core": "^4.2.1"
+  }
+}

@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="mock.js"></script>
+  <link rel="import" href="../cells-text-description.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-text-description></cells-text-description>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<cells-text-description>', function() {
+      var el;
+
+      setup(function() {
+        el = fixture('default');
+      });
+
+      test('Check default properties', () => {
+        el.title = 'Test title';
+        el.subtitle= 'Test subtitle';
+        el.mainDescription = 'Test main description';
+        el.secondaryDescription= 'Test secondary description';
+
+        expect(el).to.have.property('title').that.is.a('string');
+        expect(el).to.have.property('subtitle').that.is.a('string');
+        expect(el).to.have.property('mainDescription').that.is.a('string');
+        expect(el).to.have.property('secondaryDescription').that.is.a('string');
+      });
+
+      test('Check _createInfoArray method if only one text description',() => {
+        el.description = parsedMock;
+        el.title = mock[0].title;
+        el.subtitle = mock[0].subtitle;
+        el.mainDescription = mock[0].mainDescription;
+        el.secondaryDescription = mock[0].secondaryDescription;
+
+        expect(el.description).to.be.deep.equal(mock);
+      });
+
+      test('Check _createInfoArray method if only one text description and no title',() => {
+        el.description = parsedMockNoTitle;
+        el.title = undefined;
+        el.subtitle = mock[0].subtitle;
+        el.mainDescription = mock[0].mainDescription;
+        el.secondaryDescription = mock[0].secondaryDescription;
+        expect(el.description).to.be.deep.equal(mockNoTitle);
+      });
+
+      test('that event gets triggered on title icon click', (done) => {
+        el.title = mock[0].title;
+        el.titleIcon = 'info';
+
+        const eventSpy = sinon.spy();
+        el.addEventListener('cells-text-description-title-icon-click', eventSpy);
+
+        flush(() => {
+          el.shadowRoot.querySelector('cells-st-button').click();
+          assert(eventSpy.calledOnce);
+
+          done();
+        })
+      });
+
+      test('if titleIcon is not set, do not show', () => {
+          const cellsStButton = el.shadowRoot.querySelector('cells-st-button');
+          expect(cellsStButton).to.equal(null);
+      });
+
+      test('icon attribute shows correctly', () => {
+        const titleIcon = 'info';
+
+        expect(el._formatIcon(titleIcon)).to.equal(`coronita:${titleIcon}`);
+      });
+
+      test('if link clicked, event is fired', (done) => {
+        const eventName = 'cells-text-description-link-click';
+        const listener = sinon.spy();
+        el.addEventListener(eventName, listener, { once: true });
+        el.link = {
+          text: 'Link text'
+        }
+        flush(() => {
+          el.shadowRoot.querySelector('#linkButton').click();
+          expect(listener).called;
+          done();
+        });
+
+      });
+
+      test('if main description clicked, event is fired', (done) => {
+        const eventName = 'cells-text-description-main-description-click';
+        const listener = sinon.spy();
+        el.addEventListener(eventName, listener, { once: true });
+        el.mainDescription = {
+          text: 'Link text'
+        }
+        flush(() => {
+          el.shadowRoot.querySelector('.mainDescription').click();
+          expect(listener).called;
+          done();
+        });
+
+      });
+
+      test('if link has no text, cells-st-button doesnt exist', () => {
+        el.link = {};
+        expect(el.shadowRoot.querySelector('#linkButton')).equals(null);
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>cells-molecule-input Demo</title>
+    <script>
+      window.I18nMsg = {};
+      window.I18nMsg.lang = document.documentElement.lang;
+      window.I18nMsg.url = '../locales';
+    </script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+    <link rel="lazy-import" href="../../cells-st-button/cells-st-button.html">
+    <link rel="lazy-import" href="../cells-molecule-input.html">
+    <link rel="lazy-import" href="css/demo-styles.html">
+</head>
+<body unresolved ontouchstart style="margin: 0;">
+
+  <cells-demo-helper
+    selected="8"
+    i18n langs='["en","es"]'
+    locales-path="../locales"
+    available-themes='["cells-coronita-base-theme", "cells-banking-theme"]'
+    events='["type-changed","cells-molecule-input-icon-tap","cells-molecule-input-extra-icon-tap","cells-molecule-input-validate"]'
+    resolution="mobile">
+
+    <cells-demo-case heading="Default" description="Without and with default value, disabled and readonly input">
+      <template>
+        <p>
+          <cells-molecule-input name="yourName"
+            label="label-name"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="defaultValue"
+            label="label-name"
+            type="text"
+            value="Alan Turing">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="disabledInput"
+            label="label-disabled"
+            disabled
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="readonlyInput"
+            label="label-readonly"
+            value="Only can be read"
+            readonly
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="autocomplete_autocorrect"
+            label="autocomplete & autocorrect"
+            autocomplete-value="on"
+            autocorrect-value="on">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="infoMessage"
+            label="label-number"
+            info-message="info-message-number"
+            info-message-icon="coronita:info"
+            type="number">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Types" description="Type text, number, password, email, and disabled input">
+      <template>
+        <p>
+          <cells-molecule-input name="yourName"
+            label="label-name"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="topLabel"
+            label-top
+            label="label-name"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <span>Type a numeric value</span>
+          <cells-molecule-input name="yourIdNumber"
+            label="label-number"
+            type="number">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <span>Type a numeric value</span>
+          <cells-molecule-input name="yourPercentage"
+            label="label-percentage"
+            value="0"
+            type="number"
+            step="10"
+            min="0"
+            max="100">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="yourPassword"
+            label="label-password"
+            type="password">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="yourEmail"
+            label="label-email"
+            type="email">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Autofocus & select value on focus" description="Tapping an input with value and select-all-on-focus will automatically select the value">
+      <template>
+        <p>
+          <cells-molecule-input name="yourName"
+            label="label-name"
+            value="John"
+            select-all-on-focus
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="yourSurname"
+            label="label-surname"
+            autofocus
+            select-all-on-focus
+            type="text">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="React on focus & autofocus" description="Moves up the placeholder when input focused">
+      <template>
+        <p>
+          <cells-molecule-input react-on-focus autofocus
+            name="yourName"
+            label="label-autofocus"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input react-on-focus
+            name="yourName"
+            label="label-click"
+            type="text">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Custom styles (grey background)" description="Grey background, white input field">
+      <template>
+        <style is="custom-style">
+          body {
+            background-color: #F4F4F4;
+          }
+          :root {
+            --cells-molecule-input-background-color: #fff;
+            --cells-molecule-input-disabled-background-color: rgba(255, 255, 255, 0.4);
+            --cells-molecule-input-readonly-wrapper: {
+              background-color: rgba(255, 255, 255, 0.6);
+            };
+          };
+        </style>
+        <p>
+          <cells-molecule-input name="yourName"
+            label="label-name"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="defaultValue"
+            label="label-name"
+            type="text"
+            value="Alan Turing">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="disabledInput"
+            label="label-disabled"
+            disabled
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="readonlyInput"
+            label="label-readonly"
+            value="Only can be read"
+            readonly
+            type="text">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Custom styles (dark background)" description="Blue background">
+      <template>
+        <style is="custom-style">
+          body {
+            background-color: #004481;
+          }
+          :root {
+            --cells-molecule-input-background-color: #2A86CA;
+            --cells-molecule-input-disabled-background-color: rgba(42, 134, 202, 0.4);
+            --cells-molecule-input-field-label-color: #FFF;
+            --cells-molecule-input-disabled-field-label-color: #FFF;
+            --cells-molecule-input-field-input-color: #FFF;
+            --cells-molecule-input-disabled-field-input-color: rgba(255, 255, 255, 0.3);
+            --cells-molecule-input-readonly-wrapper: {
+              background-color: rgba(42, 135, 202, 0.6);
+            };
+          };
+        </style>
+        <p>
+          <cells-molecule-input name="yourName"
+            label="label-name"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="defaultValue"
+            label="label-name"
+            type="text"
+            value="Alan Turing">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="disabledInput"
+            label="label-disabled"
+            disabled
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="readonlyInput"
+            label="label-readonly"
+            value="Only can be read"
+            readonly
+            type="text">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With autocomplete" description="Name and address start type it will give suggestion if user already have saved form data in the broswer">
+      <template>
+        <form>
+          <p>
+            <cells-molecule-input name="fname"
+                                  label="your name"
+                                  type="text" autocompletevalue="shipping given-name">
+            </cells-molecule-input>
+          </p>
+          <p>
+            <cells-molecule-input name="Address"
+                                  label="Address"
+                                  type="text" autocompletevalue="shipping street-address">
+            </cells-molecule-input>
+          </p>
+          <p>
+            <cells-molecule-input name="City"
+                                  label="City"
+                                  type="text" autocompletevalue="shipping address-level2">
+            </cells-molecule-input>
+          </p>
+          <p>
+            <cells-molecule-input name="PostalCode"
+                                  label="Postal Code"
+                                  type="text" autocompletevalue="shipping postal-code">
+            </cells-molecule-input>
+          </p>
+        </form>
+
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With validations" description="Required field, max-length, allowed chars, allowed value (regex), auto-validate, custom error message">
+      <template>
+        <p>
+          <cells-molecule-input name="textRequired"
+            label="label-required"
+            required
+            error-icon="coronita:alert"
+            auto-validate
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="textRequiredNoAsterisk"
+            label="label-validation-required-no-asterisk"
+            required
+            hide-asterisk
+            error-icon="coronita:alert"
+            auto-validate
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="textMaxlength"
+            label="label-validation-max-length"
+            max-length="10"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="justLettersNumbers"
+            label="label-validation-letters-numbers"
+            allowed-chars="[a-zA-Z0-9]"
+            prevent-invalid-input
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="allowedvalue"
+            label="label-validation-letters"
+            allowed-value="^[a-z]+$"
+            auto-validate
+            error-icon="coronita:alert"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="emailValidation"
+            label="label-validation-email"
+            auto-validate
+            required
+            error-message="error-message-email"
+            error-icon="coronita:alert"
+            type="email">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="emailValidationRegex"
+            label="label-validation-regex-email"
+            allowed-value="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.com$"
+            auto-validate
+            required
+            error-message="error-message-email-com"
+            error-icon="coronita:alert"
+            type="email">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="emailValidationRegex"
+            label="label-validation-es-email"
+            allowed-value="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.es$"
+            auto-validate
+            required
+            error-message="error-message-email-es"
+            error-message-icon="coronita:error"
+            error-message-icon-size="24"
+            type="email">
+          </cells-molecule-input>
+        </p>
+        <p>
+
+          <!-- Allow Users to type [0-9-a-z] but validation is done based on ^[a-zA-Z]+$ using input pattern property-->
+          <cells-molecule-input name="customValidationRegex"
+            label="label-validation-regex"
+            auto-validate
+            allowed-value="^[a-zA-Z]+$"
+            allowed-chars="[0-9-a-z]"
+            type="text">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+
+
+    <cells-demo-case heading="With icon" description="One icon, main and toggled icons, custom icon size, always visible icon">
+      <template>
+        <p>
+          <cells-molecule-input name="toggleIcons"
+            label="label-toggle-icons"
+            icon="coronita:search"
+            icon-toggled="coronita:close"
+            toggle-empty-fill-icons
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="oneIcon"
+            label="label-clear-icon"
+            icon="coronita:close"
+            icon-label="icon-label-clear"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="toggle"
+            label="label-toggle-pswd"
+            icon="coronita:visualize"
+            icon-toggled="coronita:hide"
+            icon-label="icon-label-pswd"
+            type="password">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="customSizeIcon"
+            label="label-toggle-size"
+            icon="coronita:close"
+            icon-label="icon-label-clear"
+            icon-size="26"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="alwaysVisibleIcon"
+            label="label-toggle-visible"
+            icon="coronita:close"
+            icon-label="icon-label-clear"
+            icon-visibility="always"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="disabledInputAlwaysVisibleIcon"
+            label="label-icon-disable"
+            icon="coronita:close"
+            icon-label="icon-label-clear"
+            icon-visibility="always"
+            type="text"
+            disabled>
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="preventDefault"
+            label="label-icon"
+            icon="coronita:alarm"
+            icon-toggled="coronita:alert"
+            icon-action="none"
+            icon-label="icon-label-toggle"
+            icon-visibility="focused-content"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="iconFocusedContent"
+            label="label-icon-focused-content"
+            icon-visibility="focused-content"
+            icon="coronita:close"
+            type="text">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With two icons" description="Password field with clear and toggle icons, custom decorative icons">
+      <template>
+        <p>
+          <cells-molecule-input name="passwordClearToggle"
+            label="label-toggle-clear"
+            icon="coronita:visualize"
+            icon-toggled="coronita:hide"
+            icon-label="icon-label-pswd"
+            extra-icon="coronita:close"
+            extra-icon-label="icon-label-clear"
+            type="password">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input name="customIcons"
+            label="label-two-icons"
+            icon="coronita:creditcard"
+            icon-action="none"
+            extra-icon="coronita:barcode"
+            extra-icon-action="none"
+            type="text">
+          </cells-molecule-input>
+        </p>
+        <p>
+          <cells-molecule-input id="locationsearch"
+            label="label-search"
+            shy-placeholder
+            icon="coronita:search"
+            icon-visibility="always"
+            extra-icon="coronita:close"
+            icon-action="event"
+            icon-size="24"
+            type="text">
+          </cells-molecule-input>
+        </p>
+
+        <p>
+          <cells-molecule-input name="emailsearchvalidation"
+            label="label-validation-es-email"
+            icon="coronita:search"
+            icon-visibility="always"
+            icon-size="24"
+            extra-icon="coronita:close"
+            allowed-value="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.es$"
+            auto-validate
+            type="email">
+          </cells-molecule-input>
+        </p>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Required reactive" description="The way it reacts when another component is changing the required property">
+      <template>
+        <p>
+          <cells-st-button class="primary">
+            <button id="requiredBtn">Required</button>
+          </cells-st-button>
+          <cells-st-button class="primary">
+            <button id="notRequiredBtn">Not Required</button>
+          </cells-st-button>
+        </p>
+        <p>Write some text and delete it to see the invalid styles appear or disappear depending on the required attribute.</p>
+        <p>
+          <cells-molecule-input
+            name="requiredToggle"
+            label="label-required-demand"
+            type="text"
+            required
+            auto-validate
+            error-message="error-message-field"
+            error-message-icon="coronita:alert"
+            error-message-icon-size="24"
+            id="requiredToggle">
+          </cells-molecule-input>
+        </p>
+        <script>
+          (function() {
+            var requiredToggleInput = document.querySelector('#requiredToggle');
+            document.querySelector('#requiredBtn').addEventListener('click', function() {
+              requiredToggleInput.required = true;
+            });
+            document.querySelector('#notRequiredBtn').addEventListener('click', function() {
+              requiredToggleInput.required = false;
+            });
+          }());
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Without floating label">
+      <template>
+        <cells-molecule-input label="label-name" shy-placeholder></cells-molecule-input>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Without traduction" description="Directly with the corresponding text">
+        <template>
+          <p>
+            <cells-molecule-input name="yourName"
+              label="Your Name"
+              type="text">
+            </cells-molecule-input>
+          </p>
+          <p>
+            <cells-molecule-input name="defaultValue"
+              label="Your Name"
+              type="text"
+              value="Alan Turing">
+            </cells-molecule-input>
+          </p>
+          <p>
+            <cells-molecule-input name="disabledInput"
+              label="Disabled input"
+              disabled
+              type="text">
+            </cells-molecule-input>
+          </p>
+          <p>
+            <cells-molecule-input name="readonlyInput"
+              label="Readonly input"
+              value="Only can be read"
+              readonly
+              type="text">
+            </cells-molecule-input>
+          </p>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Ripple effect" description="Apply material's ripple effect to main icon">
+          <template>
+            <style is="custom-style">
+              :root {
+                --cells-molecule-input-disabled-background-color: rgba(42, 134, 202, 0.4);
+                --cells-molecule-input-disabled-field-label-color: blue;
+                --cells-molecule-input-disabled-field-input-color: rgba(255, 255, 255, 0.3);
+                --cells-molecule-input-readonly-wrapper: {
+                  background-color: rgba(42, 135, 202, 0.6);
+                };
+            };
+            </style>
+            <p>
+              <cells-molecule-input id="locSearch"
+                label="label-search"
+                shy-placeholder
+                icon="coronita:search"
+                icon-visibility="always"
+                extra-icon="coronita:close"
+                icon-action="event"
+                icon-size="24"
+                icon-ripple-effect
+                type="text">
+              </cells-molecule-input>
+            </p>
+          </template>
+        </cells-demo-case>
+  </cells-demo-helper>
+
+
+
+</body>
+</html>

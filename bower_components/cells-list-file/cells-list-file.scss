@@ -1,0 +1,203 @@
+@import "bower_components/cells-sass/main";
+$action-color: #1973b8 !default;
+$action-alt:      #fff !default;
+$sub-text-color:  #666 !default;
+$bpad: 8px;
+
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: var(--cells-fontDefault, sans-serif);
+
+  @apply --cells-list-file;
+}
+
+:host([hidden]), [hidden] {
+  display: none !important;
+}
+
+p {
+  margin: 0 0 rem(8px);
+}
+
+.list-file-container {
+  display: flex;
+  align-items: flex-start;
+
+  @apply --cells-list-file-container;
+}
+
+.list-file-margin-left {
+  margin-left: rem(20px);
+
+  @apply --cells-list-file-margin-left;
+}
+
+.list-file-margin {
+  margin: rem(32px) rem(16px) rem(32px) rem(16px);
+
+  @apply --cells-list-file-margin;
+}
+
+.media {
+  width:  rem(24px);
+  height: rem(24px);
+
+  &__icon {
+    color: var(--cells-list-file-color-bodycopy--theme , var(--bbva-dark-medium-blue, #{$action-color}));
+
+    @apply --cells-list-file-media-icon;
+  }
+
+  &__actionicon {
+    color: var(--cells-list-file-color-bodycopy--theme , var(--bbva-dark-medium-blue, #{$action-color}));
+    padding-right: 0.5rem;
+    width: var(--cells-list-file-icon-info-size, rem(25px));
+    margin-left: var(--cells-list-file-icon-info-margin-left, rem(2px));
+    font-size: var(--cells-text-size-xxxxl, 1.5rem);
+
+    @apply --cells-list-file-media-action-icon;
+  }
+
+  @apply --cells-list-file-media;
+}
+
+.body {
+  flex: 1;
+  padding-left: rem(8px);
+  line-height: 1.5;
+
+  &__text {
+    color: var(--cells-list-file-color-bodycopy--theme, var(--bbva-dark-medium-blue, #{$action-color}));
+    margin-bottom: 0;
+    word-break: var(--cells-list-file-word-break, break-word);
+    @apply --cells-fontDefaultMedium;
+
+    @apply --cells-list-file-bodycopy-text;
+  }
+
+  &__sub-text {
+    color: var(--cells-list-file-color-body-subtext--theme, var(--bbva-500, #{$sub-text-color}));
+    @apply --cells-fontDefaultLightItalic;
+
+    @apply --cells-list-file-body-sub-text;
+  }
+
+  @apply --cells-list-file-body;
+}
+
+
+
+/* Modify Class  */
+:host(.on-dark) {
+  --cells-list-file-color-bodycopy--theme: var(--bbva-white, #{$action-alt});
+  --cells-list-file-color-body-subtext--theme: var(--bbva-white, #{$action-alt});
+
+  @apply --cells-list-file-on-dark;
+}
+
+/* Helper Class */
+.list-file__message {
+  padding: 0;
+
+  @apply --cells-list-file-message;
+}
+
+:host(.h-gutter) {
+  margin-left: rem(16px);
+  margin-right: rem(16px);
+
+  @apply --cells-list-file-gutter;
+}
+
+:host(.row-gap-bottom-l) {
+  margin-bottom: rem(24px);
+
+  @apply --cells-list-file-row-gap-bottom-l;
+}
+
+:host(.row-gap-bottom-m) {
+  margin-bottom: rem(16px);
+
+  @apply --cells-list-file-row-gap-bottom-m;
+}
+
+:host(.row-gap-top-xxl) {
+  margin-top: rem(40px);
+
+  @apply --cells-list-file-row-gap-top-xxl;
+}
+
+:host(.body-break-word) {
+  .body {
+    &__text {
+      word-break: break-word;
+
+      @apply --cells-list-file-body-break-word-text;
+    }
+  }
+
+  @apply --cells-list-file-body-break-word;
+}
+
+.container-items-with-separator {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--cells-list-file-item-separator-color, var(--bbva-300, #D3D3D3));
+    @apply --cells-list-file-item-separator-not-last-type;
+  }
+  @apply --cells-list-file-item-separator;
+}
+
+.checkbox-selectable-item {
+  --checkbox-label-padding-top: 0px;
+  --cells-checkbox-left-icon-color: var(--cells-list-file-color-bodycopy--theme, var(--bbva-dark-medium-blue, #{$action-color}));
+  --cells-checkbox-button-checkbox-background-color: var(--bbva-white, #fff);
+
+  --cells-checkbox-left-label: #{unquote("{
+    color: var(--cells-list-file-color-bodycopy--theme , var(--bbva-600, #121212));
+    font-size: 1rem;
+    @apply --cells-list-file-checkbox-left-label;
+  }")};
+
+  --cells-checkbox-left-additional-label: #{unquote("{
+    color: var(--cells-list-file-color-bodycopy--theme , var(--bbva-500, #666));
+    @apply --cells-list-file-checkbox-left-additional-label;
+  }")};
+
+  @apply --cells-list-file-checkbox-selectable-item;
+}
+
+.spacing {
+  @mixin gen-spacing($sp) {
+    margin: $sp 0;
+    &-top {
+      margin-top: $sp;
+    }
+    &-bottom {
+      margin-bottom: $sp;
+    }
+  }
+  &-xs {
+    @include gen-spacing(#{$bpad / 2});
+  }
+  &-s {
+    @include gen-spacing(#{$bpad});
+  }
+  &-m, & {
+    @include gen-spacing(#{$bpad * 2});
+  }
+  &-l {
+    @include gen-spacing(#{$bpad * 3});
+  }
+  &-xl {
+    @include gen-spacing(#{$bpad * 4});
+  }
+  &-xxl {
+    @include gen-spacing(#{$bpad * 5});
+  }
+  &-xxxl {
+    @include gen-spacing(#{$bpad * 6});
+  }
+}

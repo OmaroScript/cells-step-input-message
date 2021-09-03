@@ -1,0 +1,45 @@
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../cells-dropdown-layer/cells-dropdown-layer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="cells-dropdown-menu-styles.html">
+
+<dom-module id="cells-dropdown-menu">
+  <template>
+    <style include="cells-dropdown-menu-styles cells-dropdown-menu-shared-styles"></style>
+
+    <cells-dropdown-layer
+      id="layer"
+      class$="[[_setClass()]]"
+      label="[[_setLabel(placeholder, _label)]]"
+      prefix="[[prefix]]"
+      disabled="[[disabled]]"
+      opened="{{opened}}"
+      icon="[[controlIcon]]"
+      icon-disabled="[[iconDisabled]]"
+      icon-open="[[iconOpen]]"
+      control-as-min-width-off="[[controlAsMinWidthOff]]"
+      min-height="[[minHeight]]"
+      opening-x="[[openingX]]"
+      opening-y="[[openingY]]"
+      safe-margin="[[safeMargin]]">
+      <slot></slot>
+      <ul class="list" hidden="[[!items.length]]" role="listbox">
+        <dom-repeat id="dr" items="[[items]]" on-dom-change="_layerWidth">
+          <template>
+            <li class$="item [[_setErrorClass(item.error)]]" role="option" tabindex="-1" disabled$="[[item.disabled]]"  on-click="_itemClick">
+              <div class="control">
+                <iron-icon class="icon" icon="[[item.icon]]" hidden="[[!item.icon]]"></iron-icon>
+                <span class="label">[[item.name]]</span>
+                <iron-icon class="icon-check" icon="[[iconCheck]]"></iron-icon>
+              </div>
+              <div class="line"></div>
+            </li>
+          </template>
+        </dom-repeat>
+      </ul>
+    </cells-dropdown-layer>
+
+  </template>
+  <script src="cells-dropdown-menu.js"></script>
+</dom-module>

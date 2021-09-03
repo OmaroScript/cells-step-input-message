@@ -1,0 +1,175 @@
+<dom-module id="cells-select-modal-styles"><template><style>
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: var(--cells-fontDefault, sans-serif);
+  margin-bottom: 1rem;
+  padding: var(--cells-select-modal-padding-themed, var(--cells-select-modal-padding, 0 0.5rem));
+  --cells-select-modal-document-selector-modal-icon-color: var(--bbva-dark-medium-blue);
+  @apply --cells-select-modal;
+}
+:host button {
+  background: none;
+}
+:host cells-st-button {
+  display: flex;
+  @apply --cells-select-modal-st-button;
+}
+:host cells-st-button .document-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  border: 0;
+  padding: var(--cells-select-modal-img-padding-themed, var(--cells-select-modal-padding, 0 0.5rem));
+  min-width: auto;
+  @apply --cells-select-modal-document-selector;
+}
+:host cells-st-button .document-selector .header-texts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  text-align: left;
+  padding: var(--cells-select-modal-texts-padding-themed, var(--cells-select-modal-padding, 0));
+  @apply --cells-select-modal-header-texts;
+}
+:host cells-st-button .document-selector .header-texts .header-title {
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: var(--cells-select-modal-document-selector-label-color, var(--bbva-500, #666666));
+  line-height: 1.5rem;
+  @apply --cells-select-modal-header-title;
+}
+:host cells-st-button .document-selector .modal-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  --cells-atom-icon-iron-icon: {         min-width: 1.5rem;         height: 1.5rem;         display: block;       };
+  color: var(--cells-select-modal-document-selector-modal-icon-color, var(--bbva-navy, #072146));
+  @apply --cells-select-modal-icon;
+}
+:host cells-st-button .document-selector .placeholder {
+  width: 100%;
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1rem;
+  text-align: left;
+  color: var(--cells-select-modal-document-selector-placeholder-color, var(--bbva-600, #121212));
+  padding: var(--cells-select-modal-placeholder-padding-themed, var(--cells-select-modal-padding, 0 0.5rem));
+  @apply --cells-fontDefaultNormal;
+  @apply --cells-select-modal-placeholder;
+}
+:host cells-st-button .document-selector .placeholder.selected {
+  padding: var(--cells-select-modal-selected-padding-themed, var(--cells-select-modal-padding, 0 0.5rem));
+  color: var(--cells-select-modal-document-selector-placeholder-selected-icon-color, var(--bbva-white, #fff));
+}
+:host cells-st-button .document-selector .secondary {
+  font-size: var(--cells-text-size-15, 0.9375rem);
+  color: var(--cells-select-modal-document-selector-placeholder-color, var(--bbva-500, #666666));
+  padding: var(--cells-select-modal-secondary-padding-themed, var(--cells-select-modal-padding, 0 0.5rem));
+  @apply --cells-fontDefaultLight;
+}
+
+:host([hidden]), [hidden] {
+  display: none !important;
+}
+
+:host([disabled]) {
+  background-color: var(--cells-select-modal-document-selector-bg-color, var(--bbva-100, #F4F4F4));
+  opacity: 0.4;
+  @apply --cells-select-modal-disabled;
+}
+
+:host([is-input-style]) {
+  background-color: var(--cells-select-modal-document-selector-bg-color, var(--bbva-100, #F4F4F4));
+  border-bottom: 1px solid black;
+  height: 3rem;
+  @apply --cells-select-modal-input-style;
+}
+:host([is-input-style]) .document-selector {
+  height: 3rem;
+  width: 100%;
+  @apply --cells-select-modal-input-style-document-selector;
+}
+:host([is-input-style]) .document-selector .header-texts {
+  width: 92%;
+}
+
+:host([is-input-style].size-xl) {
+  height: 3.75rem;
+  @apply --cells-select-modal-input-style-xl;
+}
+:host([is-input-style].size-xl) cells-st-button .document-selector {
+  height: 3.75rem;
+  @apply --cells-select-modal-input-style-xl-document-selector;
+}
+
+:host(:not([is-input-style])) {
+  --cells-select-modal-padding-themed: 0 1rem 0 0;
+  --cells-select-modal-img-padding-themed: 0;
+  --cells-select-modal-padding: 0;
+  --cells-select-modal-texts-padding-themed: 0;
+}
+
+:host(:not([item-selected])[is-input-style]) .header-texts {
+  display: unset;
+}
+:host(:not([item-selected])[is-input-style]) .header-texts .header-title {
+  font-size: var(--cells-text-size-15, 0.9375rem);
+}
+
+:host([is-input-style][item-selected]) {
+  --cells-select-modal-placeholder-padding-themed: 0;
+}
+
+.img-container img {
+  padding: var(--cells-select-modal-img-padding-themed, var(--cells-select-modal-padding, 0 0.5rem));
+  width: 48px;
+}
+
+:host([ellipsis]) .document-selector {
+  width: 100%;
+  @apply --cells-select-modal-input-ellipsis;
+}
+:host([ellipsis]) .document-selector .header-texts {
+  width: 92%;
+}
+:host([ellipsis]) .document-selector .placeholder {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:host(.secondary-ellipsis) .document-selector .header-texts {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+:host(.secondary-ellipsis) .document-selector .placeholder {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:host(.h-gutter) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  @apply --cells-key-values-h-gutter;
+}
+
+:host(.custom-modal) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 0;
+  @apply --cells-select-modal-custom-modal;
+}
+
+:host(.margin-modal-content) {
+  margin: 1rem 1rem 0.5rem 1rem;
+  padding: 0;
+}
+
+:host(.margin-modal-content) .document-selector {
+  padding-left: 1rem;
+}
+</style></template></dom-module>

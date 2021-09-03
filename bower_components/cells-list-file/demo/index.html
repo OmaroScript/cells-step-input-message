@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>Demo cells-list-file</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.url = '../locales';
+  </script>
+
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+  <link rel="lazy-import" href="../cells-list-file.html">
+  <link rel="lazy-import" href="css/demo-styles.html">
+</head>
+
+<body unresolved ontouchstart>
+  <cells-demo-helper events='["cells-list-file-item-clicked", "cells-list-file-edit", "cells-list-file-delete", "cells-list-file-selection-changed"]' i18n
+    available-themes='["cells-glomo-theme", "cells-coronita-base-theme"]' resolution="mobile"
+    breakpoints='{"mobile": { "width": 320, "height": 568, "name": "Mobile" },"tablet": { "width": 768, "height": 640, "name": "Tablet" }, "desktop": { "width": 1024, "height": 600 , "name": "Desktop" }}'>
+    <cells-demo-case heading="Basic" description="A basic example">
+      <template>
+        <cells-list-file list='[{
+            "id": "example1",
+            "text": "Autorizacion para el tratamiento de datos personales",
+            "icon": "coronita:pdf",
+            "subText": "230kb"
+          }]'></cells-list-file>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Basic & message" description="A basic example with message">
+      <template>
+        <cells-list-file list='[{
+            "id": "example2",
+            "text": "File name",
+            "icon": "coronita:pdf",
+            "subText": "230kb",
+            "message": {"type":"info", "icon":"coronita:info", "text":"Helpful text that sits below the field", "iconSize": "16"}
+          }]'></cells-list-file>
+        <cells-list-file class="on-dark" list='[{
+              "id": "example3",
+              "text": "File name",
+              "icon": "coronita:pdf",
+              "subText": "230kb",
+              "message": {"type":"info", "icon":"coronita:info", "text":"Helpful text that sits below the field", "iconSize": "16", "class": "on-dark"}
+            }]'></cells-list-file>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Basic & action files" description="A example with action files">
+      <template>
+        <cells-list-file id="listFiles"></cells-list-file>
+        <script>
+          let listFiles = document.getElementById('listFiles');
+          listFiles.showEdit = true;
+          listFiles.showDelete = true;
+          listFiles.list = [{
+            'id': 'example1',
+            'text': 'PDF333221',
+            'icon': 'coronita:pdf',
+            'subText': '230kb'
+          },
+          {
+            'id': 'example2',
+            'text': 'IMG333222',
+            'icon': 'coronita:jpg',
+            'subText': '240kb'
+          }];
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Files with selection" description="A basic example with selections">
+      <template>
+        <cells-list-file selectable list='[{
+            "id": "item1",
+            "text": "Autorizacion para el tratamiento de datos personales",
+            "icon": "coronita:pdf",
+            "subText": "230kb"
+          },
+          {
+            "id": "item2",
+            "text": "Autorizacion para el tratamiento de datos personales",
+            "icon": "coronita:pdf",
+            "subText": "230kb",
+            "message": {"type":"info", "icon":"coronita:info", "text":"Helpful text that sits below the field", "iconSize": "16"}
+          }]'></cells-list-file>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Files with separator" description="A basic example with separator between items">
+      <template>
+        <cells-list-file selectable separator list='[{
+            "id": "item1",
+            "text": "Autorizacion para el tratamiento de datos personales",
+            "icon": "coronita:pdf",
+            "subText": "230kb",
+            "message": {"type":"info", "icon":"coronita:info", "text":"Helpful text that sits below the field", "iconSize": "16"}
+          },
+          {
+            "id": "item2",
+            "text": "Autorizacion para el tratamiento de datos personales",
+            "icon": "coronita:pdf",
+            "subText": "230kb",
+            "message": {"type":"info", "icon":"coronita:info", "text":"Helpful text that sits below the field", "iconSize": "16"}
+          },
+          {
+            "id": "item3",
+            "text": "Autorizacion para el tratamiento de datos personales",
+            "icon": "coronita:pdf",
+            "subText": "230kb",
+            "message": {"type":"info", "icon":"coronita:info", "text":"Helpful text that sits below the field", "iconSize": "16"}
+          }]'></cells-list-file>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Break word" description="A example with body-break-word class">
+      <template>
+        <cells-list-file class="body-break-word" list='[{
+            "id": "example1",
+            "text": "Reglamento de Gestión para la Suscripción de fondos comunes de inversión",
+            "icon": "coronita:pdf",
+            "subText": "230kb"
+          }]'></cells-list-file>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../cells-amount-behavior/cells-amount-behavior.html">
+<link rel="import" href="cells-atom-amount-styles.html">
+
+<dom-module id="cells-atom-amount">
+  <template>
+    <style include="cells-atom-amount-styles cells-atom-amount-shared-styles"></style>
+    <dom-if if="[[_showScreenReaderOnly]]">
+      <template>
+        <p class="sr-only">[[_screenReaderOnlyText]]</p>
+      </template>
+    </dom-if>
+    <span class="amount-wrapper" role="text" aria-label$="[[_srAmount]]" aria-hidden="[[_showScreenReaderOnly]]">
+      <span class="minus minus--left" hidden$="[[!_showMinusBeforeSymbol]]">-</span>
+      <span class="currency currency--left" hidden$="[[_leftCurrencySymbolHidden]]">[[_currency]]</span>
+      <span class="minus minus--right" hidden$="[[!_showMinusAfterSymbol]]">-</span>
+      <span class="integer">[[_integer]]</span>
+      <span class="separator" hidden$="[[_decimalsHidden]]">[[_separator]]</span>
+      <span class="fractional" hidden$="[[_decimalsHidden]]">[[_fractional]]</span>
+      <span class="abbreviation" hidden$="[[_abbreviationHidden]]">[[_abbreviation]]</span>
+      <span class="currency currency--right" hidden$="[[_rightCurrencySymbolHidden]]">[[_currency]]</span>
+    </span>
+
+  </template>
+  <script src="cells-atom-amount.js"></script>
+</dom-module>

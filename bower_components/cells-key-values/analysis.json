@@ -1,0 +1,704 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "# cells-key-values\n\n![Certificated](https://img.shields.io/badge/certificated-yes-brightgreen.svg) ![Polymer 2.x](https://img.shields.io/badge/Polymer-2.x-green.svg)\n\n[Demo of component in Cells Catalog](https://catalogs.platform.bbva.com/cells)\n\n`<cells-key-values>` displays a key (label) with one or more values. Values can\nbe Primitive (String or Number), an Object with a defined format or an Array of Primitive or Object values (see JS API docs).\n\nContent inside `<cells-key-values>` is placed after the value if the property is used. To place the content before the value use\nthe class \"before-value\".\n\nExample __with content in light DOM__:\n\n```html\n<cells-key-values\n  key=\"Custom content\"\n  value=\"234234234\">\n  <p>I'll appear after the value.</p>\n</cells-key-values>\n```\n\nAvailable __content hooks__:\n\n```html\n<cells-key-values\n  key=\"Custom content\"\n  value=\"234234234\">\n  <p slot=\"before-value\">I'll appear before the value.</p>\n</cells-key-values>\n```\n\n```html\n<cells-key-values\n  key=\"Custom content\"\n  value=\"234234234\">\n  <span slot=\"before-key\">I'll appear before the key.</span>\n  <span slot=\"after-key\">I'll appear after the key.</span>\n</cells-key-values>\n```\n\n```html\n<cells-key-values\n  key=\"Custom content\"\n  value=\"234234234\">\n  <span slot=\"after-key\">I'll appear after the key.</span>\n</cells-key-values>\n```\n\nKey and values can be displayed in three different layouts:\n- Key above value. __Default__ layout. No class needed.\n- __Inline__: Key to the left of the value. Use the class `inline`.\n- __Reversed__: Value above the key only visually. The DOM order is the opposite for accessibility reasons. Use the class `reversed`.\n\n__Simple values__ (primitive types):\n\n```html\n<cells-key-values\n  key=\"Account number\"\n  value=\"987979789879897\">\n</cells-key-values>\n```\n\n__Masked values__ (only for primitive values):\n\n```html\n<cells-key-values\n  key=\"Account number\"\n  value=\"987979789879897\"\n  masked>\n</cells-key-values>\n```\n\n__Monetary values__ (amounts):\n\n```html\n<cells-key-values\n  key=\"Account number\"\n  local-currency=\"EUR\"\n  language=\"en\"\n  value='{\n    \"amount\": 12323,\n    \"currencyCode\": \"EUR\"\n  }'>\n</cells-key-values>\n```\n\n__Multiple values:__\n\n```html\n<cells-key-values\n  key=\"Account number\"\n  local-currency=\"EUR\"\n  language=\"en\"\n  value='[{\n    \"amount\": 12323,\n    \"class\": \"amount-huge\",\n    \"currencyCode\": \"EUR\"\n  }, {\n    \"amount\": 98797,\n    \"currencyCode\": \"CLP\"\n  }]'>\n</cells-key-values>\n```\n__With full masked values:__\n\n```html\n    <cells-key-values\n      key=\"Card pin\"\n      value=\"12345\"\n      masked\n      mask-chars=\"•\"\n      visible-chars=\"0\"\n      show-full-mask>\n    </cells-key-values>\n```\n\n## Styling\n\nThe following custom properties and mixins are available for styling:\n\n### Custom Properties\n| Custom Property | Selector | CSS Property | Value |\n| --------------- | -------- | ------------ | ----- |\n### @apply\n| Mixins                                                  | Selector                                               | Value |\n| ------------------------------------------------------- | ------------------------------------------------------ | ----- |\n| --cells-key-values-list-value                           | .cells-key-values-list > --cells-key-values-value:     | {}    |\n| --cells-key-values-list                                 | .cells-key-values-list                                 | {}    |\n| --cells-key-values-list-item-not-first-child            | .cells-key-values-list li:not(:first-of-type)          | {}    |\n| --cells-key-values-list-inline                          | .cells-key-values-list.inline                          | {}    |\n| --cells-key-values-list-inline-item-not-first-child     | .cells-key-values-list.inline li:not(:first-of-type)   | {}    |\n| --cells-key-values-list-reversed                        | .cells-key-values-list.reversed                        | {}    |\n| --cells-key-values-list-inline-reversed-not-first-child | .cells-key-values-list.reversed li:not(:first-of-type) | {}    |\n\n## Classes for lists\n\nThe component includes helper classes for list elements (`<ul>` or `<ol>`) in case you'd have a list of `<cells-key-values>`.\nThe file needs to be imported and included in your component style.\n\n| Class name            | Description                                      |\n| :-------------------- | :----------------------------------------------- |\n| cells-key-values-list | applicable to `<ul>` elements                    |\n| inline                | applicable to `<ul>` elements in inline layout   |\n| reversed              | applicable to `<ul>` elements in reversed layout |\n\nCheck out the demo to see examples.\n\nExample:\n\n```html\n<link rel=\"import\" href=\"../cells-key-values/cells-key-values-list-styles.html\">\n<style include=\"cells-key-values-list-styles\"></style>\n\n<ul class=\"cells-key-values-list\">\n  <li><cells-key-values></cells-key-values></li>\n</ul>\n```\n### @apply\n| Mixins                                                  | Selector                                               | Value |\n| ------------------------------------------------------- | ------------------------------------------------------ | ----- |\n| --cells-key-values-list-value                           | .cells-key-values-list > --cells-key-values-value:     | {}    |\n| --cells-key-values-list                                 | .cells-key-values-list                                 | {}    |\n| --cells-key-values-list-item-not-first-child            | .cells-key-values-list li:not(:first-of-type)          | {}    |\n| --cells-key-values-list-inline                          | .cells-key-values-list.inline                          | {}    |\n| --cells-key-values-list-inline-item-not-first-child     | .cells-key-values-list.inline li:not(:first-of-type)   | {}    |\n| --cells-key-values-list-reversed                        | .cells-key-values-list.reversed                        | {}    |\n| --cells-key-values-list-inline-reversed-not-first-child | .cells-key-values-list.reversed li:not(:first-of-type) | {}    |",
+      "summary": "Displays key/value pairs with different layouts.",
+      "path": "cells-key-values.js",
+      "properties": [
+        {
+          "name": "key",
+          "type": "string | null | undefined",
+          "description": "Key / Label to display",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 189,
+              "column": 6
+            },
+            "end": {
+              "line": 192,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "value",
+          "type": "Object | null | undefined",
+          "description": "Value to display with the key.\n\nIt can be a primitive value like a String or Number or an\nObject or Array if you want to display monetary values. Accepted properties for the amounts are the same\nthat `<cells-atom-amount>` has, plus a `class` property that can be used to set the `<cells-atom-amount>` size.\nCheck out `<cells-atom-amount>` docs for more info:\nhttps://globaldevtools.bbva.com/bitbucket/projects/CA/repos/cells-atom-amount/browse/README.md\n\nIf you want to display multiple values, just put in an Array with as many Objects\nas you need in the order you want them to be displayed.\n\nIf you want to display multiple PRIMITIVE VALUES, just put in an Array with as many values\nas you need in the order you want them to be displayed.\n\nAlso set `language`, `localCurrency`, `maskChars` and `visibleChars` properties properly\ndepending on the type of value you want to display with the key.\n\nExamples:\n\n```json\nvalue: {\n  amount: 12400,\n  currencyCode: 'EUR',\n  decimalsHidden: true,\n  class: 'amount-medium'\n}\n```\n\nMultiple values:\n\n```json\nvalue: [{\n  amount: 12000,\n  currencyCode: 'EUR',\n  class: 'amount-huge'\n}, {\n  amount: 3400,\n  currencyCode: 'USD'\n}]\n```",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 235,
+              "column": 6
+            },
+            "end": {
+              "line": 238,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Object"
+            }
+          },
+          "defaultValue": "{}"
+        },
+        {
+          "name": "localCurrency",
+          "type": "string | null | undefined",
+          "description": "Local currency for amounts / monetary values",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 244,
+              "column": 6
+            },
+            "end": {
+              "line": 247,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "language",
+          "type": "string | null | undefined",
+          "description": "Language currency for amounts / monetary values",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 253,
+              "column": 6
+            },
+            "end": {
+              "line": 256,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "masked",
+          "type": "boolean | null | undefined",
+          "description": "Set to true to display the value masked.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 261,
+              "column": 6
+            },
+            "end": {
+              "line": 264,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "removeDefaultValueClass",
+          "type": "boolean | null | undefined",
+          "description": "Remove default value class",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 269,
+              "column": 6
+            },
+            "end": {
+              "line": 272,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "maskChars",
+          "type": "string | null | undefined",
+          "description": "Chars to mask a value with",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 278,
+              "column": 6
+            },
+            "end": {
+              "line": 281,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"*\""
+        },
+        {
+          "name": "keyClass",
+          "type": "string | null | undefined",
+          "description": "Key class",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 286,
+              "column": 6
+            },
+            "end": {
+              "line": 289,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "keyIcon",
+          "type": "string | null | undefined",
+          "description": "Key icon",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 294,
+              "column": 6
+            },
+            "end": {
+              "line": 294,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "visibleChars",
+          "type": "number | null | undefined",
+          "description": "Amount of visible chars after the masking char",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 300,
+              "column": 6
+            },
+            "end": {
+              "line": 303,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          },
+          "defaultValue": "4"
+        },
+        {
+          "name": "showFullMask",
+          "type": "boolean | null | undefined",
+          "description": "Show full masked characters",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 308,
+              "column": 6
+            },
+            "end": {
+              "line": 311,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "iconMasked",
+          "type": "string | null | undefined",
+          "description": "Icon (code) to display when the value is masked.\nOnly will be shown if both, iconMaked and iconNotMasked are set.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 316,
+              "column": 6
+            },
+            "end": {
+              "line": 319,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "iconNotMasked",
+          "type": "string | null | undefined",
+          "description": "Icon (code) to display when the value is not masked.\nOnly will be shown if both, iconMaked and iconNotMasked are set.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 325,
+              "column": 6
+            },
+            "end": {
+              "line": 328,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "abbreviations",
+          "type": "Object | null | undefined",
+          "description": "Set of abbreviations that can be applied depending on scale property value.<br>\nExample:\n```js\n{\n  2: 'hundreds',\n  3: 'thousands',\n  4: 'tenthousands',\n  6: 'Mill…',\n  9: 'Bill…'\n}\n```",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 343,
+              "column": 6
+            },
+            "end": {
+              "line": 346,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Object"
+            }
+          },
+          "defaultValue": "{}"
+        }
+      ],
+      "methods": [
+        {
+          "name": "_toArray",
+          "description": "Puts value into an Array if it is not an Array",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 355,
+              "column": 2
+            },
+            "end": {
+              "line": 357,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "type": "Array",
+            "desc": "Contains the given value in an Array (if it wasn't an array initially)"
+          }
+        },
+        {
+          "name": "_isPrimitive",
+          "description": "Checks if 'value' is a primitive Javascript type",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 364,
+              "column": 2
+            },
+            "end": {
+              "line": 366,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "True if value is primitive"
+          }
+        },
+        {
+          "name": "_getAmountClass",
+          "description": "Get amount class",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 374,
+              "column": 2
+            },
+            "end": {
+              "line": 376,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "currentClass",
+              "type": "String",
+              "defaultValue": "''"
+            }
+          ],
+          "return": {
+            "type": "String"
+          }
+        },
+        {
+          "name": "_isAmount",
+          "description": "Checks if 'value' is an amount",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 383,
+              "column": 2
+            },
+            "end": {
+              "line": 385,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "True if value is an amount"
+          }
+        },
+        {
+          "name": "_keyIconClicked",
+          "description": "Launch 'key-icon-click' event with id",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 391,
+              "column": 2
+            },
+            "end": {
+              "line": 393,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "ev",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 178,
+          "column": 0
+        },
+        "end": {
+          "line": 394,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "Polymer.Element",
+      "name": "CellsKeyValues",
+      "attributes": [
+        {
+          "name": "key",
+          "description": "Key / Label to display",
+          "sourceRange": {
+            "start": {
+              "line": 189,
+              "column": 6
+            },
+            "end": {
+              "line": 192,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "value",
+          "description": "Value to display with the key.\n\nIt can be a primitive value like a String or Number or an\nObject or Array if you want to display monetary values. Accepted properties for the amounts are the same\nthat `<cells-atom-amount>` has, plus a `class` property that can be used to set the `<cells-atom-amount>` size.\nCheck out `<cells-atom-amount>` docs for more info:\nhttps://globaldevtools.bbva.com/bitbucket/projects/CA/repos/cells-atom-amount/browse/README.md\n\nIf you want to display multiple values, just put in an Array with as many Objects\nas you need in the order you want them to be displayed.\n\nIf you want to display multiple PRIMITIVE VALUES, just put in an Array with as many values\nas you need in the order you want them to be displayed.\n\nAlso set `language`, `localCurrency`, `maskChars` and `visibleChars` properties properly\ndepending on the type of value you want to display with the key.\n\nExamples:\n\n```json\nvalue: {\n  amount: 12400,\n  currencyCode: 'EUR',\n  decimalsHidden: true,\n  class: 'amount-medium'\n}\n```\n\nMultiple values:\n\n```json\nvalue: [{\n  amount: 12000,\n  currencyCode: 'EUR',\n  class: 'amount-huge'\n}, {\n  amount: 3400,\n  currencyCode: 'USD'\n}]\n```",
+          "sourceRange": {
+            "start": {
+              "line": 235,
+              "column": 6
+            },
+            "end": {
+              "line": 238,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined"
+        },
+        {
+          "name": "local-currency",
+          "description": "Local currency for amounts / monetary values",
+          "sourceRange": {
+            "start": {
+              "line": 244,
+              "column": 6
+            },
+            "end": {
+              "line": 247,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "language",
+          "description": "Language currency for amounts / monetary values",
+          "sourceRange": {
+            "start": {
+              "line": 253,
+              "column": 6
+            },
+            "end": {
+              "line": 256,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "masked",
+          "description": "Set to true to display the value masked.",
+          "sourceRange": {
+            "start": {
+              "line": 261,
+              "column": 6
+            },
+            "end": {
+              "line": 264,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "remove-default-value-class",
+          "description": "Remove default value class",
+          "sourceRange": {
+            "start": {
+              "line": 269,
+              "column": 6
+            },
+            "end": {
+              "line": 272,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "mask-chars",
+          "description": "Chars to mask a value with",
+          "sourceRange": {
+            "start": {
+              "line": 278,
+              "column": 6
+            },
+            "end": {
+              "line": 281,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "key-class",
+          "description": "Key class",
+          "sourceRange": {
+            "start": {
+              "line": 286,
+              "column": 6
+            },
+            "end": {
+              "line": 289,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "key-icon",
+          "description": "Key icon",
+          "sourceRange": {
+            "start": {
+              "line": 294,
+              "column": 6
+            },
+            "end": {
+              "line": 294,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "visible-chars",
+          "description": "Amount of visible chars after the masking char",
+          "sourceRange": {
+            "start": {
+              "line": 300,
+              "column": 6
+            },
+            "end": {
+              "line": 303,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "show-full-mask",
+          "description": "Show full masked characters",
+          "sourceRange": {
+            "start": {
+              "line": 308,
+              "column": 6
+            },
+            "end": {
+              "line": 311,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "icon-masked",
+          "description": "Icon (code) to display when the value is masked.\nOnly will be shown if both, iconMaked and iconNotMasked are set.",
+          "sourceRange": {
+            "start": {
+              "line": 316,
+              "column": 6
+            },
+            "end": {
+              "line": 319,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-not-masked",
+          "description": "Icon (code) to display when the value is not masked.\nOnly will be shown if both, iconMaked and iconNotMasked are set.",
+          "sourceRange": {
+            "start": {
+              "line": 325,
+              "column": 6
+            },
+            "end": {
+              "line": 328,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "abbreviations",
+          "description": "Set of abbreviations that can be applied depending on scale property value.<br>\nExample:\n```js\n{\n  2: 'hundreds',\n  3: 'thousands',\n  4: 'tenthousands',\n  6: 'Mill…',\n  9: 'Bill…'\n}\n```",
+          "sourceRange": {
+            "start": {
+              "line": 343,
+              "column": 6
+            },
+            "end": {
+              "line": 346,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cells-key-values"
+    }
+  ]
+}

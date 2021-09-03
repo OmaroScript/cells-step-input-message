@@ -1,0 +1,835 @@
+{
+    "schema_version": "1.0.0",
+    "elements": [
+        {
+            "description": "globals _",
+            "summary": "",
+            "path": "cells-step-input-message.js",
+            "properties": [
+                {
+                    "name": "title",
+                    "type": "string",
+                    "description": "Variable to set the title of the step",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 42,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 45,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"cells-step-input-message-title\""
+                },
+                {
+                    "name": "description",
+                    "type": "string",
+                    "description": "Variable to set the description of the step",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 50,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 53,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"cells-step-input-message-description\""
+                },
+                {
+                    "name": "stepChangeLabel",
+                    "type": "string",
+                    "description": "Variable to set the description of the step",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 58,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 61,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"cells-step-input-message-step-change-label\""
+                },
+                {
+                    "name": "inputPlaceholder",
+                    "type": "string",
+                    "description": "Variable to set the placeholder of the input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 66,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 69,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"cells-step-input-message-placeholder-input\""
+                },
+                {
+                    "name": "infoMessageDescription",
+                    "type": "string",
+                    "description": "Variable to set the description of the icon-message",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 74,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 76,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    }
+                },
+                {
+                    "name": "infoMessageType",
+                    "type": "string",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 77,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 80,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"info\""
+                },
+                {
+                    "name": "continueButton",
+                    "type": "string",
+                    "description": "Variable to set the confirm button text",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 85,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 88,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"cells-step-input-message-continue-button\""
+                },
+                {
+                    "name": "input",
+                    "type": "Object",
+                    "description": "Variable to set the input. It can be any Number, String or Amount object",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 93,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 93,
+                            "column": 21
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    }
+                },
+                {
+                    "name": "isAmount",
+                    "type": "boolean",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 94,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 97,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "language",
+                    "type": "string",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 98,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 101,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"es-pe\""
+                },
+                {
+                    "name": "localCurrency",
+                    "type": "string",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 102,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 105,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"PEN\""
+                },
+                {
+                    "name": "inputLabel",
+                    "type": "string",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 106,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 109,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"cells-step-input-message-input-label\""
+                },
+                {
+                    "name": "max",
+                    "type": "number",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 110,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 113,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "null"
+                },
+                {
+                    "name": "min",
+                    "type": "number",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 114,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 117,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "null"
+                },
+                {
+                    "name": "hideDecimalsMessage",
+                    "type": "boolean",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 118,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 121,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "true"
+                },
+                {
+                    "name": "showSkeleton",
+                    "type": "boolean",
+                    "description": "Indicates if the component should show a skeleton before a data is set",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 125,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 128,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "_showSkeleton",
+                    "type": "boolean",
+                    "description": "Computed value that indicates if skeleton needs to be shown",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 132,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 135,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "readOnly": true
+                        }
+                    }
+                },
+                {
+                    "name": "filledAmount",
+                    "type": "Object",
+                    "description": "Amount shown in filled style. Needs to be different because data structure is not the same.",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 139,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 141,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    }
+                },
+                {
+                    "name": "filledInputLabel",
+                    "type": "string",
+                    "description": "Text label shown in cells-key-values in filled style",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 145,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 148,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {}
+                    },
+                    "defaultValue": "\"cells-step-input-message-filled-input-label\""
+                }
+            ],
+            "methods": [
+                {
+                    "name": "connectedCallback",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 152,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 155,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": []
+                },
+                {
+                    "name": "disconnectedCallback",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 157,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 160,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": []
+                },
+                {
+                    "name": "reset",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 162,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 164,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": []
+                },
+                {
+                    "name": "isValid",
+                    "description": "",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 166,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 168,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": []
+                },
+                {
+                    "name": "_onContinue",
+                    "description": "",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 170,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 176,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": []
+                },
+                {
+                    "name": "_computeShowSkeleton",
+                    "description": "",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 178,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 180,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "showSkeleton"
+                        },
+                        {
+                            "name": "input"
+                        }
+                    ]
+                },
+                {
+                    "name": "_computeAmountSet",
+                    "description": "",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 182,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 184,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "event"
+                        }
+                    ]
+                }
+            ],
+            "staticMethods": [],
+            "demos": [],
+            "metadata": {},
+            "sourceRange": {
+                "start": {
+                    "line": 31,
+                    "column": 2
+                },
+                "end": {
+                    "line": 185,
+                    "column": 3
+                }
+            },
+            "privacy": "public",
+            "superclass": "HTMLElement",
+            "name": "CellsStepInputMessage",
+            "attributes": [
+                {
+                    "name": "title",
+                    "description": "Variable to set the title of the step",
+                    "sourceRange": {
+                        "start": {
+                            "line": 42,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 45,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "description": "Variable to set the description of the step",
+                    "sourceRange": {
+                        "start": {
+                            "line": 50,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 53,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "step-change-label",
+                    "description": "Variable to set the description of the step",
+                    "sourceRange": {
+                        "start": {
+                            "line": 58,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 61,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "input-placeholder",
+                    "description": "Variable to set the placeholder of the input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 66,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 69,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "info-message-description",
+                    "description": "Variable to set the description of the icon-message",
+                    "sourceRange": {
+                        "start": {
+                            "line": 74,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 76,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "info-message-type",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 77,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 80,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "continue-button",
+                    "description": "Variable to set the confirm button text",
+                    "sourceRange": {
+                        "start": {
+                            "line": 85,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 88,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "input",
+                    "description": "Variable to set the input. It can be any Number, String or Amount object",
+                    "sourceRange": {
+                        "start": {
+                            "line": 93,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 93,
+                            "column": 21
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Object"
+                },
+                {
+                    "name": "is-amount",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 94,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 97,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean"
+                },
+                {
+                    "name": "language",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 98,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 101,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "local-currency",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 102,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 105,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "input-label",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 106,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 109,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                },
+                {
+                    "name": "max",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 110,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 113,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number"
+                },
+                {
+                    "name": "min",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 114,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 117,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number"
+                },
+                {
+                    "name": "hide-decimals-message",
+                    "description": "",
+                    "sourceRange": {
+                        "start": {
+                            "line": 118,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 121,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean"
+                },
+                {
+                    "name": "show-skeleton",
+                    "description": "Indicates if the component should show a skeleton before a data is set",
+                    "sourceRange": {
+                        "start": {
+                            "line": 125,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 128,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean"
+                },
+                {
+                    "name": "filled-amount",
+                    "description": "Amount shown in filled style. Needs to be different because data structure is not the same.",
+                    "sourceRange": {
+                        "start": {
+                            "line": 139,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 141,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Object"
+                },
+                {
+                    "name": "filled-input-label",
+                    "description": "Text label shown in cells-key-values in filled style",
+                    "sourceRange": {
+                        "start": {
+                            "line": 145,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 148,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string"
+                }
+            ],
+            "events": [],
+            "styling": {
+                "cssVariables": [],
+                "selectors": []
+            },
+            "slots": [],
+            "tagname": "cells-step-input-message"
+        }
+    ]
+}

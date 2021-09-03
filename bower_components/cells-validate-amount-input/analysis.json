@@ -1,0 +1,2476 @@
+{
+    "schema_version": "1.0.0",
+    "elements": [
+        {
+            "description": "# cells-validate-amount-input\n\nEnter amount component.\n\nExample:\n```html\n<cells-validate-amount-input></cells-validate-amount-input>\n```\n\n```\n\n## Styling\n\nThe following custom properties and mixins are available for styling:\n\n| Custom property | Description     | Default        |\n|:----------------|:----------------|:--------------:|\n| --cells-validate-amount-input  | empty mixin     | {}             |\n| --cells-validate-amount-input-step-inactive  | empty mixin     | {}             |\n| --cells-validate-amount-input-step-inactive__txt  | empty mixin     | {}             |\n| --cells-validate-amount-input__txt  | empty mixin     | {}             |\n| --cells-validate-amount-input__btn  | empty mixin     | {}             |\n\neslint new-cap: [2, {\"capIsNewExceptions\": [\"AmountBehavior\"]}]",
+            "summary": "",
+            "path": "cells-validate-amount-input.js",
+            "properties": [
+                {
+                    "name": "setAmount",
+                    "type": "number | null | undefined",
+                    "description": "Amount set in the input from the outside.",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 96,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 99,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "observer": "\"_validateFirstAmount\"",
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "amount",
+                    "type": "number | null | undefined",
+                    "description": "Output amount.\nNot visible",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 104,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 107,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "notify": true,
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "pattern",
+                    "type": "string | null | undefined",
+                    "description": "Input pattern validation",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 111,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 113,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "numeralPositiveOnly",
+                    "type": "boolean | null | undefined",
+                    "description": "Allow only positive numbers in amount input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 117,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 120,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "maxChars",
+                    "type": "number | null | undefined",
+                    "description": "Limit max characters in amount input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 124,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 126,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "name",
+                    "type": "string | null | undefined",
+                    "description": "Name required in amount component\nMandatory and needs to be unique to avoid conflicts with cleave.js",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 131,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 134,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"enterAmount\""
+                },
+                {
+                    "name": "language",
+                    "type": "string | null | undefined",
+                    "description": "Language for the currency",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 138,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 140,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "currencyCode",
+                    "type": "string | null | undefined",
+                    "description": "ISO 4217 code for the currency",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 144,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 146,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "localCurrency",
+                    "type": "string | null | undefined",
+                    "description": "ISO 4217 code for the local currency",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 150,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 152,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "initialCurrency",
+                    "type": "string | null | undefined",
+                    "description": "initial currency value before to be changed",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 156,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 158,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "iconSize",
+                    "type": "string | null | undefined",
+                    "description": "The icon size of the icon displayed on info and error messages. View documentation for the icon component",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 162,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 164,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "multiple",
+                    "type": "number | null | undefined",
+                    "description": "When setted, the amount entered should be a multiple of this number",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 168,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 170,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "hideContinueBtn",
+                    "type": "boolean | null | undefined",
+                    "description": "Hide continue button",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 174,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 177,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "image",
+                    "type": "string | null | undefined",
+                    "description": "Image to show in cells-molecule-amount-input component",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 181,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 183,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "hideSelectorIcon",
+                    "type": "boolean | null | undefined",
+                    "description": "Hide select-modal selector icon",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 187,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 189,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    }
+                },
+                {
+                    "name": "amountImage",
+                    "type": "string | null | undefined",
+                    "description": "Image to place inside amount input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 193,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 195,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "label",
+                    "type": "string | null | undefined",
+                    "description": "Label to show as placeholder inside amount-input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 199,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 202,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"cells-validate-amount-input-amount\""
+                },
+                {
+                    "name": "infoMessage",
+                    "type": "string | null | undefined",
+                    "description": "Info message to show below amount input. Can be used with ${min} ${max} ${userBalance} ${multiple} ${_userRemainingBalance}",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 206,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 208,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "_computedInfoMessage",
+                    "type": "string | null | undefined",
+                    "description": "Already translated info message with amounts filled inside literal",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 212,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 215,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "readOnly": true,
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "hideInfoMessage",
+                    "type": "boolean | null | undefined",
+                    "description": "Hide info message",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 219,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 222,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "hideDecimalsMessage",
+                    "type": "boolean | null | undefined",
+                    "description": "Hide amount decimals in info/error messages",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 226,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 229,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "max",
+                    "type": "number | null | undefined",
+                    "description": "Max limit to validate amount",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 233,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 235,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "min",
+                    "type": "number | null | undefined",
+                    "description": "Min limit to validate amount",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 239,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 241,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "userBalance",
+                    "type": "number | null | undefined",
+                    "description": "User Balance to validate amount input and calculate user remaining balance after the input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 245,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 247,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "_userRemainingBalance",
+                    "type": "number | null | undefined",
+                    "description": "Auto calculated remaining balance with user balance and amount input",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 251,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 254,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "readOnly": true,
+                            "attributeType": "Number"
+                        }
+                    }
+                },
+                {
+                    "name": "_valid",
+                    "type": "boolean | null | undefined",
+                    "description": "Auto calculated boolean indicating if amount is valid depending on limits/balance",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 258,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 261,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "notify": true,
+                            "attributeType": "Boolean"
+                        }
+                    }
+                },
+                {
+                    "name": "invalid",
+                    "type": "boolean | null | undefined",
+                    "description": "Negation of `_valid` to comply with cells inputs `invalid` property",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 265,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 270,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "notify": true,
+                            "readOnly": true,
+                            "attributeType": "Boolean"
+                        }
+                    }
+                },
+                {
+                    "name": "_buttonIsEnabled",
+                    "type": "boolean | null | undefined",
+                    "description": "Indicates if continue button should be enabled",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 274,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 277,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "_allAmounts",
+                    "type": "Object | null | undefined",
+                    "description": "Auto calculated object containing all amounts introduced, to correctly format them and use them in info/error messages",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 281,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 284,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "readOnly": true,
+                            "attributeType": "Object"
+                        }
+                    }
+                },
+                {
+                    "name": "errorMessage",
+                    "type": "string | null | undefined",
+                    "description": "Error message",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 288,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 290,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "_computedErrorMessage",
+                    "type": "string | null | undefined",
+                    "description": "Already translated error message with amounts filled inside literal",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 294,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 297,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "readOnly": true,
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "errorPrefix",
+                    "type": "string | null | undefined",
+                    "description": "Prefix to include in error messages. This way every operative can have different keys for same error validation messages.",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 301,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 304,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"cells-validate-amount-input\""
+                },
+                {
+                    "name": "remainingInfoMessage",
+                    "type": "string | null | undefined",
+                    "description": "When user sets a remainingInfoMessage, user can see his remaining balance with a different message when entering an amount",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 308,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 310,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    }
+                },
+                {
+                    "name": "disabled",
+                    "type": "boolean | null | undefined",
+                    "description": "If true, the element is disabled",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 314,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 316,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    }
+                },
+                {
+                    "name": "buttonEventName",
+                    "type": "string | null | undefined",
+                    "description": "Event dispatched on validate button pressed",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 320,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 323,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"continue-pressed\""
+                },
+                {
+                    "name": "amountChangedEventName",
+                    "type": "string | null | undefined",
+                    "description": "Event dispatched on amount changed pressed",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 327,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 330,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"amount-changed-on-blur\""
+                },
+                {
+                    "name": "defaultAmountClasses",
+                    "type": "string | null | undefined",
+                    "description": "Default class set in cells-molecule-amount-input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 335,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 338,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"limited-amount-input\""
+                },
+                {
+                    "name": "amountClasses",
+                    "type": "string | null | undefined",
+                    "description": "Class set in cells-molecule-amout-input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 342,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 345,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"\""
+                },
+                {
+                    "name": "setInitialDecimals",
+                    "type": "Boolean",
+                    "description": "Flag to control if formatting of the initial amount is not necessary",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 350,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 353,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "autoFormat",
+                    "type": "Boolean",
+                    "description": "IF Enabled the value of the input will change to the output\non blur. Turning \"0\" into \"0.00\"",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 359,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 362,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "customErrorMessage",
+                    "type": "String",
+                    "description": "Text label used when a custom message is needed at the error message",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 367,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 370,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"\""
+                },
+                {
+                    "name": "disableDecimal",
+                    "type": "Boolean",
+                    "description": "If true, deny the insert of decimals",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 375,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 378,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "customErrorMessageMin",
+                    "type": "String",
+                    "description": "Text label used when a custom message is needed at the error message on min amount",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 383,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 386,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"\""
+                },
+                {
+                    "name": "customErrorMessageMax",
+                    "type": "String",
+                    "description": "Text label used when a custom message is needed at the error message on max amount",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 391,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 394,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"\""
+                },
+                {
+                    "name": "validateOnInputChange",
+                    "type": "Boolean",
+                    "description": "If enabled will use _validate on amount-input-changed instead of __validateOnAmountChanged",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 399,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 402,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "showInputRightCurrencyIcon",
+                    "type": "boolean | null | undefined",
+                    "description": "Flag that handles the right currency icon of the input",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 406,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 409,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "spaceCurrency",
+                    "type": "Boolean",
+                    "description": "if true, currency space appears",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 414,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 417,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "disableValidateOnFocusOut",
+                    "type": "Boolean",
+                    "description": "disable validate input on focus out",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 422,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 425,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "disableValidateOnBlur",
+                    "type": "Boolean",
+                    "description": "disable validate input on blur",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 430,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 433,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "Boolean"
+                        }
+                    },
+                    "defaultValue": "false"
+                },
+                {
+                    "name": "type",
+                    "type": "string | null | undefined",
+                    "description": "Input type config",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 437,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 440,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"\""
+                },
+                {
+                    "name": "inputMode",
+                    "type": "string | null | undefined",
+                    "description": "Input mode config",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 444,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 447,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {
+                        "polymer": {
+                            "attributeType": "String"
+                        }
+                    },
+                    "defaultValue": "\"\""
+                }
+            ],
+            "methods": [
+                {
+                    "name": "reset",
+                    "description": "Resets this enterAmountInput's input value.",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 460,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 462,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [],
+                    "return": {
+                        "type": "void"
+                    }
+                },
+                {
+                    "name": "_validate",
+                    "description": "Validates amount with every condition set",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 468,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 495,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "evt"
+                        }
+                    ],
+                    "return": {
+                        "type": "void"
+                    }
+                },
+                {
+                    "name": "__validateOnAmountChanged",
+                    "description": "Validation every time amount changed",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 500,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 515,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "evt"
+                        }
+                    ],
+                    "return": {
+                        "type": "void"
+                    }
+                },
+                {
+                    "name": "__validateUserBalance",
+                    "description": "Checks if user has enough balance for the amount user has introduced",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 523,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 530,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "userBalance",
+                            "type": "number"
+                        },
+                        {
+                            "name": "amount",
+                            "type": "number"
+                        },
+                        {
+                            "name": "errorPrefix",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "__validateMultiple",
+                    "description": "Checks if a multiple is set and amount introduced is multiple of that number",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 538,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 545,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "amount",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "multiple",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "errorPrefix",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "__validateMinAndMax",
+                    "description": "Validates amount input with mix and max",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 554,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 562,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "amount",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "min",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "max",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "errorPrefix",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "__validateMax",
+                    "description": "Validates if amount is below max",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 570,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 577,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "amount",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "max",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "errorPrefix",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "__validateMin",
+                    "description": "Validates if amount is above min",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 585,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 592,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "amount",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "min",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "errorPrefix",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "_calculateRemaining",
+                    "description": "Calculates remaining user balance",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 599,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 601,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "amount",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "userBalance",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "computeAllAmounts",
+                    "description": "Generates an object containing all formated amounts available for translation function in locales.",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 615,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 623,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "min",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "max",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "multiple",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "userBalance",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "_userRemainingBalance",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "localCurrency",
+                            "type": "String"
+                        },
+                        {
+                            "name": "currencyCode"
+                        },
+                        {
+                            "name": "language",
+                            "type": "String"
+                        },
+                        {
+                            "name": "hideDecimalsMessage",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "spaceCurrency",
+                            "type": "Boolean"
+                        }
+                    ]
+                },
+                {
+                    "name": "computeInfoMessage",
+                    "description": "Translates the info message set, this is made here because we have all amounts available for translation",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 632,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 640,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "infoMessage",
+                            "type": "String"
+                        },
+                        {
+                            "name": "_allAmounts",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "amount",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "remainingInfoMessage",
+                            "type": "String"
+                        },
+                        {
+                            "name": "hideInfoMessage"
+                        }
+                    ]
+                },
+                {
+                    "name": "computeErrorMessage",
+                    "description": "Translates the error message set, this is made here because we have all amounts available for translation",
+                    "privacy": "public",
+                    "sourceRange": {
+                        "start": {
+                            "line": 647,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 649,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "errorMessage",
+                            "type": "String"
+                        },
+                        {
+                            "name": "_allAmounts",
+                            "type": "Object"
+                        }
+                    ]
+                },
+                {
+                    "name": "_sendAmountOutput",
+                    "description": "Dispatches an event with the amount set",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 655,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 657,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [],
+                    "return": {
+                        "type": "void"
+                    }
+                },
+                {
+                    "name": "_fireEvent",
+                    "description": "",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 659,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 665,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "eventName"
+                        },
+                        {
+                            "name": "amount"
+                        }
+                    ],
+                    "return": {
+                        "type": "void"
+                    }
+                },
+                {
+                    "name": "__setButtonEnabled",
+                    "description": "Sets correct value for validate button to be enabled",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 672,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 678,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "_valid",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "amount",
+                            "type": "Number"
+                        }
+                    ],
+                    "return": {
+                        "type": "void"
+                    }
+                },
+                {
+                    "name": "__getAmountClasses",
+                    "description": "Computed the classes set in <cells-molecule-amount-input> and return concat of string params.",
+                    "privacy": "private",
+                    "sourceRange": {
+                        "start": {
+                            "line": 686,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 688,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "defaultAmountClasses",
+                            "type": "String"
+                        },
+                        {
+                            "name": "amountClasses",
+                            "type": "String"
+                        }
+                    ],
+                    "return": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "name": "_setInvalid",
+                    "description": "Negates _valid to set `invalid` value",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 695,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 697,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "_valid",
+                            "type": "Boolean"
+                        }
+                    ],
+                    "return": {
+                        "type": "Boolean"
+                    }
+                },
+                {
+                    "name": "_onKeyboardEnter",
+                    "description": "Fires the blur after clicking enter on the keyboard",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 702,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 707,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "event"
+                        }
+                    ]
+                },
+                {
+                    "name": "_inputBlur",
+                    "description": "Function to fire blur",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 712,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 716,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [],
+                    "return": {
+                        "type": "void"
+                    }
+                },
+                {
+                    "name": "_validateFirstAmount",
+                    "description": "Validate first amount included",
+                    "privacy": "protected",
+                    "sourceRange": {
+                        "start": {
+                            "line": 721,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 725,
+                            "column": 5
+                        }
+                    },
+                    "metadata": {},
+                    "params": [
+                        {
+                            "name": "newValue"
+                        },
+                        {
+                            "name": "oldValue"
+                        }
+                    ],
+                    "return": {
+                        "type": "void"
+                    }
+                }
+            ],
+            "staticMethods": [],
+            "demos": [
+                {
+                    "url": "demo/index.html",
+                    "description": ""
+                }
+            ],
+            "metadata": {},
+            "sourceRange": {
+                "start": {
+                    "line": 86,
+                    "column": 2
+                },
+                "end": {
+                    "line": 726,
+                    "column": 3
+                }
+            },
+            "privacy": "public",
+            "superclass": "HTMLElement",
+            "name": "CellsValidateAmountInput",
+            "attributes": [
+                {
+                    "name": "set-amount",
+                    "description": "Amount set in the input from the outside.",
+                    "sourceRange": {
+                        "start": {
+                            "line": 96,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 99,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number | null | undefined"
+                },
+                {
+                    "name": "amount",
+                    "description": "Output amount.\nNot visible",
+                    "sourceRange": {
+                        "start": {
+                            "line": 104,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 107,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number | null | undefined"
+                },
+                {
+                    "name": "pattern",
+                    "description": "Input pattern validation",
+                    "sourceRange": {
+                        "start": {
+                            "line": 111,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 113,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "numeral-positive-only",
+                    "description": "Allow only positive numbers in amount input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 117,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 120,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "max-chars",
+                    "description": "Limit max characters in amount input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 124,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 126,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number | null | undefined"
+                },
+                {
+                    "name": "name",
+                    "description": "Name required in amount component\nMandatory and needs to be unique to avoid conflicts with cleave.js",
+                    "sourceRange": {
+                        "start": {
+                            "line": 131,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 134,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "language",
+                    "description": "Language for the currency",
+                    "sourceRange": {
+                        "start": {
+                            "line": 138,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 140,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "currency-code",
+                    "description": "ISO 4217 code for the currency",
+                    "sourceRange": {
+                        "start": {
+                            "line": 144,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 146,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "local-currency",
+                    "description": "ISO 4217 code for the local currency",
+                    "sourceRange": {
+                        "start": {
+                            "line": 150,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 152,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "initial-currency",
+                    "description": "initial currency value before to be changed",
+                    "sourceRange": {
+                        "start": {
+                            "line": 156,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 158,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "icon-size",
+                    "description": "The icon size of the icon displayed on info and error messages. View documentation for the icon component",
+                    "sourceRange": {
+                        "start": {
+                            "line": 162,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 164,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "multiple",
+                    "description": "When setted, the amount entered should be a multiple of this number",
+                    "sourceRange": {
+                        "start": {
+                            "line": 168,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 170,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number | null | undefined"
+                },
+                {
+                    "name": "hide-continue-btn",
+                    "description": "Hide continue button",
+                    "sourceRange": {
+                        "start": {
+                            "line": 174,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 177,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "image",
+                    "description": "Image to show in cells-molecule-amount-input component",
+                    "sourceRange": {
+                        "start": {
+                            "line": 181,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 183,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "hide-selector-icon",
+                    "description": "Hide select-modal selector icon",
+                    "sourceRange": {
+                        "start": {
+                            "line": 187,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 189,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "amount-image",
+                    "description": "Image to place inside amount input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 193,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 195,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "label",
+                    "description": "Label to show as placeholder inside amount-input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 199,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 202,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "info-message",
+                    "description": "Info message to show below amount input. Can be used with ${min} ${max} ${userBalance} ${multiple} ${_userRemainingBalance}",
+                    "sourceRange": {
+                        "start": {
+                            "line": 206,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 208,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "hide-info-message",
+                    "description": "Hide info message",
+                    "sourceRange": {
+                        "start": {
+                            "line": 219,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 222,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "hide-decimals-message",
+                    "description": "Hide amount decimals in info/error messages",
+                    "sourceRange": {
+                        "start": {
+                            "line": 226,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 229,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "max",
+                    "description": "Max limit to validate amount",
+                    "sourceRange": {
+                        "start": {
+                            "line": 233,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 235,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number | null | undefined"
+                },
+                {
+                    "name": "min",
+                    "description": "Min limit to validate amount",
+                    "sourceRange": {
+                        "start": {
+                            "line": 239,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 241,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number | null | undefined"
+                },
+                {
+                    "name": "user-balance",
+                    "description": "User Balance to validate amount input and calculate user remaining balance after the input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 245,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 247,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "number | null | undefined"
+                },
+                {
+                    "name": "invalid",
+                    "description": "Negation of `_valid` to comply with cells inputs `invalid` property",
+                    "sourceRange": {
+                        "start": {
+                            "line": 265,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 270,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "error-message",
+                    "description": "Error message",
+                    "sourceRange": {
+                        "start": {
+                            "line": 288,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 290,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "error-prefix",
+                    "description": "Prefix to include in error messages. This way every operative can have different keys for same error validation messages.",
+                    "sourceRange": {
+                        "start": {
+                            "line": 301,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 304,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "remaining-info-message",
+                    "description": "When user sets a remainingInfoMessage, user can see his remaining balance with a different message when entering an amount",
+                    "sourceRange": {
+                        "start": {
+                            "line": 308,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 310,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "disabled",
+                    "description": "If true, the element is disabled",
+                    "sourceRange": {
+                        "start": {
+                            "line": 314,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 316,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "button-event-name",
+                    "description": "Event dispatched on validate button pressed",
+                    "sourceRange": {
+                        "start": {
+                            "line": 320,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 323,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "amount-changed-event-name",
+                    "description": "Event dispatched on amount changed pressed",
+                    "sourceRange": {
+                        "start": {
+                            "line": 327,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 330,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "default-amount-classes",
+                    "description": "Default class set in cells-molecule-amount-input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 335,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 338,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "amount-classes",
+                    "description": "Class set in cells-molecule-amout-input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 342,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 345,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "set-initial-decimals",
+                    "description": "Flag to control if formatting of the initial amount is not necessary",
+                    "sourceRange": {
+                        "start": {
+                            "line": 350,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 353,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Boolean"
+                },
+                {
+                    "name": "auto-format",
+                    "description": "IF Enabled the value of the input will change to the output\non blur. Turning \"0\" into \"0.00\"",
+                    "sourceRange": {
+                        "start": {
+                            "line": 359,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 362,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Boolean"
+                },
+                {
+                    "name": "custom-error-message",
+                    "description": "Text label used when a custom message is needed at the error message",
+                    "sourceRange": {
+                        "start": {
+                            "line": 367,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 370,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "String"
+                },
+                {
+                    "name": "disable-decimal",
+                    "description": "If true, deny the insert of decimals",
+                    "sourceRange": {
+                        "start": {
+                            "line": 375,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 378,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Boolean"
+                },
+                {
+                    "name": "custom-error-message-min",
+                    "description": "Text label used when a custom message is needed at the error message on min amount",
+                    "sourceRange": {
+                        "start": {
+                            "line": 383,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 386,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "String"
+                },
+                {
+                    "name": "custom-error-message-max",
+                    "description": "Text label used when a custom message is needed at the error message on max amount",
+                    "sourceRange": {
+                        "start": {
+                            "line": 391,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 394,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "String"
+                },
+                {
+                    "name": "validate-on-input-change",
+                    "description": "If enabled will use _validate on amount-input-changed instead of __validateOnAmountChanged",
+                    "sourceRange": {
+                        "start": {
+                            "line": 399,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 402,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Boolean"
+                },
+                {
+                    "name": "show-input-right-currency-icon",
+                    "description": "Flag that handles the right currency icon of the input",
+                    "sourceRange": {
+                        "start": {
+                            "line": 406,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 409,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "boolean | null | undefined"
+                },
+                {
+                    "name": "space-currency",
+                    "description": "if true, currency space appears",
+                    "sourceRange": {
+                        "start": {
+                            "line": 414,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 417,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Boolean"
+                },
+                {
+                    "name": "disable-validate-on-focus-out",
+                    "description": "disable validate input on focus out",
+                    "sourceRange": {
+                        "start": {
+                            "line": 422,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 425,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Boolean"
+                },
+                {
+                    "name": "disable-validate-on-blur",
+                    "description": "disable validate input on blur",
+                    "sourceRange": {
+                        "start": {
+                            "line": 430,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 433,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "Boolean"
+                },
+                {
+                    "name": "type",
+                    "description": "Input type config",
+                    "sourceRange": {
+                        "start": {
+                            "line": 437,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 440,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                },
+                {
+                    "name": "input-mode",
+                    "description": "Input mode config",
+                    "sourceRange": {
+                        "start": {
+                            "line": 444,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 447,
+                            "column": 9
+                        }
+                    },
+                    "metadata": {},
+                    "type": "string | null | undefined"
+                }
+            ],
+            "events": [
+                {
+                    "type": "CustomEvent",
+                    "name": "amount-changed-empty",
+                    "description": "Validates amount with every condition set",
+                    "metadata": {}
+                },
+                {
+                    "type": "CustomEvent",
+                    "name": "continue-pressed",
+                    "description": "Dispatches an event with the amount set",
+                    "metadata": {}
+                },
+                {
+                    "type": "CustomEvent",
+                    "name": "amount-changed",
+                    "description": "Fired when the `amount` property changes.",
+                    "metadata": {}
+                },
+                {
+                    "type": "CustomEvent",
+                    "name": "invalid-changed",
+                    "description": "Fired when the `invalid` property changes.",
+                    "metadata": {}
+                }
+            ],
+            "styling": {
+                "cssVariables": [],
+                "selectors": []
+            },
+            "slots": [
+                {
+                    "description": "",
+                    "name": "extra",
+                    "range": {
+                        "file": "cells-validate-amount-input.html",
+                        "start": {
+                            "line": 89,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 89,
+                            "column": 41
+                        }
+                    }
+                }
+            ],
+            "tagname": "cells-validate-amount-input"
+        }
+    ]
+}

@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../cells-key-values.html">
+  </head>
+  <body>
+
+    <test-fixture id="default">
+      <template>
+        <cells-key-values></cells-key-values>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cells-key-values>', () => {
+        let el;
+
+        setup(() => {
+          el = fixture('default');
+        });
+
+        test('setting value as a primitive type displays that value', done => {
+          el.value = 'any';
+          flush(() => {
+            const valueSimple = Polymer.dom(el.root).querySelector('.value-simple');
+            assert.equal(valueSimple.innerHTML, el.value);
+            assert.isFalse(valueSimple.hidden, 'value simple is not hidden');
+            done();
+          });
+        });
+
+        // test that multiple values are rendered
+        test('setting value as an array with multiple values prints the same number of value items', done => {
+          el.set('value', [{
+            currencyCode: 'EUR',
+            amount: 1
+          }, {
+            currencyCode: 'EUR',
+            amount: 1
+          }]);
+
+          flush(() => {
+            const list = Polymer.dom(el.root).querySelectorAll('.value-item');
+            assert.equal(list.length, el.value.length);
+            done();
+          });
+        });
+
+        test('clicking key icon button fires "key-icon-click" event', (done) => {
+          const key = 'Disponible';
+          el.set('value', { amount: 777 });
+          el.set('key', key);
+          el.set('keyIcon', 'coronita:help');
+          el.addEventListener('key-icon-click', event => {
+            assert.isDefined(event);
+            assert.equal(event.detail, el.key);
+            done();
+          });
+          flush(() => {
+            el.shadowRoot.querySelector(`#${key}`).click();
+          });
+        });
+
+        suite('amount value', () => {
+          let valueAmount;
+          
+          setup(done => {
+            el.removeDefaultValueClass = true;
+            el.value = {
+              amount: 123,
+              currencyCode: 'EUR',
+              scale: 2,
+              decimalsHidden: true,
+              class: 'amount-huge',
+              zeroDecimalsHidden: true,
+              trailingZeroDecimalsHidden: true
+            };
+
+            flush(() => {
+              valueAmount = Polymer.dom(el.root).querySelector('cells-atom-amount');
+              done();
+            });
+          });
+
+          test('setting value as an object with amount properties sets that properties to <cells-atom-amount>', () => {
+            Object.keys(el.value).forEach(prop => {
+              if (prop === 'class') {
+                assert.isTrue(valueAmount.classList.contains(el.value[prop]), 'class passed in the object is added to <cells-atom-amount>');
+              } else {
+                assert.equal(valueAmount[prop], el.value[prop], 'properties are properly binded to <cells-atom-amount>');
+              }
+            });
+          });
+
+          test('setting localCurrency sets that property to <cells-atom-amount>', () => {
+            el.localCurrency = 'AAA';
+            assert.equal(valueAmount.localCurrency, el.localCurrency);
+          });
+
+          test('setting language sets that property to <cells-atom-amount>', () => {
+            el.language = 'en';
+            assert.equal(valueAmount.language, el.language);
+          });
+        });
+
+        suite('amount without currency symbol', () => {
+          test('setting amount without currencyCode renders the amount', done => {
+            el.set('value', { amount: 777 });
+
+            flush(() => {
+              assert.isNotNull(Polymer.dom(el.root).querySelector('cells-atom-amount'), 'cells-atom-amount is rendered');
+              done();
+            });
+          });
+        });
+
+        suite('masked value', () => {
+          let valueMasked;
+
+          setup(done => {
+            el.value = 234234234;
+            el.masked = true;
+            flush(() => {
+              valueMasked = Polymer.dom(el.root).querySelector('cells-molecule-mask');
+              done();
+            });
+          });
+
+          test('setting masked to true displays the value masked', () => {
+            assert.equal(valueMasked.value, el.value, '<cells-molecule-mask> has been rendered and has value binded to its value property');
+          });
+
+          test('setting maskChars binds that value to mask element', () => {
+            el.maskChars = 2;
+            assert.equal(valueMasked.maskChars, el.maskChars);
+          });
+
+          test('setting visibleChars binds that value to mask element', () => {
+            el.visibleChars = 4;
+            assert.equal(valueMasked.visibleChars, el.visibleChars);
+          });
+
+          test('setting iconMasked binds that value to mask element', () => {
+            el.iconMasked = 'aaa';
+            assert.equal(valueMasked.iconMasked, el.iconMasked);
+          });
+
+          test('setting iconNotMasked binds that value to mask element', () => {
+            el.iconNotMasked = 'bbb';
+            assert.equal(valueMasked.iconNotMasked, el.iconNotMasked);
+          });
+        });
+      });
+    </script>
+
+  </body>
+</html>

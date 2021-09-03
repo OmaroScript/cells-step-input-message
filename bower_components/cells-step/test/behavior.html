@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+    <link rel="import" href="../../polymer/polymer.html"/>
+    <link rel="import" href="../../test-fixture/test-fixture.html"/>
+
+    <link rel="import" href="../cells-step.html">
+  </head>
+  <body>
+
+    <test-fixture id="myEl">
+      <template>
+        <cells-step id="fake-step" title="Fake Cells-Step" current-step="1" max-steps="5">
+          <div class="full">
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+          </div>
+          <div class="filled">
+            <p>sum up</p>
+          </div>
+        </cells-step>
+      </template>
+    </test-fixture>
+    <script>
+      suite('<cells-step/> tag', function() {
+        var myEl;
+        var dom;
+
+        setup(function() {
+          myEl = fixture('myEl');
+          dom = Polymer.dom(myEl.root);
+        });
+
+        teardown(function() {
+          myEl.remove();
+        });
+
+        suite('i18n initialization', () => {
+          test('Should initialize i18n before other tests', done => {
+            const _continue = () => {
+              document.removeEventListener('i18n-language-ready', _continue);
+              done();
+            };
+
+            document.addEventListener('i18n-language-ready', _continue);
+            window.I18nMsg = window.I18nMsg || {};
+            window.I18nMsg.url = '../locales';
+            window.I18nMsg.lang = 'es';
+          });
+        });
+
+        suite('in general', function() {
+          test('should be in document', function() {
+            expect(myEl).not.to.be.undefined;
+          });
+        });
+
+        suite('UI reflections', function() {
+
+          test('should present a title', function() {
+            var mockTitle = 'title';
+            myEl.stepTitle = mockTitle;
+            var titleElem = dom.querySelector('.cells-step__header-title');
+            expect(titleElem.innerHTML.trim()).to.be.equal(mockTitle);
+          });
+          test('should present a changeLabel button', function() {
+            var mockChangeLabel = 'label';
+            myEl.changeLabel = mockChangeLabel;
+            var titleElem = dom.querySelector('#changeBtn .cells-step__header-button--text');
+            expect(titleElem.innerHTML.trim()).to.be.equal(mockChangeLabel);
+          });
+          test('should present a currentStep and maxSteps info', function(done) {
+            var mockCurrentStep = 1;
+            var mockMaxSteps = 2;
+            flush(function() {
+              var titleElem = dom.querySelector('.cells-step__header-step-number');
+              expect(titleElem).not.to.be.undefined;
+              expect(titleElem.innerText.trim()).not.to.be.empty;
+              done();
+            });
+            myEl.set('currentStep', mockCurrentStep);
+            myEl.set('maxSteps', mockMaxSteps);
+          });
+
+          test('should not present a currentStep and maxSteps info', function(done) {
+            var mockCurrentStep = 1;
+            var mockMaxSteps = 2;
+            var mockHideCurrentStepLabel = true;
+
+            myEl.set('currentStep', mockCurrentStep);
+            myEl.set('maxSteps', mockMaxSteps);
+            myEl.set('hideCurrentStepLabel', mockHideCurrentStepLabel);
+
+            flush(function() {
+              var isHidden = dom.querySelector('.cells-step__header-step-number').hasAttribute('hidden');
+              expect(isHidden).to.be.true;
+              done();
+            });
+          });
+        });
+
+        suite('toggling active', function() {
+          test('should launch observer', function(done) {
+            var spyActiveObserver = sinon.spy(myEl, '_onActiveChange');
+            flush(function() {
+              expect(spyActiveObserver).to.have.been.called.once;
+              done();
+            });
+            myEl.set('active', true);
+          });
+
+          test('should apply class to every inner component', function(done) {
+            myEl.classToToggle = 'my-class';
+            flush(function() {
+              var hasClass = true;
+              var children = myEl.querySelector('.full').children;
+              if (children.length) {
+                Array.from(children).forEach(function(child) {
+                  hasClass = hasClass && child.classList.contains('my-class');
+                });
+              }
+              expect(hasClass).to.be.equal(true);
+              done();
+            });
+            myEl.set('active', true);
+          });
+
+          test('should apply attribute to every inner component', function(done) {
+            var mockAttr = 'my-attr';
+            myEl.attributeToToggle = mockAttr;
+
+            flush(function() {
+              var hasClass = true;
+              var children = myEl.querySelector('.full').children;
+              if (children.length) {
+                Array.from(children).forEach(function(child) {
+                  hasClass = hasClass && !!child.attributes.getNamedItem(mockAttr);
+                });
+              }
+              expect(hasClass).to.be.equal(true);
+              done();
+            });
+
+            myEl.set('active', true);
+          });
+
+          [
+            undefined,
+            null,
+            {},
+            (new CustomEvent('fake-event')),
+            (new CustomEvent('fake-event', {detail: {}}))
+          ].forEach(function(config) {
+            test('observer fails with invalid payload: "' + JSON.stringify(config) + '"', function(done) {
+              var mockAttr = 'my-attr';
+              myEl.attributeToToggle = mockAttr;
+              myEl._onActiveChange(config);
+              var hasClass = false;
+              var children = myEl.querySelector('.full').children;
+              if (children.length) {
+                hasClass = Array.from(children).some(function(child) {
+                  return !!child.attributes.getNamedItem(mockAttr);
+                });
+              }
+              expect(hasClass).to.be.equal(false);
+              done();
+            });
+          });
+
+          test('removes class to every inner component', function(done) {
+            myEl.active = true;
+            myEl.classToToggle = 'my-class';
+            flush(function() {
+              var children = myEl.querySelector('.full').children;
+              if (children.length) {
+                var hasClass = Array.from(children).some(function(child) {
+                  return child.classList.contains('my-class');
+                });
+              }
+              expect(hasClass).to.be.equal(false);
+              done();
+            });
+            myEl.set('active', false);
+          });
+
+          test('removes attribute to every inner component', function(done) {
+            myEl.active = true;
+            var mockAttr = 'my-attr';
+            myEl.attributeToToggle = mockAttr;
+
+            flush(function() {
+              var children = myEl.querySelector('.full').children;
+              if (children.length) {
+                var hasClass = Array.from(children).some(function(child) {
+                  return child.attributes.getNamedItem(mockAttr);
+                });
+              }
+              expect(hasClass).to.be.equal(false);
+              done();
+            });
+
+            myEl.set('active', false);
+          });
+
+          test('change button click is listen and fires event "change-pressed"', function(done) {
+            myEl.collapsed = true;
+            var changeBtn = dom.querySelector('#changeBtn');
+            myEl.addEventListener('change-pressed', function _onEvent() {
+              myEl.removeEventListener('change-pressed', _onEvent);
+              done();
+            }, false);
+            changeBtn.click();
+          });
+
+          test('clicking anywhere on the collapsed step not fires a "change-pressed" event', function(done) {
+            sinon.spy(myEl, 'dispatchEvent');
+            myEl.collapsed = true;
+            myEl.click();
+            let events = {};
+            myEl.dispatchEvent.args.forEach((event) => {
+              Object.assign(events, {[event[0].type]: event[0]} );
+            });
+            expect(events['change-pressed']).to.be.undefined;
+
+            myEl.dispatchEvent.restore();
+            done();
+          });
+
+          test('change button click is listen and does nothing when the step is opened', function() {
+            myEl.collapsed = false;
+            var changeBtn = dom.querySelector('#changeBtn');
+            changeBtn.click();
+
+            expect(myEl.collapsed).to.be.false;
+          });
+
+          test('sets opened to true if collapsed is false with a message', function() {
+            expect(myEl._showInfoMessage('infoMessageKey', false)).to.be.true;
+            expect(myEl._showInfoMessage('infoMessageKey', true)).to.be.false;
+            expect(myEl._showInfoMessage('', false)).to.be.empty;
+            expect(myEl._showInfoMessage(null, false)).to.be.null;
+          });
+
+          test('should render displayedCurrentStep and displayedMaxSteps if set', done => {
+            myEl.displayedCurrentStep = 6;
+            myEl.displayedMaxSteps = 7;
+
+            flush(() => {
+              expect(myEl.shadowRoot.querySelector('.cells-step__header-step-number').innerText).to.be.equals('(6 de 7)');
+              myEl.displayedCurrentStep = undefined;
+              myEl.displayedMaxSteps = undefined;
+              done();
+            });
+          })
+
+          test('Check if "_hideHelpIcon" method works', (done) => {
+            var hideHelpIconSpy = sinon.spy(myEl, '_hideHelpIcon');
+            myEl.collpased = false;
+            myEl.showHelpIcon = true;
+            flush(() => {
+              expect(hideHelpIconSpy).to.have.been.calledOnce;
+              hideHelpIconSpy.restore();
+              assert.isFalse(myEl._hideHelpIcon(true, false));
+              assert.isTrue(myEl._hideHelpIcon(false, false));
+              assert.isTrue(myEl._hideHelpIcon(true, true));
+              assert.isTrue(myEl._hideHelpIcon(false, true));
+              done();
+            })
+          });
+
+          test('Check if "help-icon-pressed" event is fired when help icon is clicked', () => {
+            myEl.stepTitle = 'Test event';
+            myEl.addEventListener('help-icon-pressed', (ev) => {
+              assert.equal(ev.detail.stepTitle,'Test event');
+            });
+            myEl.shadowRoot.querySelector('#helpIcon').click();
+          });
+
+          test('Check if "view-all-pressed" event is fired when view-all button is clicked', () => {
+            myEl.stepTitle = 'Test event';
+            myEl.addEventListener('view-all-pressed', (ev) => {
+              assert.equal(ev.detail.stepTitle,'Test event');
+            });
+            myEl.shadowRoot.querySelector('#changeViewAllBtn').click();
+          });
+        });
+
+        suite('toggling fixed', function() {
+
+          test('should launch observer', function(done) {
+            var spyFixedObserver = sinon.spy(myEl, '_onFixedChange');
+            flush(function() {
+              expect(spyFixedObserver).to.have.been.called.once;
+              done();
+            });
+            myEl.set('fixed', true);
+          });
+
+          test('should disable change button', function(done) {
+            var changeButton = dom.querySelector('#changeBtn');
+            flush(function() {
+              expect(myEl.disableChange).to.be.equal(true);
+              expect(changeButton.hidden).to.be.equal(true);
+              done();
+            });
+            myEl.set('fixed', true);
+          });
+
+          test('should behave as default if event is empty', function(done) {
+            var changeButton = dom.querySelector('#changeBtn');
+            flush(function() {
+              expect(changeButton.hidden).to.be.equal(false);
+              done();
+            });
+            myEl._onFixedChange(null);
+          });
+        });
+
+      });
+    </script>
+  </body>
+</html>

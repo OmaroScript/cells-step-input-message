@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="es-ES">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>Demo cells-checkbox-button</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.disabled = true;
+  </script>
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+  <link rel="lazy-import" href="../../cells-select/cells-select.html">
+  <link rel="lazy-import" href="../cells-checkbox-button.html">
+  <link rel="lazy-import" href="css/demo-styles.html">
+
+</head>
+
+<body unresolved ontouchstart style="margin: 0;">
+  <cells-demo-helper resolution="mobile" multi-toast available-themes='["cells-glomo-theme", "cells-coronita-base-theme"]' events='["cells-checkbox-button-checked", "cells-checkbox-button-unchecked", "cells-checkbox-button-disabled", "cells-checkbox-button-enabled", "cells-checkbox-button-toggled", "cells-checkbox-button-toggled-only-in-checkbox", "cells-checkbox-button-link-clicked"]'>
+    <cells-demo-case heading="Status Unselected">
+      <template>
+        <dom-bind>
+          <template>
+            <cells-select id="color1" label="Color" options='[
+              { "label": "with white background", "value" : "", "color": "#fff"},
+              { "label": "with grey background", "value" : "grey", "color": "#F4F4F4"},
+              { "label": "with light blue background", "value" : "light-blue", "color" : "#1464A5"},
+              { "label": "with blue background", "value" : "core-blue", "color" : "#004481"},
+              { "label": "with dark blue background", "value" : "dark-blue", "color" : "#043263"}
+            ]'
+              right-icon="coronita:unfold" selected="0"></cells-select>
+            <cells-checkbox-button class$="[[class]]">
+              Unselected
+            </cells-checkbox-button>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.querySelector('dom-bind');
+            demo.$.color1.addEventListener('selected-option-changed', function(e) {
+              demo.class = e.currentTarget.selectedOption.value;
+              document.querySelector('body').setAttribute('style', 'background-color: ' + e.currentTarget.selectedOption.color);
+            });
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Status Required">
+      <template>
+        <dom-bind>
+          <template is="dom-bind">
+            <cells-select id="color2" label="color" options='[
+              { "label": "with white background", "value" : "", "color": "#fff"},
+              { "label": "with grey background", "value" : "grey", "color": "#F4F4F4"},
+              { "label": "with light blue background", "value" : "light-blue", "color" : "#1464A5"},
+              { "label": "with blue background", "value" : "core-blue", "color" : "#004481"},
+              { "label": "with dark blue background", "value" : "dark-blue", "color" : "#043263"}
+            ]'
+              right-icon="coronita:unfold" selected="0"></cells-select>
+            <cells-checkbox-button class$="[[class]]">
+              Required *
+            </cells-checkbox-button>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.querySelector('dom-bind');
+            demo.$.color2.addEventListener('selected-option-changed', function(e) {
+              demo.class = e.currentTarget.selectedOption.value;
+              document.querySelector('body').setAttribute('style', 'background-color: ' + e.currentTarget.selectedOption.color);
+            });
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Status disabled">
+      <template>
+        <dom-bind>
+          <template>
+            <cells-select id="color3" label="color" options='[
+            { "label": "with white background", "value" : "", "color": "#fff"},
+            { "label": "with grey background", "value" : "grey", "color": "#F4F4F4"},
+            { "label": "with light blue background", "value" : "light-blue", "color" : "#1464A5"},
+            { "label": "with blue background", "value" : "core-blue", "color" : "#004481"},
+            { "label": "with dark blue background", "value" : "dark-blue", "color" : "#043263"}
+          ]'
+              right-icon="coronita:unfold" selected="0"></cells-select>
+            <cells-checkbox-button id="radioDefault" disabled class$="[[class]]">
+              Disabled
+            </cells-checkbox-button>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.querySelector('dom-bind');
+            demo.$.color3.addEventListener('selected-option-changed', function(e) {
+              demo.class = e.currentTarget.selectedOption.value;
+              document.querySelector('body').setAttribute('style', 'background-color: ' + e.currentTarget.selectedOption.color);
+            });
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Status selected">
+      <template>
+        <dom-bind>
+          <template>
+            <cells-select id="color4" label="color" options='[
+            { "label": "with white background", "value" : "", "color": "#fff"},
+            { "label": "with grey background", "value" : "grey", "color": "#F4F4F4"},
+            { "label": "with light blue background", "value" : "light-blue", "color" : "#1464A5"},
+            { "label": "with blue background", "value" : "core-blue", "color" : "#004481"},
+            { "label": "with dark blue background", "value" : "dark-blue", "color" : "#043263"}
+          ]'
+              right-icon="coronita:unfold" selected="0"></cells-select>
+            <cells-checkbox-button id="radioDefault" checked class$="[[class]]">
+              Selected
+            </cells-checkbox-button>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.querySelector('dom-bind');
+            demo.$.color4.addEventListener('selected-option-changed', function(e) {
+              demo.class = e.currentTarget.selectedOption.value;
+              document.querySelector('body').setAttribute('style', 'background-color: ' + e.currentTarget.selectedOption.color);
+            });
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Status readonly">
+      <template>
+        <dom-bind>
+          <template>
+            <cells-select id="color5" label="color" options='[
+            { "label": "with white background", "value" : "", "color": "#fff"},
+            { "label": "with grey background", "value" : "grey", "color": "#F4F4F4"},
+            { "label": "with light blue background", "value" : "light-blue", "color" : "#1464A5"},
+            { "label": "with blue background", "value" : "core-blue", "color" : "#004481"},
+            { "label": "with dark blue background", "value" : "dark-blue", "color" : "#043263"}
+          ]'
+              right-icon="coronita:unfold" selected="0"></cells-select>
+            <cells-checkbox-button id="radioDefault" readonly checked class$="[[class]]">
+              Readonly
+            </cells-checkbox-button>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.querySelector('dom-bind');
+            demo.$.color5.addEventListener('selected-option-changed', function(e) {
+              demo.class = e.currentTarget.selectedOption.value;
+              document.querySelector('body').setAttribute('style', 'background-color: ' + e.currentTarget.selectedOption.color);
+            });
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Status error">
+      <template>
+        <dom-bind>
+          <template>
+            <cells-select id="color6" label="color" options='[
+              { "label": "with white background", "value" : "", "color": "#fff"},
+              { "label": "with grey background", "value" : "grey", "color": "#F4F4F4"},
+              { "label": "with light blue background", "value" : "light-blue", "color" : "#1464A5"},
+              { "label": "with blue background", "value" : "core-blue", "color" : "#004481"},
+              { "label": "with dark blue background", "value" : "dark-blue", "color" : "#043263"}
+            ]'
+              right-icon="coronita:unfold" selected="0"></cells-select>
+            <cells-checkbox-button id="radioDefault" error="[[error]]" on-checked-changed="setError" error-icon="coronita:alert"
+              error-message="Error! You have to select before continue" class$="[[class]]">
+              Error
+            </cells-checkbox-button>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.querySelector('dom-bind');
+            demo.error = true;
+            demo.$.color6.addEventListener('selected-option-changed', function(e) {
+              demo.class = e.currentTarget.selectedOption.value;
+              document.querySelector('body').setAttribute('style', 'background-color: ' + e.currentTarget.selectedOption.color);
+            });
+            demo.setError = function() {
+              demo.error = demo.$.radioDefault.checked ? demo.$.radioDefault.hideError() : demo.$.radioDefault.showError();
+            };
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Icon">
+      <template>
+        <style>
+          .grid {
+            margin: auto;
+            width: 33%;
+          }
+        </style>
+        <div class="grid">
+          <cells-checkbox-button icon="coronita:creditcard" icon-check="coronita:checkmark">
+            With Icons
+          </cells-checkbox-button>
+        </div>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Only in Checkbox">
+      <template>
+        <dom-bind>
+          <template is="dom-bind">
+            <cells-select id="color2" label="color" options='[
+              { "label": "with white background", "value" : "", "color": "#fff"},
+              { "label": "with grey background", "value" : "grey", "color": "#F4F4F4"},
+              { "label": "with light blue background", "value" : "light-blue", "color" : "#1464A5"},
+              { "label": "with blue background", "value" : "core-blue", "color" : "#004481"},
+              { "label": "with dark blue background", "value" : "dark-blue", "color" : "#043263"}
+            ]'
+              right-icon="coronita:unfold" selected="0"></cells-select>
+            <cells-checkbox-button only-checkbox class$="[[class]]">
+              Check only in Checkbox
+            </cells-checkbox-button>
+          </template>
+        </dom-bind>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.querySelector('dom-bind');
+            demo.$.color2.addEventListener('selected-option-changed', function(e) {
+              demo.class = e.currentTarget.selectedOption.value;
+              document.querySelector('body').setAttribute('style', 'background-color: ' + e.currentTarget.selectedOption.color);
+            });
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Label on the left">
+      <template>
+        <cells-checkbox-button id="demo">
+          Left Label
+        </cells-checkbox-button>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.getElementById('demo');
+            demo.leftLabel = true;
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Label on the left with icon">
+      <template>
+        <cells-checkbox-button left-label left-icon="coronita:info">
+          Left Label with icon
+        </cells-checkbox-button>
+        <cells-checkbox-button left-label left-icon="coronita:document">
+          Left Label with icon
+        </cells-checkbox-button>
+        <script>
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Label on the left with additional info">
+      <template>
+        <cells-checkbox-button id="demo">
+          Left label
+          <span slot="left-additional">additional info</span>
+        </cells-checkbox-button>
+        <script>
+          document.addEventListener('WebComponentsReady', function() {
+            let demo = document.getElementById('demo');
+            demo.leftLabel = true;
+          });
+        </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Description and link">
+      <template>
+        <cells-checkbox-button id="demo"
+        only-checkbox
+        description-before-link-text="Terms and Conditions"
+        link-text="Notice of Privacy">
+        </cells-checkbox-button>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Label on the Rigth with additional info">
+      <template>
+        <cells-checkbox-button 
+        only-checkbox
+        description-info = "Guardar Contacto"
+        contact-info-message = "Este contacto quedará guardado para futuras operaciones."
+        info-icon = "coronita:info">
+        </cells-checkbox-button>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Disabled checkbox">
+      <template>
+        <cells-checkbox-button id="demo"
+        only-checkbox
+        disabled
+        class="asssistance-files-update"
+        description-before-link-text="Declaro que la documentación me pertenece y no ha sufrido modificación alguna.">
+        </cells-checkbox-button>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

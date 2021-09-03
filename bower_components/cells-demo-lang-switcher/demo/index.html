@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+  />
+  <title>Demo cells-demo-lang-switcher</title>
+
+  <script>
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: true,
+      useNativeCSSProperties: true
+    };
+    window.I18nMsg = {};
+    window.I18nMsg.url = './locales';
+  </script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="import" href="../../cells-demo-lang-switcher/cells-demo-lang-switcher.html">
+  <link rel="import" href="x-demo-lang.html">
+  <link rel="import" href="css/demo-styles.html">
+</head>
+
+<body unresolved ontouchstart>
+  <cells-demo-helper>
+    <cells-demo-case heading="With default configuration">
+      <template>
+        <cells-demo-lang-switcher locales-path="locales"></cells-demo-lang-switcher>
+        <x-demo-lang></x-demo-lang>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With custom label, path to locales and langs">
+      <template>
+        <dom-bind>
+          <template is="dom-bind">
+            <cells-demo-lang-switcher label="Lang" locales-path="locales" langs='["en","es"]' lang="{{lang}}"></cells-demo-lang-switcher>
+            <x-demo-lang></x-demo-lang>
+            <p>Selected lang: [[lang]]</p>
+          </template>
+        </dom-bind>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+
+</body>
+
+</html>

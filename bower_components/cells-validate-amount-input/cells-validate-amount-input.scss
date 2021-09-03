@@ -1,0 +1,36 @@
+@import "bower_components/cells-sass/main";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: var(--cells-fontDefault, sans-serif);
+
+  --cells-molecule-amount-input: unquote("{
+      margin-bottom: rem(8px);
+  }");
+
+  --cells-molecule-amount-input-invalid: unquote('{
+    background-color: var(--cells-validate-amount-input-error-bg, var(--bbva-white-coral));
+  }');
+}
+
+.amount-container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: rem(32px);
+
+  .currency-selector {
+    display: flex;
+    @apply --cells-validate-amount-input-currency-selector;
+  }
+
+  .limited-amount-input {
+    width: 100%;
+    @apply --cells-validate-amount-input-limited-amount-input;
+  }
+
+  @apply --cells-validate-amount-input-amount-container;
+}

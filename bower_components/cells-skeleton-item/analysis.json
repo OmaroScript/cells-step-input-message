@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "# cells-skeleton-item\n\n![Certificated](https://img.shields.io/badge/certificated-yes-brightgreen.svg)\n![Polymer 2.x](https://img.shields.io/badge/Polymer-2.x-green.svg)\n\n[Demo of component in Cells Catalog](https://catalogs.platform.bbva.com/cells)\n\n`<cells-skeleton-item>` is a loading status layout consisting of a row and with an optional header.\n\nExamples:\n\nSkeleton for a title:\n```html\n<cells-skeleton-item show-title></cells-skeleton-item>\n```\n\nSkeleton for header and item:\n```html\n<cells-skeleton-item show-header show-item></cells-skeleton-item>\n```\nSkeleton for item:\n```html\n<cells-skeleton-item show-item></cells-skeleton-item>\n```\n\nSkeleton for avatar:\n```html\n<cells-skeleton-item show-avatar></cells-skeleton-item>\n```\n\nSkeleton for bullets:\n```html\n<cells-skeleton-item show-bullets></cells-skeleton-item>\n```\n\n## Styling\n\nThe following custom properties and mixins are available for styling:\n\n| Custom property                                   | Description                                     | Default  |\n|:-------------------------------------------------:|:-----------------------------------------------:|:--------:|\n| --cells-skeleton-item                             | Mixin applied to :host                          | {}       |\n| --cells-skeleton-item-box-height                  | box height                                      | 18px     |\n| --cells-skeleton-item-box-width                   | box width                                       | 40%      |\n| --cells-skeleton-item-box-first-child             | Mixin applied to first child item in box        | {}       |\n| --cells-skeleton-item-box-width-first-child       | width of the first-child item in box            | 55%      |\n| --cells-skeleton-item-box-bg-color                | Background color of box                         | var(--bbva-200, #E9E9E9)  |\n| --cells-skeleton-item-box-xs                      | Mixin applied to item box xs                    | {}       |\n| --cells-skeleton-item-box-xs-height               | box-xs height                                   | 15px     |\n| --cells-skeleton-item-box-xs-width                | box-xs width                                    | 20%      |\n| --cells-skeleton-item-box-xs-first-child          | Mixin applied to first child in item box xs     | {}       |\n| --cells-skeleton-item-title                       | Mixin applied to title                          | {}       |\n| --cells-skeleton-item-header                      | Mixin applied to item header                    | {}       |\n| --cells-skeleton-item-box                         | Mixin applied to box                            | {}       |\n| --cells-skeleton-item-content                     | Mixin applied to item content                   | {}       |\n| --cells-skeleton-item-content-top                 | Mixin applied to item content top               | {}       |\n| --cells-skeleton-item-content-bottom              | Mixin applied to item content bottom            | {}       |\n| --cells-skeleton-item-content-bottom-box-xs       | Mixin applied to content bottom box xs          | {}       |\n| --cells-skeleton-item-content-bottom-box-xs-width | width bottom box xs                             | 15%      |\n| --cells-skeleton-item-wrapper                     | Mixin applied to item wrapper                   | {}       |\n| --cells-skeleton-item-avatar                      | Mixin applied to avatar content                 | {}       |\n| --cells-skeleton-item-avatar-background-color     | Background color of avatar section              | var(--bbva-core-blue, #004481)  |\n| --cells-skeleton-item-avatar-head                 | Mixin applied to avatar head                    | {}       |\n| --cells-skeleton-item-avatar-head-width           | width of avatar head                            | 50px     |\n| --cells-skeleton-item-avatar-head-background-color | backgrounc-color of avatar head                | var(--bbva-white, #fff) |\n| --cells-skeleton-item-avatar-head-height          | height of avatar head                           | 50px     |\n| --cells-skeleton-item-actions                     | Mixin applied to actions                        | {}       |\n| --cells-skeleton-item-actions-box                 | Mixin applied to actions box                    | {}       |\n| --cells-skeleton-item-actions-box-item            | Mixin applied to item in action box             | {}       |\n| --cells-skeleton-item-actions-box-item-before     | Mixin applied to item in action box before      | {}       |",
+      "summary": "",
+      "path": "cells-skeleton-item/cells-skeleton-item.js",
+      "properties": [
+        {
+          "name": "showHeader",
+          "type": "boolean | null | undefined",
+          "description": "Apply skeleton header",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 90,
+              "column": 6
+            },
+            "end": {
+              "line": 94,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showTitle",
+          "type": "boolean | null | undefined",
+          "description": "Apply skeleton title",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 98,
+              "column": 6
+            },
+            "end": {
+              "line": 102,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showItem",
+          "type": "boolean | null | undefined",
+          "description": "Apply skeleton item",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 106,
+              "column": 6
+            },
+            "end": {
+              "line": 110,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showAvatar",
+          "type": "boolean | null | undefined",
+          "description": "Apply skeleton avatar",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 6
+            },
+            "end": {
+              "line": 118,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "showBullets",
+          "type": "boolean | null | undefined",
+          "description": "Apply skeleton bullets",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 122,
+              "column": 6
+            },
+            "end": {
+              "line": 126,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 81,
+          "column": 0
+        },
+        "end": {
+          "line": 129,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "Polymer.Element",
+      "name": "CellsSkeletonItem",
+      "attributes": [
+        {
+          "name": "show-header",
+          "description": "Apply skeleton header",
+          "sourceRange": {
+            "start": {
+              "line": 90,
+              "column": 6
+            },
+            "end": {
+              "line": 94,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "show-title",
+          "description": "Apply skeleton title",
+          "sourceRange": {
+            "start": {
+              "line": 98,
+              "column": 6
+            },
+            "end": {
+              "line": 102,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "show-item",
+          "description": "Apply skeleton item",
+          "sourceRange": {
+            "start": {
+              "line": 106,
+              "column": 6
+            },
+            "end": {
+              "line": 110,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "show-avatar",
+          "description": "Apply skeleton avatar",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 6
+            },
+            "end": {
+              "line": 118,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "show-bullets",
+          "description": "Apply skeleton bullets",
+          "sourceRange": {
+            "start": {
+              "line": 122,
+              "column": 6
+            },
+            "end": {
+              "line": 126,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cells-skeleton-item"
+    }
+  ]
+}

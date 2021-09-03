@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Demo cells-step</title>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.url = '../locales';
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../polymer/polymer.html" />
+  <link rel="import" href="../../cells-st-button/cells-st-button.html" />
+  <link rel="import" href='../../cells-glomo-theme/cells-glomo-theme.html' />
+  <link rel="import" href="../../cells-coronita-base-theme/cells-coronita-base-theme.html">
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html" />
+  <link rel="import" href="../cells-step.html" />
+  <link rel="import" href="css/demo-styles.html">
+  <link rel="import" href="../../coronita-icons/coronita-icons.html" />
+
+</head>
+
+<body unresolved ontouchstart>
+
+  <cells-demo-helper
+    i18n
+    lang='["en", "es"]'
+    locales-path="../locales"
+    resolution="Mobile"
+    breakpoints='{
+      "Mobile": { "width": 320, "height": 640, "name": "Mobile" },
+      "Mobile2": { "width": 360, "height": 640, "name": "Mobile2" },
+      "Tablet": { "width": 768, "height": 1024, "name": "Tablet" },
+      "Desktop": { "width": 1024, "height": 1024, "name": "Desktop" }
+    }'
+    i18n
+    available-themes='["cells-coronita-base-theme", "cells-glomo-theme"]'
+    events='["change-pressed", "help-icon-pressed", "view-all-pressed"]'>
+    <cells-demo-case heading="View button show data">
+      <template>
+        <cells-step step-title="DATOS DE CONTACTO" change-view-all-label="Mostrar datos" current-step="3" max-steps="3" show-view-all active>
+          <div slot="full">
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+          </div>
+          <div slot="filled">
+            <span>SUM UP</span>
+          </div>
+        </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="With help icon">
+      <template>
+        <cells-step id="withHelpIcon" step-title="With help icon" current-step="1" max-steps="3" active show-help-icon>
+          <div slot="full">
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+          </div>
+          <div slot="filled">
+            <span>Example with help icon.</span>
+          </div>
+        </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="With info message">
+      <template>
+        <cells-step id="withInfoMessage" step-title="With info message" current-step="1" max-steps="3" active info-message-key="Info message">
+          <div slot="full">
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+          </div>
+          <div slot="filled">
+            <span>Example with info message.</span>
+          </div>
+        </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Inactive">
+      <template>
+        <cells-step id="inactive" step-title="Inactive" current-step="1" max-steps="3">
+        </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Active">
+      <template>
+            <cells-step id="active" step-title="Active" current-step="2" max-steps="3" active>
+              <div slot="full">
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <span>SUM UP</span>
+              </div>
+            </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Collapsed">
+      <template>
+            <cells-step step-title="Collapsed" current-step="3" max-steps="3" active collapsed>
+              <div slot="full">
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <span>SUM UP</span>
+              </div>
+            </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Collapsed without separator">
+      <template>
+            <cells-step step-title="Collapsed" current-step="3" max-steps="3" active collapsed hide-separator>
+              <div slot="full">
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <span>SUM UP</span>
+              </div>
+            </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Collapsed & Scrolled">
+      <template>
+            <cells-step step-title="Collapsed &amp; Scrolled" current-step="3" max-steps="3" active collapsed scrolled>
+              <div slot="full">
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <span>SUM UP</span>
+              </div>
+            </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Change button label as variable">
+      <template>
+            <cells-step step-title="Customized #1" change-label="cells-step-change-button-label" active collapsed>
+              <div slot="full">
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <span>SUM UP</span>
+              </div>
+            </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Customized change button label">
+      <template>
+            <cells-step step-title="Customized #2" change-label="Click here" active collapsed>
+              <div slot="full">
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <span>SUM UP</span>
+              </div>
+            </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Customized children class for active status">
+      <template>
+
+            <style type="text/css">
+              @media screen {
+                p.my-active-class {
+                  color: #f00;
+                }
+                p {
+                  color: rgba(0, 0, 0, 0.5);
+                }
+              }
+
+            </style>
+            <script>
+              function inactiveCustomized3() {
+                var elem = document.querySelector('#customized-3');
+                if (elem) {
+                  elem.set('active', !elem.get('active'));
+                }
+              }
+            </script>
+            <cells-st-button raised onclick="inactiveCustomized3()">
+              <button>
+                Toggle active
+              </button>
+            </cells-st-button>
+            <cells-step id="customized-3" step-title="Customized #3" class-to-toggle="my-active-class">
+              <div slot="full">
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <p>SUM UP</p>
+              </div>
+            </cells-step>
+
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Customized children attribute for active status">
+      <template>
+            <style type="text/css">
+              @media screen {
+                span.item {
+                  display: block;
+                  color: rgba(255, 0, 0, 0.5);
+                }
+                span.item[active] {
+                  color: #000;
+                }
+              }
+
+            </style>
+            <script>
+              function inactiveCustomized4() {
+                var elem = document.querySelector('#customized-4');
+                if (elem) {
+                  elem.set('active', !elem.get('active'));
+                }
+              }
+
+            </script>
+            <cells-st-button raised onclick="inactiveCustomized4()">
+              <button>
+                Toggle active
+              </button>
+            </cells-st-button>
+            <cells-step id="customized-4" step-title="Customized #4" attribute-to-toggle="active">
+              <div slot="full">
+                <span class="item">item</span>
+                <span class="item">item</span>
+                <span class="item">item</span>
+                <span class="item">item</span>
+                <span class="item">item</span>
+                <span class="item">item</span>
+              </div>
+              <div slot="filled">
+                <span class="item">SUM UP</span>
+              </div>
+            </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="fixed">
+      <template>
+            <cells-step id="fixed" step-title="fixed" current-step="1" max-steps="3" collapsed scrolled>
+              <div slot="full">
+                <p>item</p>
+              </div>
+              <div slot="filled">
+                <p>sum up</p>
+              </div>
+            </cells-step>
+            <script>
+              (function(d) {
+                'use strict';
+                d.addEventListener('WebComponentsReady', function() {
+                  d.querySelector('#fixed').set('fixed', true);
+                }, false);
+              }(document));
+            </script>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Last step">
+      <template>
+        <cells-step id="last-step" step-title="fixed" current-step="1" max-steps="1" last-step active>
+          <div slot="full">
+            <p>item</p>
+          </div>
+          <div slot="filled">
+            <p>sum up</p>
+          </div>
+        </cells-step>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Active with displayedCurrentStep and displayedMaxSteps">
+      <template>
+        <cells-step id="active" step-title="Active" current-step="2" max-steps="3" displayed-current-step="4" displayed-max-steps="5" active>
+          <div slot="full">
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+            <p>item</p>
+          </div>
+          <div slot="filled">
+            <span>SUM UP</span>
+          </div>
+        </cells-step>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

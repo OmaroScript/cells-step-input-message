@@ -1,0 +1,71 @@
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../cells-icon-message/cells-icon-message.html">
+<link rel="import" href="../cells-st-link/cells-st-link.html">
+<link rel="import" href="cells-checkbox-button-styles.html">
+
+<dom-module id="cells-checkbox-button">
+  <template>
+    <style include="cells-checkbox-button-styles cells-checkbox-button-shared-styles ember-pad-shared">
+    </style>
+    <template is="dom-if" if="[[leftIcon]]">
+      <iron-icon class="left-icon" id="left-icon" icon="[[leftIcon]]"></iron-icon>
+    </template>
+    <template is="dom-if" if="[[leftLabel]]">
+      <div class="body-label">
+        <span class="left-label" id="left-label">
+          <slot></slot>
+        </span>
+        <span class="left-additional-label" id="left-additional-label">
+          <slot name="left-additional"></slot>
+        </span>
+      </div>
+    </template>
+    <div id="checkbox" class="checkbox" style$="[[_computeIconSize(iconSize)]]">
+      <dom-if if="[[icon]]">
+        <template>
+          <iron-icon class="icon" id="icon-unchecked" icon="[[icon]]"></iron-icon>
+        </template>
+      </dom-if>
+      <dom-if if="[[iconCheck]]">
+        <template>
+          <iron-icon class="icon pad-32" id="icon-checked" icon="[[iconCheck]]"></iron-icon>
+        </template>
+      </dom-if>
+    </div>
+    <template is="dom-if" if="[[!leftLabel]]">
+      <div class="body-label">
+        <span class="label" id="label">
+          <slot></slot>
+        </span>
+        <dom-if if="[[error]]">
+          <template>
+            <cells-icon-message class="icon-message" type="error" icon="[[errorIcon]]" icon-size="[[errorIconSize]]" class="inline" message="[[errorMessage]]"></cells-icon-message>
+          </template>
+        </dom-if>
+        <template is="dom-if" if="[[descriptionBeforeLinkText]]">
+          <p class="description-link">
+            [[t(descriptionBeforeLinkText)]]
+            <template is="dom-if" if="[[linkText]]">
+              <cells-st-link id="link" on-click="linkClicked">
+                <a href="#">[[t(linkText)]]</a>
+              </cells-st-link>
+            </template>
+          </p>
+      </template>
+      <template is="dom-if" if="[[descriptionInfo]]">
+        <span class="body-label-message">
+          <p class = "description-contact-alias">
+            [[t(descriptionInfo)]]
+          </p>
+        <cells-icon-message class="help reset-info" type="info" icon="[[infoIcon]]" message="[[contactInfoMessage]]"></cells-icon-message>
+      </span>
+        <!-- -->
+      </template>
+      </div>
+    </template>
+  </template>
+  <script src="cells-checkbox-button.js"></script>
+</dom-module>

@@ -1,0 +1,288 @@
+<script>
+  (function(w) {
+    'use strict';
+    w.CellsBehaviors = w.CellsBehaviors || {};
+    w.CellsBehaviors.StepBasicBehavior = {
+      properties: {
+        /**
+         * Translation key for the optional info message above the step
+         */
+        infoMessageKey: {
+          type: String
+        },
+        /**
+         * Type for the `cells-icon-message`
+         */
+        infoMessageType: {
+          type: String,
+          value: 'info'
+        },
+        /**
+         * Icon for the `cells-icon-message`
+         */
+        infoMessageIcon: {
+          type: String,
+          computed: '_computedIconMessage(infoMessageType)'
+        },
+        /**
+         * Class style to toggle over child elements (on content:full)
+         */
+        classToToggle: {
+          type: String,
+          value: ''
+        },
+        /**
+         * Attribute to toggle over child elements (on content:full)
+         */
+        attributeToToggle: {
+          type: String,
+          value: ''
+        },
+        /**
+         * Removes the change button
+         */
+        disableChange: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * Hide header
+         */
+        hideHeader: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * Step title
+         */
+        stepTitle: {
+          type: String
+        },
+        /**
+         * Hides current step
+        */
+        hideCurrentStepLabel: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * Set label to change button
+         */
+        changeLabel: {
+          type: String,
+          value: 'cells-step-change-button-label'
+        },
+        /**
+         * Property to show help icon
+         */
+        showHelpIcon: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+        /**
+         * Displayed current step
+         */
+        displayedCurrentStep: {
+          type: Number
+        },
+        /**
+         * Displayed max steps
+         */
+        displayedMaxSteps: {
+          type: Number
+        },
+        /**
+         * Property to show a view all
+         */
+        showViewAll: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * Set label to change view all button
+         */
+        changeViewAllLabel: {
+          type: String,
+          value: 'cells-step-change-view-all-label'
+        }
+      },
+
+      listeners: {
+        'active-changed': '_onActiveChange',
+        'fixed-changed': '_onFixedChange'
+      },
+
+      /**
+       * Callback for click event on #changeBtn
+       * @private
+       */
+      _onChange: function(evt) {
+        //Check if there's a node in the event path that has the "full" class,
+        //which means the step is opened and we shouldn't toggle it
+
+        /* @NOTICE
+         * @see {@link https://dom.spec.whatwg.org/#dom-event-composedpath|composedPath}
+         *
+         * {event.path} doesn't exist in Firefox or Safari's WebKit implementation
+         * Do not tested out in Opera, IE or Edge.
+         * Google's Chrome WebKit implementation develops both property {path} and method {composedPath()}
+         * for any event.
+         *
+         * In order to extract the event path, here will tested:
+         *    if event.path exists, if not, if event.composedPath() can be called
+         * In case of fail, empty Array will be returned.
+         */
+        var path = evt.path !== undefined ?
+          evt.path :
+          evt.composedPath instanceof Function ?
+            evt.composedPath() :
+            [];
+
+        var avoid = path.some(function(node) {
+          return (node && node instanceof HTMLElement) ?
+            node.classList.contains('full') :
+            false;
+        });
+        if (!avoid && !this.disableChange && this.collapsed) {
+          this.dispatchEvent(new CustomEvent('change-pressed', {
+            detail: this,
+            bubbles: true,
+            composed: true
+          }));
+        }
+      },
+
+      /**
+       * Observer callback executed after every change on <em>CellsBehaviors.StepPropBehavior.properties.active</em>.
+       *
+       * @param   value {*} Payload
+       * @private
+       */
+      /* eslint-disable */
+      _onActiveChange: function(value) {
+        if (value && value instanceof Event && value.detail && value.detail.hasOwnProperty('value')) {
+          value = value.detail.value;
+        } else {
+          value = null;
+        }
+        var fullZone = this.querySelector('.full');
+        var children = (fullZone && fullZone.children) || [];
+        if (value !== undefined && value !== null && children.length) {
+          var max = children.length - 1;
+          for (var i = max, l = 0; l <= i; i--) {
+            var child = children[i];
+            if (this.classToToggle) {
+              child.classList[value ? 'add' : 'remove'](this.classToToggle);
+            } else if (this.attributeToToggle) {
+              if (child.set instanceof Function) {
+                child.set(this.attributeToToggle, value);
+              } else {
+                child[value ? 'setAttribute' : 'removeAttribute'](this.attributeToToggle, value);
+              }
+            }
+          }
+        }
+      },
+
+      /* eslint-enable */
+      /**
+       * Observer callback executed after every change on <em>CellsBehaviors.StepPropBehavior.properties.fixed</em>.
+       *
+       * @param   value {*} Payload
+       * @private
+       */
+      _onFixedChange: function(value) {
+        if (value && value instanceof Event && value.detail && value.detail.hasOwnProperty('value')) {
+          value = value.detail.value;
+        } else {
+          value = false;
+        }
+        if (!this.disableChange) {
+          this.set('disableChange', value);
+        }
+      },
+
+      /**
+       * Returns true when the info message is shown
+       */
+      _showInfoMessage: function(infoMessageKey, collapsed) {
+        return infoMessageKey && !collapsed;
+      },
+
+      /**
+       * Fires event when help icon is pressed.
+       * @event 'help-icon-pressed'
+       */
+      _fireHelpEvent: function() {
+        this.dispatchEvent(new CustomEvent('help-icon-pressed', {
+          bubbles: true,
+          composed: true,
+          detail: this
+        }));
+      },
+
+      /**
+       * Fires event when view all is pressed.
+       * @event 'view-all-pressed'
+       */
+      _fireViewAllEvent: function() {
+        this.dispatchEvent(new CustomEvent('view-all-pressed', {
+          bubbles: true,
+          composed: true,
+          detail: this
+        }));
+      },
+
+      /**
+       * Returns true when the help icon should be showed depending
+       * on showHelpIcon and collapsed property.
+       * @param {Boolean} showHelpIcon
+       * @param {Boolean} collapsed
+       * @return {Boolean}
+      */
+      _hideHelpIcon: function(showHelpIcon, collapsed) {
+        return !showHelpIcon || collapsed;
+      },
+
+      /**
+       * Compute displayed current step
+       */
+      _displayedCurrentStep: function(displayedCurrentStep, currentStep) {
+        if (displayedCurrentStep) {
+          return displayedCurrentStep;
+        }
+        return currentStep;
+      },
+
+      /**
+       * Compute displayed max steps
+       */
+      _displayedMaxSteps: function(displayedMaxSteps, maxSteps) {
+        if (displayedMaxSteps) {
+          return displayedMaxSteps;
+        }
+        return maxSteps;
+      },
+
+      /**
+       * Computed to get icon of `cells-icon-message`
+       */
+      _computedIconMessage: function(infoMessageType) {
+        let diccIcon = {
+          info: 'coronita:info',
+          warning: 'coronita:alert',
+          error: 'coronita:alert',
+          success: 'coronita:correct',
+          default: 'coronita:info'
+        };
+        return diccIcon[infoMessageType || 'default'];
+      }
+
+      /**
+       * Fired whenever change button is clicked
+       * @event 'change-pressed'
+       */
+    };
+  }(window));
+</script>

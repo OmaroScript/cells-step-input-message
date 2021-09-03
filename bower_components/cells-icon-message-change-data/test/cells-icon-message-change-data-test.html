@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../cells-icon-message-change-data.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-icon-message-change-data></cells-icon-message-change-data>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('onChangeDataPressed', function() {
+      var el;
+
+      setup(function() {
+        el = fixture('default');
+        sinon.spy(el, 'dispatchEvent');
+      });
+
+      suiteTeardown(() => {
+        el.dispatchEvent.restore();
+      })
+
+      test('emits event', done => {
+        const callback = sinon.spy();
+        sinon.spy(el, '_onChangeDataClick');
+        el.showChangeData = true;
+        el.hasMultipleData = true;
+        flush( () => {
+          const iconElement = el.shadowRoot.querySelector('cells-icon-message');
+          const aElement = iconElement.querySelector('.actions cells-st-link a');
+          el.addEventListener('change-data-pressed', callback, {once: true});
+
+          aElement.click();
+          expect(callback).called;
+          expect(el._onChangeDataClick).called;
+          el._onChangeDataClick.restore();
+          done();
+        });
+      });
+
+      test('does not emit event because <a> is disabled', done => {
+        el.disableLink = true;
+        el.showChangeData = true;
+        el.hasMultipleData = true;
+        flush( () => {
+          const iconElement = el.shadowRoot.querySelector('cells-icon-message');
+          const aElement = iconElement.querySelector('.actions cells-st-link a');
+          expect(aElement.computedStyleMap().get('pointer-events').toString()).to.be.equal('none');
+          done();
+        });
+      });
+    });
+
+    suite('When iconSize changes', function() {
+      setup(function() {
+        el = fixture('default');
+      });
+
+      suite('And value is correct', function() {
+        test('Should update sizes property with format value', () => {
+          el.iconSize = '18';
+          expect(el.sizes).to.be.deep.equals({
+              width: "18px",
+              height: "18px"
+          });
+        });
+      });
+
+      suite('And value is empty', function() {
+        test('Shouldn´t update sizes property', () => {
+          el.iconSize = '';
+          expect(el.sizes).to.be.deep.equals({});
+        });
+      });
+
+      suite('And value is undefined', function() {
+        test('Shouldn´t update sizes property', () => {
+          el.iconSize = undefined;
+          expect(el.sizes).to.be.deep.equals({});
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

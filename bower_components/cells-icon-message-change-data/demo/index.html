@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Demo cells-icon-message-change-data</title>
+    <script>
+      window.I18nMsg = {};
+      window.I18nMsg.url = '../locales';
+    </script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="lazy-import" href="../cells-icon-message-change-data.html">
+    <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+    <link rel="lazy-import" href="css/demo-styles.html">
+  </head>
+  <body unresolved ontouchstart>
+    <cells-demo-helper i18n langs='["es-pe","en"]' available-themes='["cells-glomo-theme", "cells-coronita-base-theme"
+      ]' resolution="mobile_320"
+      events='["change-data-pressed"]'
+      breakpoints='{
+        "mobile_320": { "width": 320, "height": 640, "name": "Mobile" }}'>
+      <cells-demo-case heading="Basic" description="A basic example">
+        <template>
+          <cells-icon-message-change-data
+            message="cells-icon-message-change-data-message"
+            data="example data"
+            type="info"
+            show-change-data
+            has-multiple-data
+            change-data-text="cells-icon-message-change-data-data"
+          ></cells-icon-message-change-data>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Complete" description="With heading">
+        <template>
+          <cells-icon-message-change-data
+            message="cells-icon-message-change-data-message"
+            data="example data"
+            type="info"
+            heading="cells-icon-message-change-data-heading"
+            show-change-data has-multiple-data change-data-text="cells-icon-message-change-data-data">
+          </cells-icon-message-change-data>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Inline" description="Inline example">
+        <template>
+          <cells-icon-message-change-data
+            icon-size="18"
+            icon-message-class="inline"
+            type="info"
+            message="cells-icon-message-change-data-message">
+          </cells-icon-message-change-data>
+        </template>
+      </cells-demo-case>
+
+
+      <cells-demo-case heading="Complete with disable link" description="With heading">
+        <template>
+          <cells-icon-message-change-data
+            message="cells-icon-message-change-data-message"
+            data="example data"
+            type="info"
+            heading="cells-icon-message-change-data-heading"
+            disable-link
+            show-change-data has-multiple-data change-data-text="cells-icon-message-change-data-data">
+          </cells-icon-message-change-data>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Change icon and type message" description="Change icon and type message example">
+        <template>
+          <cells-icon-message-change-data
+            message="cells-icon-message-change-data-message"
+            data="example data"
+            type="warning"
+            heading="cells-icon-message-change-data-heading"
+            show-change-data has-multiple-data change-data-text="cells-icon-message-change-data-data"
+            icon-type="coronita:alert">
+          </cells-icon-message-change-data>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Change icon and type message without data" description="Change icon and type message without data example">
+        <template>
+          <cells-icon-message-change-data
+            message="cells-icon-message-change-data-message"
+            type="error"
+            heading="cells-icon-message-change-data-heading"
+            show-change-data has-multiple-data change-data-text="cells-icon-message-change-data-data"
+            icon-type="coronita:error">
+          </cells-icon-message-change-data>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Basic error message" description="Basic error message example">
+        <template>
+          <cells-icon-message-change-data
+            message="cells-icon-message-change-data-message"
+            type="error"
+            icon-message-class='no-background-color no-padding'
+            icon-type="coronita:alert">
+          </cells-icon-message-change-data>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Multimessage" description="Multiple messages ">
+        <template>
+          <cells-icon-message-change-data id="el"></cells-icon-message-change-data>
+          <script>
+            document.addEventListener('WebComponentsReady', function() {
+              const el = document.querySelector('#el');
+              el.messages = [
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh lacus, rutrum vehicula dignissim eget, laoreet vel est.',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh lacus, rutrum vehicula dignissim eget, laoreet vel est.'];
+              el.icon = 'coronita:info';
+              el.type = 'info';
+            });
+          </script>
+        </template>
+      </cells-demo-case>
+    </cells-demo-helper>
+  </body>
+</html>

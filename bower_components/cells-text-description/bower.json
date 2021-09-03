@@ -1,0 +1,28 @@
+{
+    "name": "cells-text-description",
+    "version": "2.26.0",
+    "description": "cells-text-description",
+    "keywords":     [
+        "i18n",
+        "web-component"
+    ],
+    "ignore": [],
+    "dependencies":     {
+        "cells-i18n-behavior": "^13.0.0",
+        "polymer": "Polymer/polymer#^2.0.0",
+        "cells-st-button": "^13.0.0",
+        "coronita-icons": "^13.4.0"
+    },
+    "devDependencies":     {
+        "cells-sass": "^2.0.0",
+        "cells-demo-helper": "^12.0.0",
+        "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
+        "web-component-tester": "^6.0.0",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+        "cells-glomo-theme": "^16.0.0",
+        "cells-coronita-base-theme": "^12.0.0"
+    },
+    "resolutions": {"webcomponentsjs": "^1.0.0"},
+    "main": ["cells-text-description.html"],
+    "composer": {}
+}

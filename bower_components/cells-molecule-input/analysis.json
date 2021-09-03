@@ -1,0 +1,2801 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "`<cells-molecule-input>` contains an `iron-input` with a floating label. When input value is empty, label acts as a placeholder for the input. Otherwise, it floats over the input value.\n\nThis component can include up to two optional icons, which can have different functionalities. Also, it includes validation functionalities beyond the ones provided by 'iron-input' component.\n\n ## Types and basic usage\n\nUser must define a `label` tag for the input, which will show the main label/placeholder of the input. Default type is `text`, but you can use the `type` attribute to set a different one. Allowed types are:\n\n- Text\n- Password\n- Number\n- Email\n\n```html\n<cells-molecule-input label=\"Your Name\"></cells-molecule-input>\n<cells-molecule-input label=\"Your ID\" type=\"number\" value=\"123456\"></cells-molecule-input>\n```\n\n* `disabled` attribute can be used to prevent the input from being edited or modified with specific style and **not** submitted when in a form\n* ```html\n<cells-molecule-input label=\"Your password\" type=\"password\" disabled></cells-molecule-input>\n```\n\n`readonly` attribute can be used to prevent the input from being edited or modified but displayed as a normal input and submitted when in a form\n\n```html\n<cells-molecule-input label=\"Informative\" type=\"text\" value=\"Only can be read\" readonly></cells-molecule-input>\n```\n\n\n`name` attribute can be set if input is going to be used inside/mapped to a form.\n\n```html\n<cells-molecule-input label=\"Your Name\" name=\"yourNameField\"></cells-molecule-input>\n```\n\nSetting the `select-all-on-focus` attribute will make the entire input value to be selected when input gets focused.\n\n```html\n<cells-molecule-input label=\"Your Name\" value=\"Element number 1\" select-all-on-focus></cells-molecule-input>\n```\n\n\nThe `autofocus` attribute will make the input to be automatically focused when the page is loaded.\n\n```html\n<cells-molecule-input label=\"Your Name\" autofocus></cells-molecule-input>\n```\n\n\nThe 'autocompletevalue' default value is `off` and it will help the input to be automatically populate suggested items based on chrome saved form data.\n\n```html\n<cells-molecule-input label=\"Your Name\" autocomplete-value=\"shipping street-address\"></cells-molecule-input>\n```\n\n\n## Main icon and secondary icon\n\nThe component can have one, two or zero action icons defined. User can pass an icon to the `icon` attribute to define a main icon, and to the `extra-icon` attribute to define a secondary icon. You must use also `icon-label` and `extra-icon-label` attributes to provide textual description of the icons functionality.\n\n```html\n<cells-molecule-input label=\"Your Name\" icon=\"coronita:close\" icon-label=\"Clear field\"></cells-molecule-input>\n```\n\nBoth for the main and the secondary icon, you can use `icon-toggled` and `extra-icon-toggled` attributes to define a 'toggle icon': an additional icon which will replace the current icon once it's activated.\n\n```html\n<cells-molecule-input label=\"Password\" type=\"password\" icon=\"coronita:visualize\" icon-toggled=\"coronita:hide\" icon-label=\"View or hide password\" extra-icon=\"coronita:close\" extra-icon-label=\"Clear field\"></cells-molecule-input>\n```\n\nThe icon passed to `error-icon` attribute is used when the input gets an invalid state.\n\n```html\n<cells-molecule-input label=\"Your email\" type=\"email\" auto-validate error-icon=\"coronita:alert\"></cells-molecule-input>\n```\n\n`icon-size` attribute can be used to define a specific size (in pixels) to the input icons.\n\n```html\n<cells-molecule-input label=\"Your Name\" icon=\"coronita:close\" icon-size=\"26\" icon-label=\"Clear field\"></cells-molecule-input>\n```\n\n### Icon action\nActivating an icon will fire an event, but also, predefined functionalities can be called. Available functionalities for the input are:\n\n- **clear**: activating the icon will set empty the input value and will return focus to the input.\n- **toggle**: activating the icon will set the input type to 'text' or to its original type. Also, it will toggle between original icon and toggled icon, and will return focus to the input.\n- **event**: activating the icon will just fire an event.\n- **none**: the icon won't even be a button; so, it won't be clickable, and it wont' fire any event.\n\nIf an input with the type 'password' has an icon and an iconToggled, it will receive the 'toggle' functionality by default. Any other case (with an icon defined) will use the 'clear' functionality by default.\n\nYou can use the 'iconAction' or 'extraIconAction' properties to override the default functionalities with one of the available functionalities (clear, toggle, event or none).\n\n```html\n<cells-molecule-input label=\"Your secret ID\" icon=\"coronita:visualize\" icon-toggled=\"coronita:hide\" icon-label=\"Toggle state\" icon-action=\"toggle\"></cells-molecule-input>\n<cells-molecule-input label=\"Your personal code\" icon=\"coronita:alert\" icon-action=\"event\" icon-label=\"Warning\"></cells-molecule-input>\n<cells-molecule-input label=\"Your credit card\" icon=\"coronita:creditcard\" icon-action=\"none\" ></cells-molecule-input>\n\n### Icon visibility\nIcons are only visible under certain conditions.\n\n- **focused**: icon is visible if the component is focused.\n- **content**: icon is visible if component value is not empty.\n- **focused-content**: icon is visible if component is focused or if component value is not empty.\n- **always**: icon is always visible.\n\nA 'password' type input which acts as a toggle (changing the input type to 'text' and back) will be visible by default both when it's focused or when it has content. Any other case (with an icon defined) will be visible by default when the input has any content in it.\n\nUse the 'iconVisibility' or 'extraIconVisibility' properties to override the default visibility of an icon.\n\n```html\n<cells-molecule-input label=\"Your card\" icon=\"coronita:creditcard\" icon-visibility=\"always\" icon-label=\"View credit card\"></cells-molecule-input>\n<cells-molecule-input label=\"Your code\" icon=\"coronita:alert\" extra-icon=\"coronita:alarm\" extra-icon-visibility=\"focused\" icon-label=\"Warning\" extra-icon-label=\"Check warning message\"></cells-molecule-input>\n```\n\n## Validations\nComponent can validate or limit the input content in different ways.\n\nYou can invoke the `validate` method on the component to run a validation of the input value, or add the `auto-validate` attribute to have it automatically validated when the value changes.\n\n```html\n<cells-molecule-input label=\"Your email\" type=\"email\" auto-validate></cells-molecule-input>\n```\n\n`error-message` attribute can be used to show an error message when input value is invalid. You can also use the `error-icon` attribute to pass an icon to show when the input is invalid.\n\n```html\n<cells-molecule-input label=\"Your email\" type=\"email\" auto-validate error-message=\"You must enter a valid email\" error-icon=\"coronita:alert\"></cells-molecule-input>\n```\n__Extra content for error message__\n\n`error-content` slot can be used to add extra content to error message like icons, text and image etc.\n\n```html\n<slot name=\"error-content\"></slot>\n```\n\nThe component will use the `iron-input` own validation based on input type. You can use the the `allowed-value` attribute to pass a specific regular expression instead. The value must match the regular expression to validate correctly.\n\n```html\n<cells-molecule-input label=\"Your email\" type=\"email\" auto-validate error-message=\"You must enter a valid email ending in .com\" allowed-value=\"^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.com$\"></cells-molecule-input>\n```\n\nAlso, setting the `required` attribute to true will make the input validation to fail when its value is empty.\n\n```html\n<cells-molecule-input label=\"Your name\" required error-message=\"This field cannot be empty\"></cells-molecule-input>\n```\n\n`max-length` attribute can be set to limit the length of the value.\n\n```html\n<cells-molecule-input label=\"Your ID\" type=\"number\" max-length=\"8\"></cells-molecule-input>\n```\n\n`prevent-invalid-input` attribute can be set to true to prevent user from entering incorrect input, as in `iron-input`. It will use the input type for it (only supported for type=number), but you can also use the `allowed-chars` attribute to set which characters are allowed. This attribute can receive a regular expression which reflects the allowed characters.\n\n```html\n<cells-molecule-input label=\"Your username\" type=\"text\" max-length=\"10\" prevent-invalid-input allowed-chars=\"[a-zA-Z0-9]\"></cells-molecule-input>\n```\n\n## Icons\n\nSince this component uses icons, it will need an [iconset](https://bbva.cellsjs.com/guides/best-practices/cells-icons.html) in your project as an [application level dependency](https://bbva.cellsjs.com/guides/advanced-guides/application-level-dependencies.html). In fact, this component uses an iconset in its demo.\n\n## Styling\n\nThe following custom properties and mixins are available for styling:\n\n\nCustom property                                        | Description                                               | Default\n:----------------------------------------------------- | :-------------------------------------------------------- | :---\n--cells-molecule-input                                 | Empty mixin for component                                 | {}\n--cells-molecule-input-background-color                | Input background color                                    | #F4F4F4\n--cells-molecule-input-border-bottom                   | Input border-bottom                                       | solid 1px var(--bbva-white, #fff)\n--cells-molecule-input-both-icons-visible              | Empty mixin for icons when both icons are visible         | {}\n--cells-molecule-input-button-active-color             | Icon buttons color on active                              | #1162A5\n--cells-molecule-input-button-color                    | Icon buttons color                                        | #121212\n--cells-molecule-input-button-focus-color              | Icon buttons color on focus                               | #2A86CA\n--cells-molecule-input-button-hover-color              | Icon buttons color on hover                               | #2A86CA\n--cells-molecule-input-disabled-background-color       | Disabled input background color                           | rgba(244, 244, 244, 0.4)\n--cells-molecule-input-icon-button-ripple              | Empty mixin for ripple area                               | {}\n--cells-molecule-input-icon-button-ripple-color        | Ripple effect color                                       | #004481\n--cells-molecule-input-icon-button-ripple-applied      | Empty mixin for ripple effect when it is applied          | {}\n--cells-molecule-input-disabled-field-input            | Empty mixin for input when it is disabled                 | {}\n--cells-molecule-input-disabled-field-input-color      | Input text color when it is disabled                      | #D3D3D3\n--cells-molecule-input-disabled-field-label            | Empty mixin for label when input is disabled              | {}\n--cells-molecule-input-disabled-field-label-color      | Disabled input label color                                | #D3D3D3\n--cells-molecule-input-disabled-icon-visible           | Disabled input icon visible but disabled\n--cells-molecule-input-disabled-icon-visible-iron-icon | Disabled icon color                                       | #D3D3D3\n--cells-molecule-input-disabled-wrapper                | Empty mixin for field and error wrapper on disabled state | {}\n--cells-molecule-input-readonly-field-input            | Empty mixin for input when it is readonly                 | {}\n--cells-molecule-input-readonly-field-label            | Empty mixin for label when input is readonly              | {}\n--cells-molecule-input-readonly-wrapper                | Empty mixin for field and error wrapper on readonly state | {}\n--cells-molecule-input-field                           | Empty mixin for input and label wrapper                   | {}\n--cells-molecule-input-field-font-size                 | Font size for input field                                 | 15px (0.9375rem)\n--cells-molecule-input-field-input                     | Empty mixin for input                                     | {}\n--cells-molecule-input-field-input-color               | Input text color                                          | #121212\n--cells-molecule-input-field-label                     | Empty mixin for label                                     | {}\n--cells-molecule-input-field-label-color               | Label color                                               | #BDBDBD\n--cells-molecule-input-field-min-height                | Input min height                                          | 60px (3.75rem)\n--cells-molecule-input-has-content-wrapper             | Empty mixin for field when it has content                 | {}\n--cells-molecule-input-has-content-invalid-wrapper     | Empty mixin for field wrapper when it has invalid content | {}\n--cells-molecule-input-has-content-invalid-field       | Empty mixin for field when it has invalid content         | {}\n--cells-molecule-input-has-content-invalid-icon        | Empty mixin for icon when the field has invalid content   | {}\n--cells-molecule-input-icon                            | Empty mixin for icons                                     | {}\n--cells-molecule-input-icon-button                     | Empty mixin for icon buttons                              | {}\n--cells-molecule-input-icon-button-size                | Icon buttons size                                         | 50px (3.125rem)\n--cells-molecule-input-icon-visible                    | Empty mixin for icon buttons when visible                 | {}\n--cells-molecule-input-icons-button-gutter             | Icon buttons width adjustement when both icons are used   | 8px (0.5rem)\n--cells-molecule-input-invalid-background-color        | Invalid input background color                            | #F8D7DC\n--cells-molecule-input-invalid-border-bottom           | Invalid input border bottom                               | var(--bbva-dark-red, #b92a45)\n--cells-molecule-input-invalid-error-icon-color        | Error icon button color                                   | #f35e61\n--cells-molecule-input-invalid-field-input             | Input text color when it is invalid                       | {}\n--cells-molecule-input-invalid-field-label             | Empty mixin for label when input is invalid               | {}\n--cells-molecule-input-invalid-field-label-color       | Invalid input label color                                 | #666666\n--cells-molecule-input-invalid-icon-error              | Empty mixin for error icon                                | {}\n--cells-molecule-input-invalid-wrapper                 | Empty mixin for field and error wrapper on invalid state  | {}\n--cells-molecule-input-left-icon-button                | Empty mixin for secondary icon when both icons are used   | {}\n--cells-molecule-input-number-spin-buttons             | Empty mixin for input number spinners                     | {}\n--cells-molecule-input-right-icon-button               | Empty mixin for main icon when both icons are used        | {}\n--cells-molecule-input-error-message-warpper-iron-icon | Empty mixin for icon in message section below the input   | {}\n--cells-molecule-input-error-message-icon-color        | Color for icon in error message                           | #f35e61\n--cells-molecule-input-text-error                      | Empty mixin for error message                             | {}\n--cells-molecule-input-text-error-color                | Error message text color                                  | #121212\n--cells-molecule-input-text-error-message-wrapper      | Empty mixin applied to the error message wrapper          | {}\n--cells-molecule-input-withcontent-field-input         | Empty mixin for input when it has content                 | {}\n--cells-molecule-input-withcontent-field-label         | Empty mixin for label when input has content              | {}\n--cells-molecule-input-withicon-field-input            | Empty mixin for input when it has icon                    | {}\n--cells-molecule-input-wrapper                         | Empty mixin for field and error wrapper                   | {}\n--cells-molecule-input-autofill                        | Empty mixin on use the autofill in mobile                 | {}",
+      "summary": "",
+      "path": "cells-molecule-input/cells-molecule-input.js",
+      "properties": [
+        {
+          "name": "label",
+          "type": "string | null | undefined",
+          "description": "Label of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 271,
+              "column": 6
+            },
+            "end": {
+              "line": 271,
+              "column": 19
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "value",
+          "type": "string | null | undefined",
+          "description": "Value of the input. Can be used to define a default value for the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 275,
+              "column": 6
+            },
+            "end": {
+              "line": 279,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_valueObserver\"",
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "bindValue",
+          "type": "string | null | undefined",
+          "description": "Property that mirrors the value property",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 283,
+              "column": 6
+            },
+            "end": {
+              "line": 286,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "type",
+          "type": "string | null | undefined",
+          "description": "Type of the input. Supported types are text, password, number and email",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 290,
+              "column": 6
+            },
+            "end": {
+              "line": 294,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"text\""
+        },
+        {
+          "name": "name",
+          "type": "string | null | undefined",
+          "description": "Name that maps to HTML native's name attribute (useful for forms)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 298,
+              "column": 6
+            },
+            "end": {
+              "line": 301,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "autocompleteValue",
+          "type": "string | null | undefined",
+          "description": "*\n asign autocomplete value autocomplete=\"shipping given-name\" and default value 'off' (use full to get chrome saved form data to prefill )",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 305,
+              "column": 6
+            },
+            "end": {
+              "line": 309,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"off\""
+        },
+        {
+          "name": "autocorrectValue",
+          "type": "string | null | undefined",
+          "description": "**\nautocorrectvalue default set on",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 314,
+              "column": 6
+            },
+            "end": {
+              "line": 318,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"off\""
+        },
+        {
+          "name": "focused",
+          "type": "boolean | null | undefined",
+          "description": "If true, the element currently has focus",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 322,
+              "column": 6
+            },
+            "end": {
+              "line": 328,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "readOnly": true,
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean | null | undefined",
+          "description": "If true, the element is currently invalid",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 332,
+              "column": 6
+            },
+            "end": {
+              "line": 337,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | null | undefined",
+          "description": "If true, the element is currently disabled",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 341,
+              "column": 6
+            },
+            "end": {
+              "line": 345,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "readonly",
+          "type": "boolean | null | undefined",
+          "description": "If true, the element is currently in readonly mode",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 349,
+              "column": 6
+            },
+            "end": {
+              "line": 353,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "required",
+          "type": "boolean | null | undefined",
+          "description": "If true, the element is required (it must not be empty in order to validate correctly)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 357,
+              "column": 6
+            },
+            "end": {
+              "line": 362,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_requiredObserver\"",
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "autofocus",
+          "type": "boolean | null | undefined",
+          "description": "If true, the element has autofocus (it receives the focus when the page is loaded)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 366,
+              "column": 6
+            },
+            "end": {
+              "line": 370,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "preventInvalidInput",
+          "type": "boolean | null | undefined",
+          "description": "If true, the user can't write wrong chars in the input, according to the 'allowedChars' property",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 374,
+              "column": 6
+            },
+            "end": {
+              "line": 377,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "maxLength",
+          "type": "string | null | undefined",
+          "description": "Max length of the input value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 381,
+              "column": 6
+            },
+            "end": {
+              "line": 384,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "autoValidate",
+          "type": "boolean | null | undefined",
+          "description": "Set to true to validate the input each time the value is changed",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 388,
+              "column": 6
+            },
+            "end": {
+              "line": 391,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string | null | undefined",
+          "description": "Error message to be shown in case input value is invalid",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 395,
+              "column": 6
+            },
+            "end": {
+              "line": 398,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "errorMessageIcon",
+          "type": "string | null | undefined",
+          "description": "Error message icon to be shown in case input value is invalid and error message icon exist",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 402,
+              "column": 6
+            },
+            "end": {
+              "line": 406,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "selectAllOnFocus",
+          "type": "boolean | null | undefined",
+          "description": "Whether all the input value is selected when input gets focus",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 410,
+              "column": 6
+            },
+            "end": {
+              "line": 412,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "allowedChars",
+          "type": "string | null | undefined",
+          "description": "Allowed chars the user can enter in the input. Maps to iron-input 'allowed-pattern' property",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 416,
+              "column": 6
+            },
+            "end": {
+              "line": 419,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "allowedValue",
+          "type": "string | null | undefined",
+          "description": "Regular expression used to validate the input value. If not defined, default iron-input validation will be used, according to the input type.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 423,
+              "column": 6
+            },
+            "end": {
+              "line": 426,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_formatAllowValue\"",
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "allowedMultiplesValues",
+          "type": "Array | null | undefined",
+          "description": "Regular expression used to validate the input value. If not defined, default iron-input validation will be used, according to the input type. Is allowed array format to validate more than one expression: Example:\n```\n'^[a-zA-Z]+$' or ['^[a-zA-Z]+$', '[0-9]']\n```",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 433,
+              "column": 6
+            },
+            "end": {
+              "line": 436,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_formatAllowMultiplesValues\"",
+              "attributeType": "Array"
+            }
+          }
+        },
+        {
+          "name": "customPattern",
+          "type": "string | null | undefined",
+          "description": "Regular expression used to know if the user has deleted a character icluded in validation mask patter (check out cells-input-validations-behavior docs) to fix the cursor position on android devices",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 440,
+              "column": 6
+            },
+            "end": {
+              "line": 440,
+              "column": 37
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "inputStatusValidate",
+          "type": "boolean | null | undefined",
+          "description": "Regular expression used to know if the user has deleted a character icluded in validation mask patter (check out cells-input-validations-behavior docs) to fix the cursor position on android devices",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 444,
+              "column": 6
+            },
+            "end": {
+              "line": 444,
+              "column": 34
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "autoMask",
+          "type": "boolean | null | undefined",
+          "description": "Control if user input data is masked/formatted (cells-input-validations-behavior required) on real time",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 448,
+              "column": 6
+            },
+            "end": {
+              "line": 451,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "iconSize",
+          "type": "number | null | undefined",
+          "description": "Icon size of the input icons",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 455,
+              "column": 6
+            },
+            "end": {
+              "line": 458,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          },
+          "defaultValue": "18"
+        },
+        {
+          "name": "icon",
+          "type": "string | null | undefined",
+          "description": "Main icon to show",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 462,
+              "column": 6
+            },
+            "end": {
+              "line": 466,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "iconLabel",
+          "type": "string | null | undefined",
+          "description": "Aria-label text for main icon",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 470,
+              "column": 6
+            },
+            "end": {
+              "line": 473,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "iconToggled",
+          "type": "string | null | undefined",
+          "description": "Toggled version of main icon",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 477,
+              "column": 6
+            },
+            "end": {
+              "line": 481,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "_icon",
+          "type": "string | null | undefined",
+          "description": "Icon currently shown as main icon",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 485,
+              "column": 6
+            },
+            "end": {
+              "line": 485,
+              "column": 29
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "iconAction",
+          "type": "string | null | undefined",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 486,
+              "column": 6
+            },
+            "end": {
+              "line": 489,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "iconVisibility",
+          "type": "string | null | undefined",
+          "description": "Condition under which the main icon is visible. Can be 'always', focused', 'content' or 'focused-content'",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 493,
+              "column": 6
+            },
+            "end": {
+              "line": 496,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "_iconVisibility",
+          "type": "string | null | undefined",
+          "description": "Computed main icon visibility, depending on user choice (iconVisibility property), input type and input action",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 500,
+              "column": 6
+            },
+            "end": {
+              "line": 503,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "_iconAction",
+          "type": "string | null | undefined",
+          "description": "Computed action for the main icon, depending on user choice (iconAction property), input type and inputToggled property",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 507,
+              "column": 6
+            },
+            "end": {
+              "line": 510,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "iconRippleEffect",
+          "type": "boolean | null | undefined",
+          "description": "Flag to either apply or not the material's ripple effect over the main icon (right one)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 514,
+              "column": 6
+            },
+            "end": {
+              "line": 517,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "extraIcon",
+          "type": "string | null | undefined",
+          "description": "Secondary icon to show",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 521,
+              "column": 6
+            },
+            "end": {
+              "line": 525,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "extraIconLabel",
+          "type": "string | null | undefined",
+          "description": "Aria-label text for secondary icon",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 529,
+              "column": 6
+            },
+            "end": {
+              "line": 532,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "extraIconToggled",
+          "type": "string | null | undefined",
+          "description": "Toggled version of secondary icon",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 536,
+              "column": 6
+            },
+            "end": {
+              "line": 540,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "_extraIcon",
+          "type": "string | null | undefined",
+          "description": "Icon currently shown as secondary icon",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 544,
+              "column": 6
+            },
+            "end": {
+              "line": 544,
+              "column": 34
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "extraIconAction",
+          "type": "string | null | undefined",
+          "description": "Action launched when secondary icon is tapped. Can be 'clear' (to clear the field) or 'toggle' (to toggle between original input type and 'text' type). Set to 'none' to just fire an event",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 548,
+              "column": 6
+            },
+            "end": {
+              "line": 551,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "extraIconVisibility",
+          "type": "string | null | undefined",
+          "description": "Condition under which the secondary icon is visible. Can be 'always', focused', 'content' or 'focused-content'",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 555,
+              "column": 6
+            },
+            "end": {
+              "line": 558,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "_extraIconVisibility",
+          "type": "string | null | undefined",
+          "description": "Computed secondary icon visibility, depending on user choice (extraIconVisibility property), input type and icon action",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 562,
+              "column": 6
+            },
+            "end": {
+              "line": 565,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "_extraIconAction",
+          "type": "string | null | undefined",
+          "description": "Computed secondary action for the icon, depending on user choice (extraIconAction property), input type and extraInputToggled property",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 569,
+              "column": 6
+            },
+            "end": {
+              "line": 572,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "_initialType",
+          "type": "string | null | undefined",
+          "description": "Stores the input original type, to allow toggling type to 'text' and back to original",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 576,
+              "column": 6
+            },
+            "end": {
+              "line": 576,
+              "column": 36
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "errorIcon",
+          "type": "string | null | undefined",
+          "description": "Icon shown when input is invalid",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 580,
+              "column": 6
+            },
+            "end": {
+              "line": 583,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "hasContent",
+          "type": "boolean | null | undefined",
+          "description": "If true, input currently has content (value is not empty)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 587,
+              "column": 6
+            },
+            "end": {
+              "line": 592,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "step",
+          "type": "number | null | undefined",
+          "description": "For type=number, native step value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 596,
+              "column": 6
+            },
+            "end": {
+              "line": 596,
+              "column": 18
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "max",
+          "type": "number | null | undefined",
+          "description": "For type=number, native max value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 600,
+              "column": 6
+            },
+            "end": {
+              "line": 600,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "min",
+          "type": "number | null | undefined",
+          "description": "For type=number, native min value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 604,
+              "column": 6
+            },
+            "end": {
+              "line": 604,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "shyPlaceholder",
+          "type": "boolean | null | undefined",
+          "description": "Whether the placeholder is hidden when the input has some value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 608,
+              "column": 6
+            },
+            "end": {
+              "line": 612,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "reactOnFocus",
+          "type": "boolean | null | undefined",
+          "description": "Whether the placeholder should minimize on focus",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 616,
+              "column": 6
+            },
+            "end": {
+              "line": 619,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_hidePlaceholder",
+          "type": "boolean | null | undefined",
+          "description": "Whether the input has content when shyPlaceholder is true",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 623,
+              "column": 6
+            },
+            "end": {
+              "line": 623,
+              "column": 31
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "toggleEmptyFillIcons",
+          "type": "boolean | null | undefined",
+          "description": "Whether the input has to toggle between icons on empty/filled value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 627,
+              "column": 6
+            },
+            "end": {
+              "line": 627,
+              "column": 35
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "hasError",
+          "type": "boolean | null | undefined",
+          "description": "Flag to contro if validation password has failed",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 631,
+              "column": 6
+            },
+            "end": {
+              "line": 634,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "autocapitalize",
+          "type": "string | null | undefined",
+          "description": "Autocapitalize input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 638,
+              "column": 6
+            },
+            "end": {
+              "line": 641,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"none\""
+        },
+        {
+          "name": "backspacePwdFullDelete",
+          "type": "boolean | null | undefined",
+          "description": "Allow complete value removal if backspace key is pressed and input type is password",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 645,
+              "column": 6
+            },
+            "end": {
+              "line": 648,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "hideAsterisk",
+          "type": "boolean | null | undefined",
+          "description": "Manage if asterisk is displayed for required fields",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 652,
+              "column": 6
+            },
+            "end": {
+              "line": 655,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "excludeCurrentTargetOnFocusEvent",
+          "type": "boolean | null | undefined",
+          "description": "Allow to exclude the current target on focus event detail",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 659,
+              "column": 6
+            },
+            "end": {
+              "line": 662,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "isFilledBlur",
+          "type": "Boolean",
+          "description": "Control variable that indicates if icon is filled and whitout focus",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 667,
+              "column": 6
+            },
+            "end": {
+              "line": 671,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ready",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 674,
+              "column": 2
+            },
+            "end": {
+              "line": 677,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "connectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 678,
+              "column": 2
+            },
+            "end": {
+              "line": 689,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "focus",
+          "description": "Sets focus to input tag",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 693,
+              "column": 2
+            },
+            "end": {
+              "line": 695,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "setSelectionRange",
+          "description": "Set the start and end positions of the text selection to input tag",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 699,
+              "column": 2
+            },
+            "end": {
+              "line": 701,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selectionStart"
+            },
+            {
+              "name": "selectionEnd"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_onFocus",
+          "description": "Sets focused state and fires event when component obtains focus",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 705,
+              "column": 2
+            },
+            "end": {
+              "line": 733,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_onBlur",
+          "description": "Sets focused state and fires event when component loses focus",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 737,
+              "column": 2
+            },
+            "end": {
+              "line": 754,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_isFilledBlur",
+          "description": "Check if Control variable that indicates if input is filled and whitout focus",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 759,
+              "column": 2
+            },
+            "end": {
+              "line": 763,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value",
+              "type": "string",
+              "description": "The value than is set"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_onDelete",
+          "description": "Reset input value after delete one input case before validate or mask value",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 767,
+              "column": 2
+            },
+            "end": {
+              "line": 786,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_selectOnFocus",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 787,
+              "column": 2
+            },
+            "end": {
+              "line": 794,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_valueObserver",
+          "description": "Manages hasContent property state, and calls input validation if autoValidate is true",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 798,
+              "column": 2
+            },
+            "end": {
+              "line": 822,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "newValue"
+            },
+            {
+              "name": "previousValue"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_autoMaskedState",
+          "description": "Enable / disable auto mask input validation",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 826,
+              "column": 2
+            },
+            "end": {
+              "line": 832,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "status"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_iconComputedAction",
+          "description": "Returns action for icon.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 836,
+              "column": 2
+            },
+            "end": {
+              "line": 846,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "iconAction"
+            },
+            {
+              "name": "_initialType"
+            },
+            {
+              "name": "iconToggled"
+            }
+          ]
+        },
+        {
+          "name": "_iconComputedVisibility",
+          "description": "Returns visibility for icon.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 850,
+              "column": 2
+            },
+            "end": {
+              "line": 858,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "iconVisibility"
+            },
+            {
+              "name": "_initialType"
+            },
+            {
+              "name": "_iconAction"
+            }
+          ]
+        },
+        {
+          "name": "_iconVisible",
+          "description": "Add visibility CSS class to icon based on received icon computed visibility",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 862,
+              "column": 2
+            },
+            "end": {
+              "line": 873,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ]
+        },
+        {
+          "name": "_iconTap",
+          "description": "Called when main icon is activated. Toggles icon if necessary, and runs icon action",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 877,
+              "column": 2
+            },
+            "end": {
+              "line": 896,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_extraIconTap",
+          "description": "Called when secondary icon is activated. Toggles icon if necessary, and runs icon action",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 900,
+              "column": 2
+            },
+            "end": {
+              "line": 909,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_runIconAction",
+          "description": "Manages icon action.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 913,
+              "column": 2
+            },
+            "end": {
+              "line": 926,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "icon"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_clearInput",
+          "description": "Sets input value to empty",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 930,
+              "column": 2
+            },
+            "end": {
+              "line": 932,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_toggleIcon",
+          "description": "Sets input value to empty",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 936,
+              "column": 2
+            },
+            "end": {
+              "line": 942,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "icon"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_toggleInput",
+          "description": "Toggles input type to 'text' or back to original type",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 946,
+              "column": 2
+            },
+            "end": {
+              "line": 948,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_formatAllowValue",
+          "description": "Assign multiples regular expressions to private property _allowedValue",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 952,
+              "column": 2
+            },
+            "end": {
+              "line": 956,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_formatAllowMultiplesValues",
+          "description": "Assign multiples regular expressions to private property _allowedValue",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 960,
+              "column": 2
+            },
+            "end": {
+              "line": 964,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "values"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "validate",
+          "description": "Launches input validation against allowedValue property regex, against iron-input default validation and against required property, and updates invalid property state",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 968,
+              "column": 2
+            },
+            "end": {
+              "line": 1008,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_requiredObserver",
+          "description": "Observer that checks the required state, if it is not required, then it should not be invalid either. It calls the validate method because the invalid state is shared across multiple properties",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1012,
+              "column": 2
+            },
+            "end": {
+              "line": 1017,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "newVal"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_showErrorMessage",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1019,
+              "column": 2
+            },
+            "end": {
+              "line": 1021,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "invalid"
+            }
+          ]
+        },
+        {
+          "name": "_asteriskCheck",
+          "description": "Observer that checks the required state, if it is not required, then it should not be invalid either. It calls the validate method because the invalid state is shared across multiple properties",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1025,
+              "column": 2
+            },
+            "end": {
+              "line": 1031,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "required"
+            },
+            {
+              "name": "hideAsterisk"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 241,
+          "column": 0
+        },
+        "end": {
+          "line": 1032,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "Polymer.Element",
+      "name": "CellsMoleculeInput",
+      "attributes": [
+        {
+          "name": "label",
+          "description": "Label of the input",
+          "sourceRange": {
+            "start": {
+              "line": 271,
+              "column": 6
+            },
+            "end": {
+              "line": 271,
+              "column": 19
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "value",
+          "description": "Value of the input. Can be used to define a default value for the input",
+          "sourceRange": {
+            "start": {
+              "line": 275,
+              "column": 6
+            },
+            "end": {
+              "line": 279,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "bind-value",
+          "description": "Property that mirrors the value property",
+          "sourceRange": {
+            "start": {
+              "line": 283,
+              "column": 6
+            },
+            "end": {
+              "line": 286,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "type",
+          "description": "Type of the input. Supported types are text, password, number and email",
+          "sourceRange": {
+            "start": {
+              "line": 290,
+              "column": 6
+            },
+            "end": {
+              "line": 294,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "name",
+          "description": "Name that maps to HTML native's name attribute (useful for forms)",
+          "sourceRange": {
+            "start": {
+              "line": 298,
+              "column": 6
+            },
+            "end": {
+              "line": 301,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "autocomplete-value",
+          "description": "*\n asign autocomplete value autocomplete=\"shipping given-name\" and default value 'off' (use full to get chrome saved form data to prefill )",
+          "sourceRange": {
+            "start": {
+              "line": 305,
+              "column": 6
+            },
+            "end": {
+              "line": 309,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "autocorrect-value",
+          "description": "**\nautocorrectvalue default set on",
+          "sourceRange": {
+            "start": {
+              "line": 314,
+              "column": 6
+            },
+            "end": {
+              "line": 318,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "focused",
+          "description": "If true, the element currently has focus",
+          "sourceRange": {
+            "start": {
+              "line": 322,
+              "column": 6
+            },
+            "end": {
+              "line": 328,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "invalid",
+          "description": "If true, the element is currently invalid",
+          "sourceRange": {
+            "start": {
+              "line": 332,
+              "column": 6
+            },
+            "end": {
+              "line": 337,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "disabled",
+          "description": "If true, the element is currently disabled",
+          "sourceRange": {
+            "start": {
+              "line": 341,
+              "column": 6
+            },
+            "end": {
+              "line": 345,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "readonly",
+          "description": "If true, the element is currently in readonly mode",
+          "sourceRange": {
+            "start": {
+              "line": 349,
+              "column": 6
+            },
+            "end": {
+              "line": 353,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "required",
+          "description": "If true, the element is required (it must not be empty in order to validate correctly)",
+          "sourceRange": {
+            "start": {
+              "line": 357,
+              "column": 6
+            },
+            "end": {
+              "line": 362,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "autofocus",
+          "description": "If true, the element has autofocus (it receives the focus when the page is loaded)",
+          "sourceRange": {
+            "start": {
+              "line": 366,
+              "column": 6
+            },
+            "end": {
+              "line": 370,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "prevent-invalid-input",
+          "description": "If true, the user can't write wrong chars in the input, according to the 'allowedChars' property",
+          "sourceRange": {
+            "start": {
+              "line": 374,
+              "column": 6
+            },
+            "end": {
+              "line": 377,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "max-length",
+          "description": "Max length of the input value",
+          "sourceRange": {
+            "start": {
+              "line": 381,
+              "column": 6
+            },
+            "end": {
+              "line": 384,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "auto-validate",
+          "description": "Set to true to validate the input each time the value is changed",
+          "sourceRange": {
+            "start": {
+              "line": 388,
+              "column": 6
+            },
+            "end": {
+              "line": 391,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "error-message",
+          "description": "Error message to be shown in case input value is invalid",
+          "sourceRange": {
+            "start": {
+              "line": 395,
+              "column": 6
+            },
+            "end": {
+              "line": 398,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "error-message-icon",
+          "description": "Error message icon to be shown in case input value is invalid and error message icon exist",
+          "sourceRange": {
+            "start": {
+              "line": 402,
+              "column": 6
+            },
+            "end": {
+              "line": 406,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "select-all-on-focus",
+          "description": "Whether all the input value is selected when input gets focus",
+          "sourceRange": {
+            "start": {
+              "line": 410,
+              "column": 6
+            },
+            "end": {
+              "line": 412,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "allowed-chars",
+          "description": "Allowed chars the user can enter in the input. Maps to iron-input 'allowed-pattern' property",
+          "sourceRange": {
+            "start": {
+              "line": 416,
+              "column": 6
+            },
+            "end": {
+              "line": 419,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "allowed-value",
+          "description": "Regular expression used to validate the input value. If not defined, default iron-input validation will be used, according to the input type.",
+          "sourceRange": {
+            "start": {
+              "line": 423,
+              "column": 6
+            },
+            "end": {
+              "line": 426,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "allowed-multiples-values",
+          "description": "Regular expression used to validate the input value. If not defined, default iron-input validation will be used, according to the input type. Is allowed array format to validate more than one expression: Example:\n```\n'^[a-zA-Z]+$' or ['^[a-zA-Z]+$', '[0-9]']\n```",
+          "sourceRange": {
+            "start": {
+              "line": 433,
+              "column": 6
+            },
+            "end": {
+              "line": 436,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Array | null | undefined"
+        },
+        {
+          "name": "custom-pattern",
+          "description": "Regular expression used to know if the user has deleted a character icluded in validation mask patter (check out cells-input-validations-behavior docs) to fix the cursor position on android devices",
+          "sourceRange": {
+            "start": {
+              "line": 440,
+              "column": 6
+            },
+            "end": {
+              "line": 440,
+              "column": 37
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "input-status-validate",
+          "description": "Regular expression used to know if the user has deleted a character icluded in validation mask patter (check out cells-input-validations-behavior docs) to fix the cursor position on android devices",
+          "sourceRange": {
+            "start": {
+              "line": 444,
+              "column": 6
+            },
+            "end": {
+              "line": 444,
+              "column": 34
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "auto-mask",
+          "description": "Control if user input data is masked/formatted (cells-input-validations-behavior required) on real time",
+          "sourceRange": {
+            "start": {
+              "line": 448,
+              "column": 6
+            },
+            "end": {
+              "line": 451,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "icon-size",
+          "description": "Icon size of the input icons",
+          "sourceRange": {
+            "start": {
+              "line": 455,
+              "column": 6
+            },
+            "end": {
+              "line": 458,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "icon",
+          "description": "Main icon to show",
+          "sourceRange": {
+            "start": {
+              "line": 462,
+              "column": 6
+            },
+            "end": {
+              "line": 466,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-label",
+          "description": "Aria-label text for main icon",
+          "sourceRange": {
+            "start": {
+              "line": 470,
+              "column": 6
+            },
+            "end": {
+              "line": 473,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-toggled",
+          "description": "Toggled version of main icon",
+          "sourceRange": {
+            "start": {
+              "line": 477,
+              "column": 6
+            },
+            "end": {
+              "line": 481,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-action",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 486,
+              "column": 6
+            },
+            "end": {
+              "line": 489,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-visibility",
+          "description": "Condition under which the main icon is visible. Can be 'always', focused', 'content' or 'focused-content'",
+          "sourceRange": {
+            "start": {
+              "line": 493,
+              "column": 6
+            },
+            "end": {
+              "line": 496,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-ripple-effect",
+          "description": "Flag to either apply or not the material's ripple effect over the main icon (right one)",
+          "sourceRange": {
+            "start": {
+              "line": 514,
+              "column": 6
+            },
+            "end": {
+              "line": 517,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "extra-icon",
+          "description": "Secondary icon to show",
+          "sourceRange": {
+            "start": {
+              "line": 521,
+              "column": 6
+            },
+            "end": {
+              "line": 525,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "extra-icon-label",
+          "description": "Aria-label text for secondary icon",
+          "sourceRange": {
+            "start": {
+              "line": 529,
+              "column": 6
+            },
+            "end": {
+              "line": 532,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "extra-icon-toggled",
+          "description": "Toggled version of secondary icon",
+          "sourceRange": {
+            "start": {
+              "line": 536,
+              "column": 6
+            },
+            "end": {
+              "line": 540,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "extra-icon-action",
+          "description": "Action launched when secondary icon is tapped. Can be 'clear' (to clear the field) or 'toggle' (to toggle between original input type and 'text' type). Set to 'none' to just fire an event",
+          "sourceRange": {
+            "start": {
+              "line": 548,
+              "column": 6
+            },
+            "end": {
+              "line": 551,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "extra-icon-visibility",
+          "description": "Condition under which the secondary icon is visible. Can be 'always', focused', 'content' or 'focused-content'",
+          "sourceRange": {
+            "start": {
+              "line": 555,
+              "column": 6
+            },
+            "end": {
+              "line": 558,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "error-icon",
+          "description": "Icon shown when input is invalid",
+          "sourceRange": {
+            "start": {
+              "line": 580,
+              "column": 6
+            },
+            "end": {
+              "line": 583,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "has-content",
+          "description": "If true, input currently has content (value is not empty)",
+          "sourceRange": {
+            "start": {
+              "line": 587,
+              "column": 6
+            },
+            "end": {
+              "line": 592,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "step",
+          "description": "For type=number, native step value",
+          "sourceRange": {
+            "start": {
+              "line": 596,
+              "column": 6
+            },
+            "end": {
+              "line": 596,
+              "column": 18
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "max",
+          "description": "For type=number, native max value",
+          "sourceRange": {
+            "start": {
+              "line": 600,
+              "column": 6
+            },
+            "end": {
+              "line": 600,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "min",
+          "description": "For type=number, native min value",
+          "sourceRange": {
+            "start": {
+              "line": 604,
+              "column": 6
+            },
+            "end": {
+              "line": 604,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "shy-placeholder",
+          "description": "Whether the placeholder is hidden when the input has some value",
+          "sourceRange": {
+            "start": {
+              "line": 608,
+              "column": 6
+            },
+            "end": {
+              "line": 612,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "react-on-focus",
+          "description": "Whether the placeholder should minimize on focus",
+          "sourceRange": {
+            "start": {
+              "line": 616,
+              "column": 6
+            },
+            "end": {
+              "line": 619,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "toggle-empty-fill-icons",
+          "description": "Whether the input has to toggle between icons on empty/filled value",
+          "sourceRange": {
+            "start": {
+              "line": 627,
+              "column": 6
+            },
+            "end": {
+              "line": 627,
+              "column": 35
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "has-error",
+          "description": "Flag to contro if validation password has failed",
+          "sourceRange": {
+            "start": {
+              "line": 631,
+              "column": 6
+            },
+            "end": {
+              "line": 634,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "autocapitalize",
+          "description": "Autocapitalize input",
+          "sourceRange": {
+            "start": {
+              "line": 638,
+              "column": 6
+            },
+            "end": {
+              "line": 641,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "backspace-pwd-full-delete",
+          "description": "Allow complete value removal if backspace key is pressed and input type is password",
+          "sourceRange": {
+            "start": {
+              "line": 645,
+              "column": 6
+            },
+            "end": {
+              "line": 648,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "hide-asterisk",
+          "description": "Manage if asterisk is displayed for required fields",
+          "sourceRange": {
+            "start": {
+              "line": 652,
+              "column": 6
+            },
+            "end": {
+              "line": 655,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "exclude-current-target-on-focus-event",
+          "description": "Allow to exclude the current target on focus event detail",
+          "sourceRange": {
+            "start": {
+              "line": 659,
+              "column": 6
+            },
+            "end": {
+              "line": 662,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "is-filled-blur",
+          "description": "Control variable that indicates if icon is filled and whitout focus",
+          "sourceRange": {
+            "start": {
+              "line": 667,
+              "column": 6
+            },
+            "end": {
+              "line": 671,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Boolean"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "cells-molecule-input-blur",
+          "description": "Event fired when input loses focus",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "cells-molecule-input-focus",
+          "description": "Event fired when input is focused",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "delete-input-case",
+          "description": "Event fired when delete input case",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "user-auto-mask",
+          "description": "Event fired after deleting input case",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "value-changed",
+          "description": "Fired when the `value` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "bind-value-changed",
+          "description": "Fired when the `bindValue` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "focused-changed",
+          "description": "Fired when the `focused` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "invalid-changed",
+          "description": "Fired when the `invalid` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cells-molecule-input"
+    }
+  ]
+}

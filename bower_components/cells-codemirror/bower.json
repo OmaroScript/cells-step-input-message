@@ -1,0 +1,24 @@
+{
+  "name": "cells-codemirror",
+  "version": "12.0.4",
+  "description": "CodeMirror text editor",
+  "keywords": [
+    "code",
+    "editor",
+    "live"
+  ],
+  "dependencies": {
+    "polymer": "^2.0.0",
+    "codemirror": "^5.42.0",
+    "codemirror-formatting": "artf/codemirror-formatting"
+  },
+  "devDependencies": {
+    "cells-sass": "^2.0.0",
+    "cells-demo-helper": "^12.3.0",
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "main": [
+    "cells-codemirror.html"
+  ]
+}

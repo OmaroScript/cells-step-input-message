@@ -1,0 +1,16 @@
+{
+  "cells-validate-amount-input-amount": "Importe",
+  "cells-validate-amount-input-min-info-message": "Introduce un importe mayor a ${_min}",
+  "cells-validate-amount-input-max-info-message": "Introduce un importe menor a ${_max}",
+  "cells-validate-amount-input-min-max-info-message": "Ingresa una cifra entre ${_min} y ${_max}.",
+  "cells-validate-amount-input-error-min": "Por favor, introduce un importe mayor a ${_min}",
+  "cells-validate-amount-input-error-max": "Por favor, introduce un importe menor a ${_max}",
+  "cells-validate-amount-input-error-min-max": "Por favor, introduce una cifra entre ${_min} y ${_max}.",
+  "cells-validate-amount-input-available-balance-info-message": "Su saldo es de: ${_userBalance}",
+  "cells-validate-amount-input-remaining-balance-info-message": "En su saldo quedaría: ${_remainingBalance}",
+  "cells-validate-amount-input-error-user-balance": "No puede introducir un importe mayor a su saldo, que es de: ${_userBalance}",
+  "cells-validate-amount-input-all-info-message": "Introduce un importe mayor que ${_min}, menor que ${_max}, múltiplo de ${multiple}. Tu saldo es: ${_userBalance}",
+  "cells-validate-amount-input-error-multiple": "El importe debe ser múltiplo de ${_multiple}",
+  "range-error-min": "Por favor, introduce una cifra entre ${_min} y ${_max}.",
+  "range-error-max": "Por favor, introduce una cifra entre ${_min} y ${_max}."
+}

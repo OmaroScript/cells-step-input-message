@@ -1,0 +1,30 @@
+{
+  "name": "cells-dropdown-menu",
+  "version": "12.1.2",
+  "description": "Show a custom select component using cells-dropdown-layer",
+  "keywords": [
+    "dropdown",
+    "menu",
+    "select",
+    "layer"
+  ],
+  "ignore": [],
+  "dependencies": {
+    "polymer": "^2.0.0",
+    "cells-dropdown-layer": "^12.0.0"
+  },
+  "devDependencies": {
+    "coronita-icons": "^10.0.0",
+    "cells-sass": "^2.0.0",
+    "web-component-tester": "^6.0.0",
+    "cells-demo-helper": "^12.0.0",
+    "webcomponentsjs": "^1.0.0"
+  },
+  "main": [
+    "cells-dropdown-menu.html"
+  ],
+  "_source": "art://bgcm/cells-dropdown-menu",
+  "_target": "^12.0.0",
+  "_release": "12.1.2",
+  "_originalSource": "cells-dropdown-menu"
+}

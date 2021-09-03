@@ -1,0 +1,417 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+  <link rel="import" href="../cells-checkbox-button.html">
+</head>
+
+<body>
+  <test-fixture id="myEl">
+    <template>
+      <cells-checkbox-button>A</cells-checkbox-button>
+    </template>
+  </test-fixture>
+  <test-fixture id="myEl2">
+    <template>
+      <cells-checkbox-button checked>B</cells-checkbox-button>
+    </template>
+  </test-fixture>
+  <test-fixture id="myEl3">
+    <template>
+      <cells-checkbox-button disabled>C</cells-checkbox-button>
+    </template>
+  </test-fixture>
+  <test-fixture id="myEl4">
+    <template>
+      <cells-checkbox-button only-checkbox>D</cells-checkbox-button>
+    </template>
+  </test-fixture>
+  <test-fixture id="myEl5">
+    <template>
+      <cells-checkbox-button 
+        only-checkbox
+        description-before-link-text="Terms and Conditions"
+        link-text="Notice of Privacy">
+        E
+      </cells-checkbox-button>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<cells-checkbox-button> tag', () => {
+      let myEl;
+
+      setup(() => {
+        myEl = fixture('myEl');
+      });
+
+      teardown(() => {
+        myEl.remove();
+      });
+
+      suite('in general', () => {
+        test('calling check method should fire cells-checkbox-button-checked', (done) => {
+          let spy = sinon.spy();
+          myEl.addEventListener('cells-checkbox-button-checked', spy);
+          flush(() => {
+            myEl.check();
+            assert.isTrue(spy.calledOnce);
+            done();
+          });
+        });
+
+        test('Setting "iconSize" sets the size of the checkbox', (done) => {
+          myEl.iconSize = 22;
+          flush(() => {
+            let iconCheckbox = myEl.shadowRoot.querySelector('#checkbox');
+            assert.include(getComputedStyle(iconCheckbox).width, myEl.iconSize);
+            assert.include(getComputedStyle(iconCheckbox).height, myEl.iconSize);
+            done();
+          });
+        });
+
+        test('Setting "errorIconSize" sets the size of the error icon', (done) => {
+          myEl.error = true;
+          myEl.errorIcon = 'any';
+          myEl.errorIconSize = 22;
+
+          flush(() => {
+            let iconMessage = myEl.shadowRoot.querySelector('.icon-message');
+            assert.equal(iconMessage.iconSize, myEl.errorIconSize);
+            done();
+          });
+        });
+
+        test('calling uncheck method in an already unchecked checkbox should not fire cells-checkbox-button-unchecked', (done) => {
+          sinon.spy(myEl, 'dispatchEvent');
+          myEl.uncheck();
+          flush(() => {
+            expect(myEl.dispatchEvent).not.calledWith('cells-checkbox-button-unchecked');
+            myEl.dispatchEvent.restore();
+            done();
+          });
+        });
+
+        test('calling check method should set aria-checked to true', (done) => {
+          myEl.check();
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('true');
+            done();
+          });
+        });
+
+        test('calling disable method should set aria-disabled to true', (done) => {
+          myEl.disable();
+          flush(() => {
+            expect(myEl.getAttribute('aria-disabled')).to.equal('true');
+            done();
+          });
+        });
+
+        test('calling showError method should set error to true', (done) => {
+          myEl.showError();
+          flush(() => {
+            expect(myEl.error).to.equal(true);
+            done();
+          });
+        });
+
+        test('calling showError method should set error to true', (done) => {
+          myEl.showError();
+          myEl.hideError();
+          flush(() => {
+            expect(myEl.error).to.equal(false);
+            done();
+          });
+        });
+        test('calling disable method should fire cells-checkbox-button-disabled event', (done) => {
+          let spy = sinon.spy();
+          myEl.addEventListener('cells-checkbox-button-disabled', spy);
+          flush(() => {
+            myEl.disable();
+            assert.isTrue(spy.calledOnce);
+            done();
+          });
+        });
+        test('calling enable method in an already enabled checkbox should not fire cells-checkbox-button-enabled event', (done) => {
+          sinon.spy(myEl, 'dispatchEvent');
+          myEl.enable();
+          flush(() => {
+            expect(myEl.dispatchEvent).not.calledWith('cells-checkbox-button-enabled');
+            myEl.dispatchEvent.restore();
+            done();
+          });
+        });
+        test('CLICK should check the checkbox button', (done) => {
+          myEl.click();
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('true');
+            done();
+          });
+        });
+        test('SPACEBAR should check the checkbox button', (done) => {
+          let event = new CustomEvent('keydown', { bubbles: true, });
+          event.keyCode = 32;
+          myEl.dispatchEvent(event);
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('true');
+            done();
+          });
+        });
+        test('not spacebar keydown should NOT check the checkbox button', (done) => {
+          let event = new CustomEvent('keydown', { bubbles: true, });
+          event.keyCode = 40;
+          myEl.dispatchEvent(event);
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('false');
+            done();
+          });
+        });
+      });
+    });
+
+    suite('<cells-checkbox-button> tag with checked attribute', () => {
+      let myEl2;
+
+      setup(() => {
+        myEl2 = fixture('myEl2');
+      });
+
+      teardown(() => {
+        myEl2.remove();
+      });
+
+      suite('in general', () => {
+        test('calling check method in an already checked checkbox should not dispatchEvent cells-checkbox-button-checked', (done) => {
+          sinon.spy(myEl2, 'dispatchEvent');
+          myEl2.check();
+          flush(() => {
+            expect(myEl2.dispatchEvent).not.calledWith('cells-checkbox-button-checked');
+            myEl2.dispatchEvent.restore();
+            done();
+          });
+        });
+
+        test('calling uncheck method should set and aria-checked to false', (done) => {
+          myEl2.uncheck();
+          flush(() => {
+            expect(myEl2.getAttribute('aria-checked')).to.equal('false');
+            done();
+          });
+        });
+      });
+    });
+
+    suite('<cells-checkbox-button> tag with disabled attribute', () => {
+      let myEl3;
+
+      setup(() => {
+        myEl3 = fixture('myEl3');
+      });
+
+      teardown(() => {
+        myEl3.remove();
+      });
+
+      suite('in general', () => {
+        test('CLICK should not check the checkbox button', (done) => {
+          myEl3.click();
+          flush(() => {
+            expect(myEl3.getAttribute('aria-checked')).to.equal('false');
+            done();
+          });
+        });
+        test('calling enable method should set aria-disabled to false', (done) => {
+          myEl3.enable();
+          flush(() => {
+            expect(myEl3.getAttribute('aria-disabled')).to.equal('false');
+            done();
+          });
+        });
+        test('calling enable method should dispatchEvent cells-checkbox-button-enabled event', (done) => {
+          let spy = sinon.spy();
+          myEl3.addEventListener('cells-checkbox-button-enabled', spy);
+          flush(() => {
+            myEl3.enable();
+            assert.isTrue(spy.calledOnce);
+            done();
+          });
+        });
+        test('calling disable method in an already disabled checkbox should not dispatchEvent cells-checkbox-button-disabled', (done) => {
+          sinon.spy(myEl3, 'dispatchEvent');
+          myEl3.disable();
+          flush(() => {
+            expect(myEl3.dispatchEvent).not.calledWith('cells-checkbox-button-disabled');
+            myEl3.dispatchEvent.restore();
+            done();
+          });
+        });
+      });
+    });
+
+    suite('<cells-checkbox-button> tag with only-checkbox attribute', () => {
+      let myEl;
+
+      setup(() => {
+        myEl = fixture('myEl4');
+      });
+
+      teardown(() => {
+        myEl.remove();
+      });
+
+      suite('in general', () => {
+        test('calling toggleOnlyInCheckbox method should fire cells-checkbox-button-toggled-only-in-checkbox', (done) => {
+          let spy = sinon.spy();
+          myEl.addEventListener('cells-checkbox-button-toggled-only-in-checkbox', spy);
+          flush(() => {
+            myEl.toggleOnlyInCheckbox();
+            assert.isTrue(spy.calledOnce);
+            done();
+          });
+        });
+
+        test('calling toggleOnlyInCheckbox method with disabled attribute should not fire cells-checkbox-button-toggled-only-in-checkbox', (done) => {
+          let spy = sinon.spy();
+          myEl.addEventListener('cells-checkbox-button-toggled-only-in-checkbox', spy);
+          flush(() => {
+            myEl.disabled = true;
+            myEl.toggleOnlyInCheckbox();
+            assert.isFalse(spy.calledOnce);
+            done();
+          });
+        });
+
+        test('calling check method should fire cells-checkbox-button-checked', (done) => {
+          let spy = sinon.spy();
+          myEl.addEventListener('cells-checkbox-button-checked', spy);
+          flush(() => {
+            myEl.check();
+            assert.isTrue(spy.calledOnce);
+            done();
+          });
+        });
+        
+        test('calling uncheck method in an already unchecked checkbox should not fire cells-checkbox-button-unchecked', (done) => {
+          sinon.spy(myEl, 'dispatchEvent');
+          myEl.uncheck();
+          flush(() => {
+            expect(myEl.dispatchEvent).not.calledWith('cells-checkbox-button-unchecked');
+            myEl.dispatchEvent.restore();
+            done();
+          });
+        });
+
+        test('calling check method should set aria-checked to true', (done) => {
+          myEl.check();
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('true');
+            done();
+          });
+        });
+
+        test('CLICK in element should not check the checkbox button', (done) => {
+          myEl.click();
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('false');
+            done();
+          });
+        });
+        
+        test('CLICK in myEl#checkbox should check the checkbox button', (done) => {
+          myEl.$.checkbox.click();
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('true');
+            done();
+          });
+        });
+
+        test('SPACEBAR should not check the checkbox button', (done) => {
+          let event = new CustomEvent('keydown', { bubbles: true, });
+          event.keyCode = 32;
+          myEl.dispatchEvent(event);
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('false');
+            done();
+          });
+        });
+
+        test('not spacebar keydown should NOT check the checkbox button', (done) => {
+          let event = new CustomEvent('keydown', { bubbles: true, });
+          event.keyCode = 40;
+          myEl.dispatchEvent(event);
+          flush(() => {
+            expect(myEl.getAttribute('aria-checked')).to.equal('false');
+            done();
+          });
+        });
+
+        test('calling showError method should set error to true', (done) => {
+          myEl.showError();
+          flush(() => {
+            expect(myEl.error).to.equal(true);
+            done();
+          });
+        });
+      
+        test('calling showError method with error property to true should set error to true', (done) => {
+          myEl.error = true;
+          myEl.showError();
+          flush(() => {
+            expect(myEl.error).to.equal(true);
+            done();
+          });
+        });        
+
+        test('calling hideError method should set error to false', (done) => {
+          myEl.showError();
+          myEl.hideError();
+          flush(() => {
+            expect(myEl.error).to.equal(false);
+            done();
+          });
+        });        
+        
+        test('calling hideError method with error property to false should set error to false', (done) => {
+          myEl.error = false;
+          myEl.hideError();
+          flush(() => {
+            expect(myEl.error).to.equal(false);
+            done();
+          });
+        });               
+      })
+    })
+    
+    suite('<cells-checkbox-button> with description and link',() => {
+      let myEl5;
+
+      setup(() => {
+        myEl5 = fixture('myEl5');
+      });
+      
+      teardown(() => {
+        myEl5.remove();
+      });
+      test('calling linkClicked method when have a text description', (done) => {
+          flush(() => {
+            const link = myEl5.shadowRoot.querySelector('#link');
+            const spyEvent = sinon.spy();
+            myEl5.addEventListener('cells-checkbox-button-link-clicked', spyEvent);
+            link.click();
+            assert.isTrue(spyEvent.called);
+            done();
+          });
+        });   
+    });
+  </script>
+</body>
+
+</html>

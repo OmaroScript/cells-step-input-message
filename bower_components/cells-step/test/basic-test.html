@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+    <link rel="import" href="../../polymer/polymer.html"/>
+    <link rel="import" href="../../test-fixture/test-fixture.html"/>
+
+    <link rel="import" href="../cells-step.html">
+  </head>
+  <body>
+
+    <test-fixture id="myEl">
+      <template>
+        <cells-step id="fake-step"></cells-step>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cells-step/> tag', function() {
+        var myEl;
+
+        setup(function() {
+          myEl = fixture('myEl');
+        });
+
+        teardown(function() {
+          myEl.remove();
+        });
+
+        suite('in general', function() {
+          test('should be in document', function() {
+            expect(myEl).not.to.be.undefined;
+          });
+        });
+
+        suite('has an API', function() {
+          [
+            {
+              prop: 'currentStep'
+            },
+            {
+              prop: 'maxSteps'
+            },
+            {
+              prop: 'displayedCurrentStep'
+            },
+            {
+              prop: 'displayedMaxSteps'
+            },
+            {
+              prop: 'title',
+              type: 'String',
+              value: ''
+            },
+            {
+              prop: 'active',
+              type: 'Boolean',
+              value: false
+            },
+            {
+              prop: 'collapsed',
+              type: 'Boolean',
+              value: false
+            },
+            {
+              prop: 'changeLabel',
+              type: 'String',
+              value: 'cells-step-change-button-label'
+            },
+            {
+              prop: 'classToToggle',
+              type: 'String',
+              value: ''
+            },
+            {
+              prop: 'attributeToToggle',
+              type: 'String',
+              value: ''
+            },
+            {
+              prop: 'hideCurrentStepLabel',
+              type: 'Boolean',
+              value: false
+            }
+          ].forEach(function(item) {
+            test('owns property "' + item.prop + '"', function() {
+              expect(myEl).to.have.property(item.prop);
+            });
+            if (item.type) {
+              test('> property "' + item.prop + '" should be an "' + item.type + '"', function() {
+                expect(myEl[item.prop]).to.be.an(item.type);
+              });
+            }
+            if (item.hasOwnProperty('value')) {
+              test('> property "' + item.prop + '" should be equal "' + item.value + '"', function() {
+                expect(myEl[item.prop]).to.be.equal(item.value);
+              });
+            }
+          });
+        });
+
+        suite('_computedIconMessage method', function() {
+          [
+            {type:'info', icon:'coronita:info'},
+            {type:'warning', icon:'coronita:alert'},
+            {type:'error', icon: 'coronita:alert'},
+            {type:'success', icon: 'coronita:correct'},
+            {type:'default', icon: 'coronita:info'}].forEach(function(item) {
+            test('Get icon for "' + item.type + '" type', function() {
+              let result = myEl._computedIconMessage(item.type);
+              expect(item.icon).to.be.equal(result);
+            });
+          });
+        });
+
+      });
+    </script>
+  </body>
+</html>

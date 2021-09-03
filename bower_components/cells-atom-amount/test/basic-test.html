@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+  <link rel="import" href="../cells-atom-amount.html">
+</head>
+
+<body>
+
+  <test-fixture id="myEl">
+    <template>
+      <cells-atom-amount></cells-atom-amount>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<cells-atom-amount>', function() {
+      var myEl;
+
+      setup(function() {
+        myEl = fixture('myEl');
+      });
+
+      test('Using a wrong amount format sets "hasError" property to true', () => {
+        assert.isFalse(myEl.hasError, 'hasError is false by default');
+        myEl.amount = '234,a-';
+        assert.isTrue(myEl.hasError);
+      });
+
+      suite('style', function() {
+        test('add \'negative\' class', function(done) {
+          myEl.amount = -117.24;
+          flush(function() {
+            expect(myEl.classList.contains('negative')).to.be.true;
+            done();
+          });
+        });
+
+        test('remove \'negative\' class', function(done) {
+          myEl.classList.add('negative');
+          myEl.amount = 117.24;
+          flush(function() {
+            expect(myEl.classList.contains('negative')).to.be.false;
+            done();
+          });
+        });
+      });
+
+      suite('accessibility methods', function() {
+        test('sets the appropriate amount aria-label without abbreviation', function() {
+          myEl.set('amount', 4213543.87);
+          myEl.set('language', 'es');
+          var srAmount = myEl.shadowRoot.querySelector('.amount-wrapper').getAttribute('aria-label');
+          expect(srAmount).to.be.equal('4.213.543,87');
+        });
+
+        test('sets the appropriate amount aria-label with abbreviation', function() {
+          myEl.set('amount', 4213543.87);
+          myEl.set('language', 'es');
+          myEl.set('scale', 3);
+          myEl.set('abbrevations', {
+            3: 'M',
+            4: 'tenthousands'
+          });
+          var srAmount = myEl.shadowRoot.querySelector('.amount-wrapper').getAttribute('aria-label');
+          expect(srAmount).to.be.equal('4.213,54 k');
+        });
+      });
+
+      suite('_computeShowMinusBeforeSymbol and _computeShowMinusAfterSymbol methods', function() {
+        test('_computeShowMinusBeforeSymbol', function() {
+          var amount = -123;
+          var _minusAfterSymbol = true;
+
+          var res = myEl._computeShowMinusBeforeSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.false;
+
+          _minusAfterSymbol = false;
+          res = myEl._computeShowMinusBeforeSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.true;
+        });
+
+        test('_computeShowMinusAfterSymbol', function() {
+          var amount = -123;
+          var _minusAfterSymbol = true;
+
+          var res = myEl._computeShowMinusAfterSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.true;
+
+          _minusAfterSymbol = false;
+          res = myEl._computeShowMinusAfterSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.false;
+        });
+      });
+
+      suite('_computeShowMinusBeforeSymbol and _computeShowMinusAfterSymbol methods', function() {
+        test('_computeShowMinusBeforeSymbol', function() {
+          var amount = -123;
+          var _minusAfterSymbol = true;
+
+          var res = myEl._computeShowMinusBeforeSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.false;
+
+          _minusAfterSymbol = false;
+          res = myEl._computeShowMinusBeforeSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.true;
+        });
+
+        test('_computeShowMinusAfterSymbol', function() {
+          var amount = -123;
+          var _minusAfterSymbol = true;
+
+          var res = myEl._computeShowMinusAfterSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.true;
+
+          _minusAfterSymbol = false;
+          res = myEl._computeShowMinusAfterSymbol(amount, _minusAfterSymbol);
+          expect(res).to.be.false;
+        });
+      });
+
+      suite('Scale related functions', function() {
+        test('_setSafeScaleValue should convert scale into an integer', function() {
+          var scale = 3.5;
+          var res = myEl._setSafeScaleValue(scale);
+          expect(res).to.be.equal(3);
+        });
+
+        test('_computedAbbreviation should return an abbreviation inside of \'abbrevations\' prop if exists and \'scale\' is given ', function() {
+          var scale = 3;
+          var customAbbreviations = {
+            1: 'tens',
+            3: 'expected',
+            4: 'tenthousands'
+          };
+          var res = myEl._computedAbbreviation(scale, customAbbreviations);
+          expect(res).to.be.equal('expected');
+        });
+
+        test('_computedAbbreviation should return a null if it does not exist in \'abbrevations\' prop', function() {
+          var scale = 1;
+          var customAbbreviations = {
+            3: 'expected',
+            4: 'tenthousands'
+          };
+          var res = myEl._computedAbbreviation(scale, customAbbreviations);
+          expect(res).to.equal('');
+        });
+
+        test('_computedAbbreviation should return a null if scale is 0', function() {
+          var scale = 0;
+          var customAbbreviations = {
+            3: 'expected',
+            4: 'tenthousands'
+          };
+          var res = myEl._computedAbbreviation(scale, customAbbreviations);
+          expect(res).to.equal('');
+        });
+
+        test('_computedAbbreviation should return a null if scale is 0', function() {
+          var scale = 0;
+          var customAbbreviations = {
+            3: 'expected',
+            4: 'tenthousands'
+          };
+          var res = myEl._computedAbbreviation(scale, customAbbreviations);
+          expect(res).to.be.equal('');
+        });
+
+        test('_setAmountParts should abbreviate the amount if abbreviaton and scale present', function(done) {
+          myEl.set('amount', 4213.87);
+          myEl.set('language', 'es');
+          myEl.set('scale', 3);
+          myEl.set('abbrevations', {
+            3: 'M',
+            4: 'tenthousands'
+          });
+
+          flush(function() {
+            var abbreviatonHidden = myEl.shadowRoot.querySelector('.abbreviation').hasAttribute('hidden');
+            expect(myEl._abbreviationHidden).to.be.false;
+            expect(myEl._fractional).to.equal('21');
+            expect(myEl._integer).to.equal('4');
+            expect(abbreviatonHidden).to.be.false;
+            done();
+          });
+        });
+
+        test('_setAmountParts should return full decimal part if showAllDecimals is set to true', function(done) {
+          myEl.set('amount', 1.23456789);
+          myEl.set('language', 'es');
+          myEl.set('showAllDecimals', true);
+
+          flush(function() {
+            expect(myEl._fractional).to.equal('23456789');
+            expect(myEl._integer).to.equal('1');
+            done();
+          });
+        });
+      });
+
+      suite('Decimals hidden', function() {
+        var fractional;
+        var separator;
+
+        setup(function() {
+          fractional = myEl.shadowRoot.querySelector('.fractional');
+          separator = myEl.shadowRoot.querySelector('.separator');
+        });
+
+        test('setting "decimals-hidden" to true hides decimal part regardless of its value', function() {
+          myEl.amount = 123434.23;
+          myEl.decimalsHidden = true;
+          assert.isTrue(fractional.hidden);
+          assert.isTrue(separator.hidden);
+        });
+
+        test('setting "zero-decimals-hidden" does not hide decimal part if is not zero', function() {
+          myEl.amount = 123434.23;
+          myEl.zeroDecimalsHidden = true;
+          assert.isFalse(fractional.hidden);
+          assert.isFalse(separator.hidden);
+        });
+
+        test('setting "zero-decimals-hidden" hides decimal part if is zero', function() {
+          myEl.amount = 123434;
+          myEl.zeroDecimalsHidden = true;
+          assert.isTrue(fractional.hidden);
+          assert.isTrue(separator.hidden);
+        });
+
+        test('setting "trailing-zero-decimals-hidden" removes traling zeros in fractional part', function() {
+          myEl.trailingZeroDecimalsHidden = true;
+          myEl.amount = 1234.80;
+          assert.equal(myEl.amount, 1234.8);
+        });
+
+        test('setting "trailing-zero-decimals-hidden" preserves a fractional with the number of digits set in "quantityFractional"', function() {
+          myEl.trailingZeroDecimalsHidden = true;
+          myEl.amount = 1234.8123400;
+          assert.equal(fractional.textContent, '81');
+        });
+
+        test('_computeDecimalsHidden method', function() {
+          const result = myEl._computeDecimalsHidden(1000.10, false, false, 'PYG');
+          assert.isTrue(result);
+        });
+        
+      });
+
+      suite('Screen only text methods', () => {
+
+        test('_screenReaderOnlyText value is correct with PEN currency if amount is bigger than 1', () => {
+          myEl.currencyCode = "PEN";
+          myEl.amount = 2;
+          expect(myEl._screenReaderOnlyText).to.equal('2.00cells-amount-behavior-currency-PEN');
+        });
+
+        test('_screenReaderOnlyText value is correct with PEN currency if amount is equal to 1', () => {
+          myEl.currencyCode = "PEN";
+          myEl.amount = 1;
+          expect(myEl._screenReaderOnlyText).to.equal('1.00cells-amount-behavior-currency-PEN-singular');
+        });
+
+        test('_showScreenReaderOnly should be false if currency is different than PEN', () => {
+          myEl.currencyCode = "USD";
+          expect(myEl._showScreenReaderOnly).to.be.false;
+        });
+
+        test('_showScreenReaderOnly should be true if currency is PEN', () => {
+          myEl.currencyCode = "PEN";
+          expect(myEl._showScreenReaderOnly).to.be.true;
+        });
+        
+        test('_showScreenReaderOnly should adjust large numbers to decimals', () => {
+          myEl.currencyCode = "PEN";
+          myEl.amount = 6265989458.90;
+          expect(myEl._showScreenReaderOnly).to.be.true;
+          expect(myEl._screenReaderOnlyText).to.equal('6,265,989,458.90cells-amount-behavior-currency-PEN');
+        });
+      })
+    });
+
+  </script>
+</body>
+
+</html>

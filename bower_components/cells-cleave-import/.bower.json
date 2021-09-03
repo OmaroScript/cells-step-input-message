@@ -1,0 +1,18 @@
+{
+  "name": "cells-cleave-import",
+  "version": "12.0.5",
+  "description": "Imports Cleave.js as an HTML import.",
+  "keywords": [
+    "web-component"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "main": [
+    "cells-cleave-import.html"
+  ],
+  "_source": "art://cellscomponentscataloglegacy/cells-cleave-import",
+  "_target": "^12.0.0",
+  "_release": "12.0.5",
+  "_originalSource": "cells-cleave-import"
+}

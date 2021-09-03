@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>Demo cells-validate-amount-input</title>
+  <script>
+    window.I18nMsg = {};
+    window.I18nMsg.url = '../locales';
+  </script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../coronita-icons/coronita-icons.html">
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="import" href="../cells-validate-amount-input.html">
+  <link rel="import" href="css/demo-styles.html">
+
+</head>
+
+<body unresolved ontouchstart>
+  <cells-demo-helper
+    events='["amount-input-changed", "image-click", "open-document-modal-selector", "continue-pressed", "amount-changed-on-blur"]'
+    i18n
+    langs='["es", "en"]'
+    available-themes='["cells-glomo-theme"]'
+    breakpoints='{"mobile": { "width": 320, "height": 640, "name": "Mobile" }}'
+    resolution="mobile">
+    <cells-demo-case heading="No validations" description="No validations">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="noLimits"
+          icon-size="16"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Max limit" description="Validate against a Max value">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="maxAndMin"
+          icon-size="16"
+
+          max="100"
+
+          info-message="cells-validate-amount-input-max-info-message"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Without info message and with min limit and user balance" description="Validate against a Max value">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="maxAndMin"
+          icon-size="16"
+
+          min="1"
+          user-balance="1000"
+
+          hide-info-message
+          error-prefix="without-info"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Min limit" description="Validate against a Min value">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="maxAndMin"
+          icon-size="16"
+
+          min="100"
+
+          info-message="cells-validate-amount-input-min-info-message"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Max and Min" description="Validate against Max and min values">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="maxAndMin"
+          icon-size="16"
+
+          max="100"
+          min="3"
+
+          info-message="cells-validate-amount-input-min-max-info-message"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Max and Min with range error" description="Validate against Max and min without distinction">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="maxAndMin"
+          icon-size="16"
+
+          max="100"
+          min="3"
+
+          info-message="cells-validate-amount-input-min-max-info-message"
+
+          error-prefix="range"
+        ></cells-validate-amount-input>
+      </template>
+      </cells-demo-case>
+
+    <cells-demo-case heading="User Balance 1000" description="Only user balance validation">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="userBalance"
+          icon-size="16"
+
+          user-balance="1000"
+
+          info-message="cells-validate-amount-input-available-balance-info-message"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+
+    <cells-demo-case heading="User Balance and show remaining balance" description="Only user balance validation">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="userBalance"
+          icon-size="16"
+
+          user-balance="1000"
+
+          info-message="cells-validate-amount-input-available-balance-info-message"
+          remaining-info-message="cells-validate-amount-input-remaining-balance-info-message"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Min, max, multiple and user balance" description="Min, max, multiple and user balance validation">
+      <template>
+        <cells-validate-amount-input
+          max-product="1000"
+          currency-code="PEN"
+          local-currency="PEN"
+          language="en"
+          name="all"
+          icon-size="16"
+
+          user-balance="1000"
+          min="10"
+          max="100"
+          multiple="10"
+
+          info-message="cells-validate-amount-input-all-info-message"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With image (currency selector)" description="Input an amount with a flag image and an info message used to select a currency">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          local-currency="PEN"
+          language="es"
+          name="with-image"
+          icon-size="16"
+
+          image="assets/europa.svg"
+
+          info-message="Mensaje de prueba"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Without the possibility of insert decimals" description="Input without the possibility of insert decimals">
+      <template>
+        <cells-validate-amount-input
+          currency-code="PEN"
+          disable-decimal
+          local-currency="PEN"
+          language="en"
+          name="disableDecimals"
+        ></cells-validate-amount-input>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

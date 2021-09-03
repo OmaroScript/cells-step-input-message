@@ -1,0 +1,95 @@
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="cells-skeleton-item-styles.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+
+<dom-module id="cells-skeleton-item">
+  <template>
+    <style include="cells-skeleton-item-styles cells-skeleton-item-shared-styles"></style>
+
+    <div class="wrapper">
+      <dom-if if="[[showAvatar]]" restamp="true">
+        <template>
+          <div class="avatar">
+            <div class="avatar--head"></div>
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[showBullets]]" restamp="true">
+        <template>
+          <ul class="actions">
+            <template is="dom-repeat" id="bulletsElements" items="{{_generateAmountGroupSkeletonElements(numberSkeletonBullets)}}">
+              <li class="actions--box">
+                <div class="actions--box--item"></div>
+              </li>
+            </template>
+          </ul>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[showHeader]]" restamp="true">
+        <template>
+          <div class="header">
+            <div class="box box--xs"></div>
+            <div class="box box--xs"></div>
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[showTitle]]" restamp="true">
+        <template>
+          <div class="title">
+            <div class="box"></div>
+          </div>
+        </template>
+      </dom-if>
+
+      <div class$="[[_showFirstIndentation(firstIndentation)]]">
+        <div class$="[[_showSecondIndentation(secondIndentation)]]">
+          <div class$="[[_showBackground(showBackground)]]">
+            <div class="icon" hidden$="[[!showIcon]]"></div>
+            <div class="content">
+              <dom-if if="[[showItem]]" restamp="true">
+                <template>
+                  <div class="content--top">
+                    <div class="box"></div>
+                    <div class="box"></div>
+                  </div>
+                  <div class="content--bottom">
+                    <div class="box box--xs"></div>
+                    <div class="box box--xs"></div>
+                  </div>
+                </template>
+              </dom-if>
+              <dom-if if="[[showSingle]]" restamp>
+                <template>
+                  <div class="content--top">
+                    <div class$="[[_selectBoxHeight(thickLine)]]"></div>
+                  </div>
+                </template>
+              </dom-if>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <dom-if if="[[showSkeletonAmountGroup]]" restamp="true">
+        <template>
+          <ul class="amount-list">
+            <template is="dom-repeat" id="skeletonElements" items="{{_generateAmountGroupSkeletonElements(numberSkeletonAmountGroupElements)}}">
+              <li class="amount-list__item">
+                <div class="amount">
+                    <div class="bar"></div>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </template>
+      </dom-if>
+  
+    </div>
+    <slot></slot>
+  </template>
+  <script src="cells-skeleton-item.js"></script>
+</dom-module>

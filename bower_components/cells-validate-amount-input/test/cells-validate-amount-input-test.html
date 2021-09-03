@@ -1,0 +1,609 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../cells-validate-amount-input.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-validate-amount-input
+        name="default"
+        currency-code="EUR"
+        local-currency="EUR"
+        language="es"
+        error-prefix="test"
+      ></cells-validate-amount-input>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('On any case', () => {
+      let el;
+      let button;
+      setup(function() {
+        el = fixture('default');
+        button = el.shadowRoot.querySelector('#enterAmountBtn');
+      });
+
+      test('when infoMessage is set, info-message is shown', (done) => {
+        el.infoMessage = "cells-validate-amount-input-min-info-message";
+
+        const amountInput = el.shadowRoot.querySelector('#enterAmountInput');
+        flush(() => {
+          const infoMessage = amountInput.shadowRoot.querySelector('.message-input');
+          const message = infoMessage.shadowRoot.querySelector('.message').innerText;
+
+          expect(message).to.eql(el._computedInfoMessage);
+
+          done();
+        });
+
+      });
+
+      test('when errorMessage is set, error-message is shown', () => {
+        el.errorMessage = "cells-validate-amount-input-min-info-message";
+
+        const amountInput = el.shadowRoot.querySelector('#enterAmountInput');
+        expect(amountInput.errorMessage).to.eql(el._computedErrorMessage);
+      });
+
+      test('when input is empty, button should be disabled', () => {
+
+        expect(button.disabled).to.be.true;
+      });
+
+      suite('when setAmount is set with an wrong amount', () => {
+        setup(function() {
+          el.max = 100;
+          el.setAmount = 110;
+        });
+
+        test('error-message is shown', (done) => {
+          flush(() => {
+            expect(el._computedErrorMessage).to.be.defined;
+            const amountInput = el.shadowRoot.querySelector('#enterAmountInput');
+            expect(amountInput.errorMessage).to.eql(el._computedErrorMessage);
+            expect(button.disabled).to.be.true;
+            done();
+          });
+        });
+
+        test('shouldn´t fire a "amount-changed-on-blur"', () => {
+          const callback = sinon.spy();
+          el.addEventListener('amount-changed-on-blur', callback, { once: true });
+          expect(callback.called).to.be.false;
+        });
+      });
+
+    });
+
+    suite('When hideInfoMessage is set', () => {
+      let el;
+
+      setup(function() {
+        el = fixture('default');
+      });
+
+      test('when infoMessage is set, info-message is not shown', (done) => {
+        el.infoMessage = "cells-validate-amount-input-min-info-message";
+        el.hideInfoMessage = true;
+
+        const amountInput = el.shadowRoot.querySelector('#enterAmountInput');
+        flush(() => {
+          const infoMessage = amountInput.shadowRoot.querySelector('.message-input');
+
+          expect(infoMessage).to.be.null;
+
+          done();
+        });
+
+      });
+    });
+
+    suite('When min validation is set', function() {
+      let el;
+      const MIN = 10;
+      let button;
+
+      setup(function() {
+        el = fixture('default');
+        el.min = MIN;
+        button = el.shadowRoot.querySelector('#enterAmountBtn');
+        el.infoMessage = "cells-validate-amount-input-min-info-message";
+      });
+
+      suite('when entering an invalid amount', () => {
+        test('should still show the info message', () => {
+          el.amount = 8;
+
+          expect(el._computedErrorMessage).to.not.be.defined;
+        });
+
+        test('and focus is out of input, should validate, show min error message and disable button', () => {
+          el.amount = 8;
+          el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+          expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-min`);
+          expect(button.disabled).to.be.true;
+        });
+      });
+    });
+
+    suite('When max validation is set', function() {
+      let el;
+      const MAX = 100;
+      let button;
+
+      setup(function() {
+        el = fixture('default');
+        el.max = MAX;
+        button = el.shadowRoot.querySelector('#enterAmountBtn');
+        el.infoMessage = "cells-validate-amount-input-max-info-message";
+      });
+
+      suite('when entering an invalid amount', () => {
+        test('should still show the info message and button enabled', () => {
+          el.amount = 800;
+
+          expect(el._computedErrorMessage).to.not.be.defined;
+        });
+
+        test('and focus is out of input, should validate, show max error message and disable button', () => {
+          el.amount = 800;
+          el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+          expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-max`);
+          expect(button.disabled).to.be.true;
+        });
+      });
+    });
+
+
+    suite('When min and max validation are set', function() {
+      let el;
+      const MIN = 10;
+      const MAX = 100;
+      let button;
+      setup(function() {
+        el = fixture('default');
+        button = el.shadowRoot.querySelector('#enterAmountBtn');
+        el.min = MIN;
+        el.max = MAX;
+        el.infoMessage = "cells-validate-amount-input-min-max-info-message";
+      });
+
+      suite('when entering an amount below min', () => {
+        test('should still show the info message', () => {
+          el.amount = 8;
+
+          expect(el._computedErrorMessage).to.not.be.defined;
+        });
+
+        test('and focus is out of input, should validate, show min error message and disable button', () => {
+          el.amount = 8;
+          el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+          expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-min`);
+          expect(button.disabled).to.be.true;
+        });
+      });
+
+      suite('when entering an amount above max', () => {
+        test('should still show the info message', () => {
+          el.amount = 800;
+
+          expect(el._computedErrorMessage).to.not.be.defined;
+        });
+
+        test('and focus is out of input, should validate, show max error message and disable button', () => {
+          el.amount = 800;
+          el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+          expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-max`);
+          expect(button.disabled).to.be.true;
+        });
+      });
+    });
+
+    suite('When multiple validation is set', function() {
+      let el;
+      const MULTIPLE = 10;
+      let button;
+
+      setup(function() {
+        el = fixture('default');
+        button = el.shadowRoot.querySelector('#enterAmountBtn');
+        el.multiple = MULTIPLE;
+        el.infoMessage = "cells-validate-amount-input-max-info-message";
+      });
+
+      suite('when entering an amount not multiple', () => {
+        test('should still show the info message', () => {
+          el.amount = 11;
+
+          expect(el._computedErrorMessage).to.not.be.defined;
+        });
+
+        test('and focus is out of input, should validate, show multiple error message and disable button', () => {
+          el.amount = 11;
+          el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+          expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-multiple`);
+          expect(button.disabled).to.be.true;
+        });
+      });
+
+      suite('when entering a empty amount', () => {
+        test('should fire a "amount-changed-empty" event', () => {
+          const callback = sinon.spy();
+          el.addEventListener('amount-changed-empty', callback, { once: true });
+          el.amount = '';
+          el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+          expect(callback.called).to.be.true;
+        });
+      });
+
+      suite('and min and max validation are set', () => {
+        const MIN = 10;
+        const MAX = 100;
+
+        setup(() => {
+          el.min = MIN;
+          el.max = MAX;
+        });
+
+        suite('when entering an amount above max', () => {
+          test('should still show the info message', () => {
+            el.amount = 110;
+
+            expect(el._computedErrorMessage).to.not.be.defined;
+          });
+
+          test('and focus is out of input, should validate, show max error message and disable button', () => {
+            el.amount = 110;
+            el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+            expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-max`);
+            expect(button.disabled).to.be.true;
+          });
+        });
+
+        suite('when entering an amount between min and max but not multiple', () => {
+          test('should still show the info message', () => {
+            el.amount = 11;
+
+            expect(el._computedErrorMessage).to.not.be.defined;
+          });
+
+          test('and focus is out of input, should validate, show multiple error message and disable button', () => {
+            el.amount = 11;
+            el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+            expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-multiple`);
+            expect(button.disabled).to.be.true;
+          });
+        });
+
+      });
+    });
+
+    suite('When a user balance validation is set', () => {
+      let el;
+      const USER_BALANCE = 70;
+      let amountInput;
+      setup(() => {
+        el = fixture('default');
+        amountInput = el.shadowRoot.querySelector('#enterAmountInput');
+        el.userBalance = USER_BALANCE;
+      });
+
+      suite('when entering an amount above user balance', () => {
+
+        test('should validate and show user balance error message', () => {
+          amountInput._formattedAmount = 80;
+
+          expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-user-balance`);
+        });
+      });
+
+      suite('and remainingInfoMessage is set', () => {
+        setup(() => {
+          el.remainingInfoMessage = 'remaining message';
+        })
+        test('on a valid amount, remaining info message should be shown', () => {
+          amountInput._formattedAmount = 80;
+
+          expect(el._computedInfoMessage).to.eql('remaining message');
+        });
+
+        test('on an invalid amount, user balance error message should be shown', () => {
+          amountInput._formattedAmount = 80;
+
+          expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-user-balance`);
+        });
+      });
+    });
+
+    suite('When min, max, multiple and user balance validation are set', () => {
+      let el;
+      const MIN = 10;
+      const MAX = 100;
+      const MULTIPLE = 10;
+      const USER_BALANCE = 70;
+      let amountInput;
+      setup(() => {
+        el = fixture('default');
+        el.min = MIN;
+        el.max = MAX;
+        el.multiple = MULTIPLE;
+        el.userBalance = USER_BALANCE;
+        amountInput = el.shadowRoot.querySelector('#enterAmountInput');
+      });
+
+      test('on an amount above user balance, should compute user balance error message', () => {
+        amountInput._formattedAmount = 80;
+
+        expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-user-balance`);
+        // do blur to activate onblur validation as well
+        el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+        expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-user-balance`);
+      });
+
+      test('on an amount above max and not above user balance -> on blur -> max error should be shown', () => {
+        el.userBalance = 800;
+        amountInput._formattedAmount = 200;
+
+        expect(el._computedErrorMessage).to.not.be.defined;
+        // do blur to activate onblur validation as well
+        el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+        expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-max`);
+      });
+
+      test('on an amount between min and max and not above user balance and not multiple -> on blur -> multiple error should be shown', () => {
+        amountInput._formattedAmount = 21;
+
+        expect(el._computedErrorMessage).to.not.be.defined;
+        // do blur to activate onblur validation as well
+        el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+        expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-multiple`);
+      });
+    });
+
+
+    suite('_allAmounts', () => {
+      let el;
+      const MIN = 10;
+      const MAX = 100;
+      const MULTIPLE = 10;
+      const USER_BALANCE = 70;
+
+      setup(() => {
+        el = fixture('default');
+      });
+
+      test('should be computed when validation properties are set', () => {
+        el.min = MIN;
+        el.max = MAX;
+        el.multiple = MULTIPLE;
+        el.userBalance = USER_BALANCE;
+
+        expect(el._allAmounts._min).to.be.ok;
+        expect(el._allAmounts._max).to.be.ok;
+        expect(el._allAmounts._multiple).to.be.ok;
+        expect(el._allAmounts._userBalance).to.be.ok;
+      });
+
+      test('should be computed when amount is changed', () => {
+        el.min = MIN;
+        el.max = MAX;
+        el.multiple = MULTIPLE;
+        el.userBalance = USER_BALANCE;
+        el.amount = 22;
+
+        expect(el._allAmounts._remainingBalance).to.be.ok;
+      })
+    });
+
+    suite('remaining user balance', () => {
+      let el;
+      const USER_BALANCE = 70;
+
+      setup(() => {
+        el = fixture('default');
+        el.userBalance = USER_BALANCE;
+      });
+
+      test('should be calculated after an amount is set', () => {
+        el.amount = 10;
+
+        expect(el._userRemainingBalance).to.eql(60);
+      });
+    });
+
+    suite('on continue button clicked', () => {
+      let el;
+
+      setup(() => {
+        el = fixture('default');
+      });
+
+      test('should send event with amount', () => {
+        const callback = sinon.spy();
+        const button = el.shadowRoot.querySelector('#enterAmountBtn');
+        el.addEventListener('continue-pressed', callback, { once: true });
+        el.amount = 10;
+
+        button.disabled = false;
+        button.click();
+
+        expect(callback).called;
+        expect(callback.args[0][0].detail).to.eql(10);
+      });
+
+      test('and buttonEventName is set should send event with amount', () => {
+        el.buttonEventName = 'my-event';
+        const callback = sinon.spy();
+        const button = el.shadowRoot.querySelector('#enterAmountBtn');
+        el.addEventListener(el.buttonEventName, callback, { once: true });
+        el.amount = 10;
+
+        button.disabled = false;
+        button.click();
+
+        expect(callback).called;
+        expect(callback.args[0][0].detail).to.eql(10);
+      });
+    });
+
+    suite('validateOnChange', () => {
+      let el;
+
+      setup(() => {
+        el = fixture('default');
+      });
+
+      test('Must validate when the amount is changed', (done) => {
+        const listener = (event) => {
+          expect(el._valid).to.eql(false);
+          removeEventListener('amount-input-changed', listener);
+          done();
+        };
+
+        el.validateOnInputChange = true;
+        el.min = 10;
+        el.max = 100
+        el.setAmount = 50;
+        el.addEventListener('amount-input-changed', listener);
+        expect(el._valid).to.eql(true);
+        el.setAmount = 5;
+      });
+    });
+
+    suite('keyboardEnter', () => {
+      let el;
+
+      setup(() => {
+        el = fixture('default');
+      });
+
+      test('_onKeyboardEnter function test', () => {
+        const keyEnter = { keyCode: 13 };
+        sinon.spy(el, '_inputBlur');
+        el._onKeyboardEnter(keyEnter);
+        expect(el._inputBlur).to.have.been.calledOnce;
+        el._inputBlur.restore();
+      });
+
+      test('_onkeyboardEnter function with event empty', () => {
+        sinon.spy(el, '_inputBlur');
+        el._onKeyboardEnter({});
+        expect(el._inputBlur).to.not.have.been.calledOnce;
+        el._inputBlur.restore();
+      });
+
+      test('_onKeyboardEnter function test but id is not enterAmountInput', () => {
+        const keyEnter = { keyCode: 13 };
+        let amountInput = el.shadowRoot.querySelector('#enterAmountInput');
+        amountInput.id = 'enterAmountInput2';
+        sinon.spy(el, '_inputBlur');
+        el._onKeyboardEnter(keyEnter);
+        expect(el._inputBlur).to.have.been.calledOnce;
+        el._inputBlur.restore();
+      });
+    });
+
+    suite('When validation is set', function() {
+      let el, button;
+      const MIN = 10;
+      const MAX = 100;
+
+      setup(() => {
+        el = fixture('default');
+        button = el.shadowRoot.querySelector('#enterAmountBtn');
+        el.min = MIN;
+        el.max = MAX;
+      });
+
+      suite('And validation on blur is disabled', () => {
+        suite('when entering an amount above max', () => {
+          test('and focus is out of input, shouldn´t validate', (done) => {
+            const callback = sinon.spy();
+            el.addEventListener('amount-changed-on-blur', callback, { once: true });
+            el.disableValidateOnBlur = true;
+            flush(() => {
+              el.shadowRoot.querySelector('#enterAmountInput').shadowRoot.querySelector('input').value = 110;
+              el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+              flush(() => {
+                expect(callback.called).to.be.false;
+                done();
+              });
+            });
+          });
+        });
+      });
+
+      suite('And validation on blur is enabled', () => {
+        suite('when entering an amount above max', () => {
+          test('and focus is out of input, should validate, show max error message and disable button', (done) => {
+            el.setAmount = 110;
+            el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('blur'));
+
+            flush(() => {
+              expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-max`);
+              expect(button.disabled).to.be.true;
+              done();
+            });
+          });
+        });
+      });
+
+      suite('And validation on focus out is disabled', () => {
+        suite('when entering an amount above max', () => {
+          test('and focus is out of input, shouldn´t validate', (done) => {
+            const callback = sinon.spy();
+            el.addEventListener('amount-changed-on-blur', callback, { once: true });
+            el.disableValidateOnFocusOut = true;
+            flush(() => {
+              el.shadowRoot.querySelector('#enterAmountInput').shadowRoot.querySelector('input').value = 110;
+              el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('focusout'));
+
+              flush(() => {
+                expect(callback.called).to.be.false;
+                done();
+              });
+            });
+          });
+        });
+      });
+
+      suite('And validation on focus out is enabled', () => {
+        suite('when entering an amount above max', () => {
+          test('and focus is out of input, shouldn´t validate', (done) => {
+            el.setAmount = 110;
+            el.shadowRoot.querySelector('#enterAmountInput').dispatchEvent(new Event('focusout'));
+
+            flush(() => {
+              expect(el._computedErrorMessage).to.eql(`${el.errorPrefix}-error-max`);
+              expect(button.disabled).to.be.true;
+              done();
+            });
+          });
+        });
+      });
+
+    });
+  </script>
+</body>
+
+</html>

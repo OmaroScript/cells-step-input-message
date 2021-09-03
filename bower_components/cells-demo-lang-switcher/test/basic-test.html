@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <link rel="import" href="../../cells-i18n-behavior/cells-i18n-behavior.html">
+    <link rel="import" href="../cells-demo-lang-switcher.html">
+  </head>
+  <body>
+
+    <test-fixture id="default">
+      <template>
+        <cells-demo-lang-switcher locales-path="../demo/locales" ></cells-demo-lang-switcher>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cells-demo-lang-switcher>', function() {
+        var el;
+
+        setup(function() {
+          el = fixture('default');
+        });
+
+        test('setting localesPath sets I18nMsg.url', function() {
+          el.localesPath = '../demo/locales';
+          assert.equal(I18nMsg.url, '../demo/locales/');
+        });
+
+        suite('Changing selected lang', function() {
+          var select;
+
+          setup(function() {
+            select = el.shadowRoot.querySelector('.dropdown');
+          });
+
+          teardown(function() {
+            select.selected = 0;
+          });
+
+          test('sets the lang attribute of the ownerDocument', function() {
+            var initialLang = el.ownerDocument.lang;
+            select.selected = 1;
+            assert.notEqual(initialLang, el.ownerDocument.lang);
+          });
+
+          test('sets I18nMsg.lang', function() {
+            var initialLang = I18nMsg.lang;
+            select.selected = 1;
+            assert.notEqual(initialLang, I18nMsg.lang);
+          });
+
+          test('sets lang property', function() {
+            var spy = sinon.spy();
+            el.addEventListener('lang-changed', spy);
+            select.selected = 1;
+            assert.equal(el.lang, I18nMsg.lang);
+            assert.isTrue(spy.calledOnce, '"lang" property is set as notifiable');
+          });
+        });
+
+        suite('data binding', function() {
+          test('setting label sets dropdown label', function() {
+            var dropdown = el.shadowRoot.querySelector('.dropdown');
+
+            el.label = 'en';
+            assert.equal(dropdown.label, el.label, 'label property is used as dropdown label');
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

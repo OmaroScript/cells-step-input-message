@@ -1,0 +1,130 @@
+<dom-module id="cells-radio-tabs-styles"><template><style>
+:host {
+  --cells-radio-tabs-border-radius: 0;
+  --radio-tabs-item-width: 100%;
+  display: flex;
+  position: relative;
+  font-size: var(--cells-radio-tabs-font-size, 0.8125rem);
+  font-weight: 500;
+  color: var(--cells-radio-tabs-color, var(--bbva-300, #D3D3D3));
+  height: var(--cells-radio-tabs-item-height, 3.4375rem);
+  background-color: var(--cells-radio-tabs-bg-color, var(--bbva-white, #fff));
+  border-radius: var(--cells-radio-tabs-border-radius);
+  box-sizing: border-box;
+  @apply --cells-radio-tabs;
+}
+
+:host button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex: var(--cells-radio-tabs-option-flex, 1);
+  height: 100%;
+  cursor: pointer;
+  border: 0;
+  border-bottom: 1px solid var(--cells-radio-tabs-border-bottom-color, var(--bbva-200, #E9E9E9));
+  outline: none;
+  background: none;
+  color: var(--cells-radio-tabs-color, var(--bbva-300, #D3D3D3));
+  @apply --cells-radio-tabs-option;
+}
+:host button[active] .tab-content {
+  color: var(--cells-radio-tabs-color-selected, var(--bbva-core-blue, #004481));
+  @apply --cells-radio-tabs-selected;
+}
+:host button:hover .tab-content {
+  @apply --cells-radio-tabs-tab-hover;
+}
+:host span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--cells-radio-tabs-span-min-height, 2.75rem);
+  min-width: var(--cells-radio-tabs-span-min-width, 2.75rem);
+  @apply --cells-radio-tabs-span;
+}
+:host .tab-content {
+  pointer-events: none;
+  @apply --cells-radio-tabs-content;
+}
+:host .icon {
+  margin: var(--cells-radio-tabs-icon-margin, 0 0.625rem 0 0);
+  @apply --cells-radio-tabs-icon;
+}
+:host #indicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--radio-tabs-item-width);
+  height: 0.125rem;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+  border-radius: var(--cells-radio-tabs-border-radius);
+  background-color: var(--cells-radio-tabs-indicator-bg-color, var(--bbva-core-blue, #004481));
+  @apply --cells-ratio-tabs-indicator;
+}
+:host .label {
+  font-size: var(--cells-radio-tabs-font-size, 0.9375rem);
+  font-weight: var(--cells-radio-tabs-font-wight, normal);
+  @apply --cells-ratio-tabs-label;
+}
+:host .total {
+  order: var(--cells-radio-tabs-total-order, 2);
+  padding-left: var(--cells-radio-tabs-total-padding-left, 0.75rem);
+  @apply --cells-ratio-tabs-total;
+}
+:host button[active] .label {
+  font-weight: var(--cells-radio-tabs-active-font-weight, var(--cells-fontDefaultBold, bold));
+  @apply --cells-radio-tabs-option-focus-label;
+}
+
+:host(.round-total) {
+  color: var(--cells-radio-tabs-round-color, var(--bbva-500, #666666));
+}
+:host(.round-total) button {
+  border-bottom-color: var(--cells-radio-tabs-round-border-bottom-color, var(--bbva-300, #D3D3D3));
+  @apply --cells-radio-tabs-round-label;
+}
+:host(.round-total) button .label {
+  order: var(--cells-radio-tabs-round-label-order, 2);
+  font-size: var(--cells-radio-tabs-round-label-font-size, 0.9375rem);
+  @apply --cells-radio-tabs-round-label-class;
+}
+:host(.round-total) button .total {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  min-width: 1.5rem;
+  border-radius: 50%;
+  vertical-align: middle;
+  order: var(--cells-radio-tabs-round-total-order, 1);
+  font-size: var(--cells-radio-tabs-round-total-font-size, 0.875rem);
+  margin-right: var(--cells-radio-tabs-total-margin-right, 1rem);
+  margin-left: var(--cells-radio-tabs-total-margin-left, 0);
+  color: var(--cells-radio-tabs-round-total-color, var(--bbva-white, #FFFFFF));
+  background-color: var(--cells-radio-tabs-round-total-background-color, var(--bbva-500, #666666));
+  @apply --cells-ratio-tabs-round-total;
+}
+:host(.round-total) button .total:before {
+  content: "";
+  float: left;
+  width: auto;
+  padding-bottom: 100%;
+  @apply --cells-ratio-tabs-round-total-before;
+}
+
+:host(.indicator-hidden) #indicator {
+  opacity: 0;
+}
+
+:host([hidden]), [hidden] {
+  display: none !important;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+</style></template></dom-module>

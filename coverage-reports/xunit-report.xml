@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assemblies>
+  <assembly name="WCT Unit tests [chrome.91]" environment="chrome.91" test-framework="web-component-tester" run-date="2021-06-27" run-time="09:45:44" total="50" passed="50" failed="0" skipped="0">
+    <collection passed="50" failed="0" skipped="0">
+      <test name="reset should reset input value" method="&lt;cells-step-input-message>.reset should reset input value" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return true if input is filled" method="&lt;cells-step-input-message>.isValid should return true if input is filled" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return true if input is filled with amount" method="&lt;cells-step-input-message>.isValid should return true if input is filled with amount" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return false if amount input is not set" method="&lt;cells-step-input-message>.isValid should return false if amount input is not set" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="isValid should return manualDisableButtonValue in true" method="&lt;cells-step-input-message>.isValid should return manualDisableButtonValue in true" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return manualDisableButtonValue in true and regex validation" method="&lt;cells-step-input-message>.isValid should return manualDisableButtonValue in true and regex validation" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="when focusOut should set state props into this" method="&lt;cells-step-input-message>.when focusOut should set state props into this" type="test/cells-step-input-message-test.html" result="Pass" time="5"/>
+      <test name="should dispatch an event with input" method="_onContinue.should dispatch an event with input" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should dispatch an event with input without reason" method="_onContinue.should dispatch an event with input without reason" type="test/cells-step-input-message-test.html" result="Pass" time="46"/>
+      <test name="should store state" method="_onContinue.should store state" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should reset input with undefined" method="reset.should reset input with undefined" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should reset input without undefined" method="reset.should reset input without undefined" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should reset input state if resetState is true" method="reset.should reset input state if resetState is true" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is true and input is not set should return true" method="_computeShowSkeleton.when showSkeleton is true and input is not set should return true" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is true and input is set should return false" method="_computeShowSkeleton.when showSkeleton is true and input is set should return false" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is false should return false" method="_computeShowSkeleton.when showSkeleton is false should return false" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is true and input is an object, should not display skeleton" method="_computeShowSkeleton.when showSkeleton is true and input is an object, should not display skeleton" type="test/cells-step-input-message-test.html" result="Pass" time="30"/>
+      <test name="when showSkeleton is true and input has content, should not display skeleton" method="_computeShowSkeleton.when showSkeleton is true and input has content, should not display skeleton" type="test/cells-step-input-message-test.html" result="Pass" time="14"/>
+      <test name="when showSkeleton is true and input is undefined, should display skeleton" method="_computeShowSkeleton.when showSkeleton is true and input is undefined, should display skeleton" type="test/cells-step-input-message-test.html" result="Pass" time="19"/>
+      <test name="should set filledAmount object and input amount" method="_computeAmountSet.should set filledAmount object and input amount" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="Show filled text inline" method="_computedFilledTextInline.Show filled text inline" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="Show filled text inline" method="_computedFilledTextInline.Show filled text inline" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="input should be blank" method="_onChangePressed.input should be blank" type="test/cells-step-input-message-test.html" result="Pass" time="33"/>
+      <test name="dispatch event" method="_onChangePressed.dispatch event" type="test/cells-step-input-message-test.html" result="Pass" time="4"/>
+      <test name="onShowLink pressed" method="onShowLink.onShowLink pressed" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="reset should reset input value" method="&lt;cells-step-input-message>.reset should reset input value" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return true if input is filled" method="&lt;cells-step-input-message>.isValid should return true if input is filled" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return true if input is filled with amount" method="&lt;cells-step-input-message>.isValid should return true if input is filled with amount" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="isValid should return false if amount input is not set" method="&lt;cells-step-input-message>.isValid should return false if amount input is not set" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return manualDisableButtonValue in true" method="&lt;cells-step-input-message>.isValid should return manualDisableButtonValue in true" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="isValid should return manualDisableButtonValue in true and regex validation" method="&lt;cells-step-input-message>.isValid should return manualDisableButtonValue in true and regex validation" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when focusOut should set state props into this" method="&lt;cells-step-input-message>.when focusOut should set state props into this" type="test/cells-step-input-message-test.html" result="Pass" time="2"/>
+      <test name="should dispatch an event with input" method="_onContinue.should dispatch an event with input" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should dispatch an event with input without reason" method="_onContinue.should dispatch an event with input without reason" type="test/cells-step-input-message-test.html" result="Pass" time="33"/>
+      <test name="should store state" method="_onContinue.should store state" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should reset input with undefined" method="reset.should reset input with undefined" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should reset input without undefined" method="reset.should reset input without undefined" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="should reset input state if resetState is true" method="reset.should reset input state if resetState is true" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is true and input is not set should return true" method="_computeShowSkeleton.when showSkeleton is true and input is not set should return true" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is true and input is set should return false" method="_computeShowSkeleton.when showSkeleton is true and input is set should return false" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is false should return false" method="_computeShowSkeleton.when showSkeleton is false should return false" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="when showSkeleton is true and input is an object, should not display skeleton" method="_computeShowSkeleton.when showSkeleton is true and input is an object, should not display skeleton" type="test/cells-step-input-message-test.html" result="Pass" time="10"/>
+      <test name="when showSkeleton is true and input has content, should not display skeleton" method="_computeShowSkeleton.when showSkeleton is true and input has content, should not display skeleton" type="test/cells-step-input-message-test.html" result="Pass" time="14"/>
+      <test name="when showSkeleton is true and input is undefined, should display skeleton" method="_computeShowSkeleton.when showSkeleton is true and input is undefined, should display skeleton" type="test/cells-step-input-message-test.html" result="Pass" time="19"/>
+      <test name="should set filledAmount object and input amount" method="_computeAmountSet.should set filledAmount object and input amount" type="test/cells-step-input-message-test.html" result="Pass" time="1"/>
+      <test name="Show filled text inline" method="_computedFilledTextInline.Show filled text inline" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="Show filled text inline" method="_computedFilledTextInline.Show filled text inline" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+      <test name="input should be blank" method="_onChangePressed.input should be blank" type="test/cells-step-input-message-test.html" result="Pass" time="12"/>
+      <test name="dispatch event" method="_onChangePressed.dispatch event" type="test/cells-step-input-message-test.html" result="Pass" time="7"/>
+      <test name="onShowLink pressed" method="onShowLink.onShowLink pressed" type="test/cells-step-input-message-test.html" result="Pass" time="0"/>
+    </collection>
+    <errors>
+      <error><![CDATA[Error thrown outside of test function: [Function: dispatchEvent] is not a spy or a call to a spy!
+          assertCanWorkWith at /components/sinon-chai/lib/sinon-chai.js:59
+      Assertion.<anonymous> at /components/sinon-chai/lib/sinon-chai.js:87
+      Assertion.addProperty at /components/chai/chai.js:3951
+    HTMLElement.<anonymous> at cells-step-input-message-test.html:296
+              HTMLElement.k at /components/webcomponentsjs/webcomponents-lite.js:111
+  HTMLElement.dispatchEvent at /components/webcomponentsjs/webcomponents-lite.js:162
+      HTMLElement._onChange at /components/cells-step/cells-step-basic-behavior.html.js:155
+        HTMLElement.handler at /components/polymer/lib/mixins/template-stamp.html.js:85
+              HTMLElement.k at /components/webcomponentsjs/webcomponents-lite.js:111
+                  <unknown> at cells-step-input-message-test.html:306]]></error>
+    </errors>
+  </assembly>
+</assemblies>

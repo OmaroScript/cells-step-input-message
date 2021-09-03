@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <title>Demo cells-molecule-amount-input</title>
+    <script>
+      window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true,
+        useNativeCSSProperties: true
+      };
+      window.I18nMsg = {};
+      window.I18nMsg.url = './../locales';
+    </script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../coronita-icons/coronita-icons.html">
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="import" href='../../cells-glomo-theme/cells-glomo-theme.html'>
+    <link rel="import" href="../cells-molecule-amount-input.html">
+    <link rel="import" href="./css/demo-styles.html">
+  </head>
+
+
+  <body unresolved ontouchstart>
+    <cells-demo-helper i18n
+      available-themes='["cells-glomo-theme", "cells-coronita-theme"]'
+      locales-path="./../locales"
+      events='["image-click"]'
+      >
+      <cells-demo-case heading="Input image" description="Input with image">
+        <template>
+          <dom-bind>
+            <template is="dom-bind" id="demo">
+              <template is="dom-repeat" items="[[currencies]]" as="cur">
+                <cells-molecule-amount-input
+                  id="el"
+                  img-src="[[cur.img]]"
+                  name="withIcon"
+                  label="Importe"
+                  local-currency="[[cur.currency]]"
+                  currency-code="[[cur.currency]]"
+                  language="es"
+                  icon-size="icon-size-16"
+                  icon-code="coronita:close">
+                </cells-molecule-amount-input>
+              </template>
+            </template>
+          </dom-bind>
+          <script>
+            document.addEventListener('WebComponentsReady', function() {
+              var demo = document.querySelector(Polymer.Element ? 'dom-bind' : '[is="dom-bind"]');
+              demo.currencies = [
+                {
+                  'currency': 'EUR',
+                  'img': 'assets/europa.svg'
+                },
+                {
+                  'currency': 'USD',
+                  'img': 'assets/eeuu.svg'
+                }
+              ];
+            });
+          </script>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With Icon" description="Currencies with icon">
+        <template>
+          <dom-bind>
+            <template is="dom-bind" id="demo">
+              <template is="dom-repeat" items="[[currencies]]" as="currency">
+                <cells-molecule-amount-input
+                  id="el"
+                  name="withIcon"
+                  label="[[currency]] witch icon"
+                  local-currency="[[currency]]"
+                  currency-code="[[currency]]"
+                  language="es"
+                  icon-size="icon-size-16"
+                  icon-code="coronita:close">
+                </cells-molecule-amount-input>
+              </template>
+            </template>
+          </dom-bind>
+          <script>
+            document.addEventListener('WebComponentsReady', function() {
+              var demo = document.querySelector(Polymer.Element ? 'dom-bind' : '[is="dom-bind"]');
+              demo.currencies = [
+                'EUR',
+                'USD',
+                'MXN'
+              ];
+            });
+          </script>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Input states" description="Input empty and disabled">
+        <template>
+          <cells-molecule-amount-input
+            id="el"
+            name="withIcon"
+            label="Empty and disabled"
+            local-currency="MXN"
+            currency-code="MXN"
+            language="es"
+            disabled
+            icon-size="icon-size-16"
+            icon-code="coronita:close">
+          </cells-molecule-amount-input>
+          <cells-molecule-amount-input
+            id="el"
+            name="withIcon"
+            label="Filled and disabled"
+            local-currency="MXN"
+            currency-code="MXN"
+            language="es"
+            disabled
+            set-amount="1234567890">
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Auto format" description="Auto format input">
+        <template>
+          <cells-molecule-amount-input
+            currency-code="USD"
+            local-currency="USD"
+            auto-format
+            label="Auto format"
+            language="us"
+            icon-size="icon-size-26"
+            icon-code="coronita:close">
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Auto format without decimals" description="Auto format input without decimals">
+        <template>
+          <cells-molecule-amount-input
+            currency-code="USD"
+            local-currency="USD"
+            auto-format
+            label="Auto format"
+            language="us"
+            icon-size="icon-size-26"
+            icon-code="coronita:close"
+            numeral-decimal-scale="0">
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Invalid" description="Invalid">
+        <template>
+          <cells-molecule-amount-input
+            currency-code="USD"
+            local-currency="USD"
+            auto-format
+            label="Auto format"
+            language="us"
+            icon-size="icon-size-26"
+            icon-code="coronita:close"
+            invalid>
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Invalid with Error Message" description="Invalid with Error Message">
+        <template>
+          <cells-molecule-amount-input
+            currency-code="USD"
+            local-currency="USD"
+            auto-format
+            label="Auto format"
+            language="us"
+            icon-size="icon-size-26"
+            icon-code="coronita:close"
+            error-message="An error has occured"
+            error-message-icon="coronita:alert"
+            invalid>
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Info message" description="Info message">
+        <template>
+          <cells-molecule-amount-input
+            currency-code="USD"
+            local-currency="USD"
+            label="Amount"
+            language="us"
+            icon-size="icon-size-26"
+            icon-code="coronita:close"
+            info-message="This amount can be modified later."
+            info-message-icon="coronita:info">
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="amount--xl" description="Size: amount XL">
+        <template>
+          <cells-molecule-amount-input
+            class="amount--xl"
+            currency-code="USD"
+            local-currency="USD"
+            label="Amount"
+            language="us"
+            icon-size="icon-size-26"
+            icon-code="coronita:close">
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With right currency symbol" description="Includes right currency icon based on currency code">
+        <template>
+          <cells-molecule-amount-input
+            class="amount--xl"
+            currency-code="USD"
+            local-currency="USD"
+            label="Amount"
+            language="us"
+            show-right-currency-icon
+            icon-size="icon-size-26"
+            icon-code="coronita:close">
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Init value" description="Init value">
+        <template>
+          <cells-molecule-amount-input
+            class="amount--xl"
+            currency-code="USD"
+            local-currency="USD"
+            label="Amount"
+            language="us"
+            icon-size="icon-size-26"
+            icon-code="coronita:close"
+            set-amount="100000"
+            auto-format="true">
+          </cells-molecule-amount-input>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="With close button" description="show close button when input is filled">
+        <template>
+          <dom-bind>
+            <template is="dom-bind" id="demo">
+              <template is="dom-repeat" items="[[currencies]]" as="currency">
+                <cells-molecule-amount-input
+                  id="el"
+                  class="show-close-button" 
+                  name="withIcon"
+                  label="[[currency]] witch icon"
+                  local-currency="[[currency]]"
+                  currency-code="[[currency]]"
+                  language="es"
+                  icon-size="icon-size-16"
+                  icon-code="coronita:close">
+                </cells-molecule-amount-input>
+              </template>
+            </template>
+          </dom-bind>
+          <script>
+            document.addEventListener('WebComponentsReady', function() {
+              var demo = document.querySelector(Polymer.Element ? 'dom-bind' : '[is="dom-bind"]');
+              demo.currencies = [
+                'EUR'
+              ];
+            });
+          </script>
+        </template>
+      </cells-demo-case>
+    </cells-demo-helper>
+  </body>
+</html>

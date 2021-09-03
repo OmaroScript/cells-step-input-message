@@ -1,0 +1,566 @@
+<dom-module id="cells-molecule-input-styles"><template><style>
+:host {
+  display: block;
+  font-family: var(--cells-fontDefault, sans-serif);
+  position: relative;
+  box-sizing: border-box;
+  --icon-button-size: var(--cells-molecule-input-icon-button-size, 3rem);
+  --icons-button-gutter: var(--cells-molecule-input-icons-button-gutter, 0.5rem);
+  @apply --cells-molecule-input; }
+
+:host([hidden]), [hidden] {
+  display: none !important; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+.field-icons-wrapper {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  position: relative;
+  background-color: var(--cells-molecule-input-background-color, #F4F4F4);
+  border-radius: 1px;
+  border-bottom: 1px solid var(--cells-molecule-input-border-bottom, #666666);
+  box-sizing: border-box;
+  height: var(--cells-molecule-input-field-min-height, 3rem);
+  @apply --cells-molecule-input-wrapper; }
+  :host([disabled]) .field-icons-wrapper {
+    background-color: var(--cells-molecule-input-disabled-background-color, rgba(244, 244, 244, 0.4));
+    @apply --cells-molecule-input-disabled-wrapper; }
+  :host([readonly]) .field-icons-wrapper {
+    @apply --cells-molecule-input-readonly-wrapper; }
+  :host([invalid]) .field-icons-wrapper {
+    border-bottom: var(--cells-molecule-input-invalid-border-bottom, solid 1px var(--bbva-dark-red, #b92a45));
+    background-color: var(--cells-molecule-input-invalid-background-color, #F8D7DC);
+    @apply --cells-molecule-input-invalid-wrapper; }
+  :host([has-content]) .field-icons-wrapper {
+    border-bottom: 1px solid var(--black, #121212);
+    @apply --cells-molecule-input-has-content-wrapper; }
+  :host([has-content][invalid]) .field-icons-wrapper {
+    @apply --cells-molecule-input-has-content-invalid-wrapper; }
+  :host([focused]) .field-icons-wrapper {
+    border-bottom: 1px solid var(--black, #121212);
+    @apply --cells-molecule-amount-input-focused; }
+
+.field {
+  position: relative;
+  display: block;
+  min-height: var(--cells-molecule-input-field-min-height, 3rem);
+  pointer-events: none;
+  font-size: var(--cells-molecule-input-field-font-size, 0.9375rem);
+  -webkit-box-flex: 1;
+          flex: 1 1 100%;
+  @apply --cells-molecule-input-field; }
+  .field__label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0.125rem 1.25rem 0;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+            align-items: center;
+    color: var(--cells-molecule-input-field-label-color, #666666);
+    white-space: nowrap;
+    font-weight: 400;
+    line-height: 1;
+    width: 100%;
+    z-index: 1;
+    -webkit-transition: all 200ms;
+    transition: all 200ms;
+    @apply --cells-molecule-input-field-label; }
+    :host([has-content]) .field__label,
+    :host([label-top]) .field__label {
+      font-size: 0.75rem;
+      -webkit-transform: translateY(-0.75rem);
+              transform: translateY(-0.75rem);
+      @apply --cells-molecule-input-withcontent-field-label; }
+    :host([disabled]) .field__label {
+      color: var(--cells-molecule-input-disabled-field-label-color, #D3D3D3);
+      @apply --cells-molecule-input-disabled-field-label; }
+    :host([readonly]) .field__label {
+      @apply --cells-molecule-input-readonly-field-label; }
+    :host([invalid]) .field__label {
+      color: var(--cells-molecule-input-invalid-field-label-color, #666666);
+      @apply --cells-molecule-input-invalid-field-label; }
+  .field__input {
+    color: var(--cells-molecule-input-field-input-color, #121212);
+    width: 100%;
+    padding: 0 1.25rem;
+    line-height: 1.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    background-color: transparent;
+    pointer-events: auto;
+    box-sizing: border-box;
+    @apply --cells-molecule-input-field-input; }
+    :host([has-content]) .field__input,
+    :host([label-top]) .field__input {
+      top: auto;
+      padding-bottom: 6px;
+      height: auto;
+      @apply --cells-molecule-input-withcontent-field-input; }
+    :host([disabled]) .field__input {
+      color: var(--cells-molecule-input-disabled-field-input-color, #D3D3D3);
+      @apply --cells-molecule-input-disabled-field-input; }
+    :host([readonly]) .field__input {
+      @apply --cells-molecule-input-readonly-field-input; }
+    :host([invalid]) .field__input {
+      @apply --cells-molecule-input-invalid-field-input; }
+    :host([has-content][invalid]) .field__input {
+      @apply --cells-molecule-input-has-content-invalid-field; }
+    :host([icon]:not([disabled])) .field__input,
+    .field__input :host([icon-extra]:not([disabled])) {
+      padding-right: 0;
+      @apply --cells-molecule-input-withicon-field-input; }
+    .field__input:-webkit-autofill, .field__input:-webkit-autofill:hover, .field__input:-webkit-autofill:active, .field__input:-webkit-autofill:focus {
+      box-shadow: 0 0 0px 1000px var(--cells-molecule-input-background-color, #F4F4F4) inset;
+      -webkit-text-fill-color: var(--cells-molecule-input-color, #FFFFFF) !important;
+      -webkit-transition: background-color 5000s ease-in-out 0s;
+      transition: background-color 5000s ease-in-out 0s;
+      @apply --cells-molecule-input-autofill; }
+    .field__input::-webkit-credentials-auto-fill-button {
+      visibility: hidden;
+      pointer-events: none;
+      position: absolute;
+      right: 0; }
+    .field__input:not(output):-moz-ui-invalid {
+      box-shadow: 0 0 0 0 transparent; }
+
+.icon {
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  display: -webkit-box;
+  display: flex;
+  overflow: hidden;
+  flex-shrink: 0;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  pointer-events: none;
+  -webkit-transition: opacity 200ms 0s, visibility 0s 200ms, width 0s 200ms, height 0s 200ms;
+  transition: opacity 200ms 0s, visibility 0s 200ms, width 0s 200ms, height 0s 200ms;
+  @apply --cells-molecule-input-icon; }
+  .icon .button {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+            align-items: center;
+    cursor: pointer;
+    color: var(--cells-molecule-input-button-color, #1973b8);
+    height: var(--icon-button-size);
+    width: var(--icon-button-size);
+    @apply --cells-molecule-input-icon-button; }
+    .icon .button:hover {
+      color: var(--cells-molecule-input-button-hover-color, #2A86CA); }
+    .icon .button:active {
+      color: var(--cells-molecule-input-button-active-color, #1162A5); }
+    .icon .button[is-filled-blur] {
+      display: none;
+      @apply --cells-molecule-input-button-is-filled-blur; }
+    .icon .button:focus {
+      color: var(--cells-molecule-input-button-focus-color, #2A86CA); }
+    .icon .button.ripple {
+      overflow: hidden;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); }
+      .icon .button.ripple.ripple-applied:after {
+        -webkit-transform: scale(0, 0);
+        transform: scale(0, 0);
+        opacity: .3;
+        -webkit-transition: 0s;
+        transition: 0s;
+        @apply --cells-molecule-input-icon-button-ripple-applied; }
+    .icon .button:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, var(--cells-molecule-input-icon-button-ripple-color, #004481) 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      -webkit-transform: scale(10, 10);
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: opacity 1s, -webkit-transform .5s;
+      -webkit-transition: opacity 1s, -webkit-transform .5s;
+      transition: transform .5s, opacity 1s;
+      transition: transform .5s, opacity 1s, -webkit-transform .5s;
+      @apply --cells-molecule-input-icon-button-ripple; }
+  .icon.visible-always .button {
+    display: -webkit-box;
+    display: flex; }
+    :host([invalid]) .icon.visible-always .button[is-filled-blur] {
+      @apply --cells-molecule-input-button-visible-always-is-filled-blur-invalid; }
+    .icon.visible-always .button[is-filled-blur] {
+      @apply --cells-molecule-input-button-visible-always-is-filled-blur; }
+  .icon.visible-always,
+  :host([focused]:not([disabled])) .icon.visible-focused,
+  :host([has-content]:not([disabled])) .icon.visible-content,
+  :host([invalid]) .icon.error-icon {
+    opacity: 1;
+    visibility: visible;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+    overflow: visible;
+    pointer-events: auto;
+    -webkit-transition: opacity 200ms 0s, visibility 0s 0s, width 0s 0s, height 0s 0s;
+    transition: opacity 200ms 0s, visibility 0s 0s, width 0s 0s, height 0s 0s;
+    @apply --cells-molecule-input-icon-visible; }
+  :host([disabled]) .icon.visible-always {
+    pointer-events: none;
+    @apply --cells-molecule-input-disabled-icon-visible; }
+    :host([disabled]) .icon.visible-always iron-icon {
+      color: var(--cells-molecule-input-disabled-field-input-color, #D3D3D3);
+      @apply --cells-molecule-input-disabled-icon-visible-iron-icon; }
+  :host([invalid]) .icon.error-icon {
+    color: var(--cells-molecule-input-invalid-error-icon-color, #f35e61);
+    @apply --cells-molecule-input-invalid-icon-error; }
+  :host([has-content][invalid]) .icon.visible-content {
+    --iron-icon-fill-color: var(--cells-molecule-input-has-content-invalid-icon, #f35e61); }
+  :host([icon][extra-icon]) .icon.main-icon .button, :host([icon][extra-icon]) .icon.main-icon.decorative {
+    width: calc(var(--icon-button-size) - var(--icons-button-gutter));
+    padding-right: var(--icons-button-gutter);
+    @apply --cells-molecule-input-right-icon-button; }
+  :host([icon][extra-icon]) .icon.secondary-icon .button, :host([icon][extra-icon]) .icon.secondary-icon.decorative {
+    width: calc(var(--icon-button-size) - var(--icons-button-gutter));
+    padding-left: var(--icons-button-gutter);
+    @apply --cells-molecule-input-left-icon-button; }
+  :host([icon][extra-icon]:not([disabled])) .icon.visible-always,
+  :host([icon][extra-icon][focused]:not([disabled])) .icon.visible-focused,
+  :host([icon][extra-icon][has-content]:not([disabled])) .icon.visible-content {
+    width: calc(var(--icon-button-size) - var(--icons-button-gutter));
+    @apply --cells-molecule-input-both-icons-visible; }
+  .icon .icon__text {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; }
+
+.error-message-wrapper {
+  display: -webkit-inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+          align-items: center;
+  color: var(--cells-molecule-input-invalid-error-icon-color, #f35e61);
+  padding-top: 0.625rem;
+  @apply --cells-molecule-input-text-error-message-wrapper; }
+  .error-message-wrapper iron-icon {
+    flex-shrink: 0;
+    align-self: flex-start;
+    --iron-icon-fill-color: var(--cells-molecule-input-error-message-icon-color, #f35e61);
+    @apply --cells-molecule-input-error-message-wrapper-iron-icon; }
+
+.error {
+  color: var(--cells-molecule-input-text-error-color, #121212);
+  font-weight: 400;
+  font-size: 0.75rem;
+  display: block;
+  cursor: default;
+  margin-left: 0.625rem;
+  @apply --cells-molecule-input-text-error; }
+
+.info-message-wrapper {
+  display: -webkit-inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+          align-items: center;
+  color: var(--cells-molecule-input-info-message-wrapper-icon-color, #5bbeff);
+  padding-top: 0.625rem;
+  @apply --cells-molecule-input-info-message-wrapper; }
+  .info-message-wrapper iron-icon {
+    flex-shrink: 0;
+    align-self: flex-start;
+    --iron-icon-fill-color: var(--cells-molecule-input-info-message-iron-icon-color, #5bbeff);
+    @apply --cells-molecule-input-info-message-wrapper-iron-icon; }
+
+.info {
+  color: var(--cells-molecule-input-text-info-color, #121212);
+  font-weight: 400;
+  font-size: 0.75rem;
+  display: block;
+  cursor: default;
+  margin-left: 0.625rem;
+  @apply --cells-molecule-input-text-info; }
+
+/** [type=number] **/
+:host([type=number]) .field__input::-webkit-inner-spin-button,
+:host([type=number]) .field__input::-webkit-outer-spin-button {
+  display: none;
+  @apply --cells-molecule-input-number-spin-buttons; }
+
+:host([type=number]) .field__input {
+  -moz-appearance: textfield; }
+
+:host([shy-placeholder][has-content]) input {
+  padding-bottom: 0;
+  top: 0;
+  height: 100%; }
+
+/**
+ * Icon Size Classes
+ */
+.icon-size-5 {
+  width: 0.3125rem;
+  height: 0.3125rem; }
+
+.icon-size-6 {
+  width: 0.375rem;
+  height: 0.375rem; }
+
+.icon-size-7 {
+  width: 0.4375rem;
+  height: 0.4375rem; }
+
+.icon-size-8 {
+  width: 0.5rem;
+  height: 0.5rem; }
+
+.icon-size-9 {
+  width: 0.5625rem;
+  height: 0.5625rem; }
+
+.icon-size-10 {
+  width: 0.625rem;
+  height: 0.625rem; }
+
+.icon-size-11 {
+  width: 0.6875rem;
+  height: 0.6875rem; }
+
+.icon-size-12 {
+  width: 0.75rem;
+  height: 0.75rem; }
+
+.icon-size-13 {
+  width: 0.8125rem;
+  height: 0.8125rem; }
+
+.icon-size-14 {
+  width: 0.875rem;
+  height: 0.875rem; }
+
+.icon-size-15 {
+  width: 0.9375rem;
+  height: 0.9375rem; }
+
+.icon-size-16 {
+  width: 1rem;
+  height: 1rem; }
+
+.icon-size-17 {
+  width: 1.0625rem;
+  height: 1.0625rem; }
+
+.icon-size-18 {
+  width: 1.125rem;
+  height: 1.125rem; }
+
+.icon-size-19 {
+  width: 1.1875rem;
+  height: 1.1875rem; }
+
+.icon-size-20 {
+  width: 1.25rem;
+  height: 1.25rem; }
+
+.icon-size-21 {
+  width: 1.3125rem;
+  height: 1.3125rem; }
+
+.icon-size-22 {
+  width: 1.375rem;
+  height: 1.375rem; }
+
+.icon-size-23 {
+  width: 1.4375rem;
+  height: 1.4375rem; }
+
+.icon-size-24 {
+  width: 1.5rem;
+  height: 1.5rem; }
+
+.icon-size-25 {
+  width: 1.5625rem;
+  height: 1.5625rem; }
+
+.icon-size-26 {
+  width: 1.625rem;
+  height: 1.625rem; }
+
+.icon-size-27 {
+  width: 1.6875rem;
+  height: 1.6875rem; }
+
+.icon-size-28 {
+  width: 1.75rem;
+  height: 1.75rem; }
+
+.icon-size-29 {
+  width: 1.8125rem;
+  height: 1.8125rem; }
+
+.icon-size-30 {
+  width: 1.875rem;
+  height: 1.875rem; }
+
+.icon-size-31 {
+  width: 1.9375rem;
+  height: 1.9375rem; }
+
+.icon-size-32 {
+  width: 2rem;
+  height: 2rem; }
+
+.icon-size-33 {
+  width: 2.0625rem;
+  height: 2.0625rem; }
+
+.icon-size-34 {
+  width: 2.125rem;
+  height: 2.125rem; }
+
+.icon-size-35 {
+  width: 2.1875rem;
+  height: 2.1875rem; }
+
+.icon-size-36 {
+  width: 2.25rem;
+  height: 2.25rem; }
+
+.icon-size-37 {
+  width: 2.3125rem;
+  height: 2.3125rem; }
+
+.icon-size-38 {
+  width: 2.375rem;
+  height: 2.375rem; }
+
+.icon-size-39 {
+  width: 2.4375rem;
+  height: 2.4375rem; }
+
+.icon-size-40 {
+  width: 2.5rem;
+  height: 2.5rem; }
+
+.icon-size-41 {
+  width: 2.5625rem;
+  height: 2.5625rem; }
+
+.icon-size-42 {
+  width: 2.625rem;
+  height: 2.625rem; }
+
+.icon-size-43 {
+  width: 2.6875rem;
+  height: 2.6875rem; }
+
+.icon-size-44 {
+  width: 2.75rem;
+  height: 2.75rem; }
+
+.icon-size-45 {
+  width: 2.8125rem;
+  height: 2.8125rem; }
+
+.icon-size-46 {
+  width: 2.875rem;
+  height: 2.875rem; }
+
+.icon-size-47 {
+  width: 2.9375rem;
+  height: 2.9375rem; }
+
+.icon-size-48 {
+  width: 3rem;
+  height: 3rem; }
+
+.icon-size-49 {
+  width: 3.0625rem;
+  height: 3.0625rem; }
+
+.icon-size-50 {
+  width: 3.125rem;
+  height: 3.125rem; }
+
+.icon-size-51 {
+  width: 3.1875rem;
+  height: 3.1875rem; }
+
+.icon-size-52 {
+  width: 3.25rem;
+  height: 3.25rem; }
+
+.icon-size-53 {
+  width: 3.3125rem;
+  height: 3.3125rem; }
+
+.icon-size-54 {
+  width: 3.375rem;
+  height: 3.375rem; }
+
+.icon-size-55 {
+  width: 3.4375rem;
+  height: 3.4375rem; }
+
+.icon-size-56 {
+  width: 3.5rem;
+  height: 3.5rem; }
+
+.icon-size-57 {
+  width: 3.5625rem;
+  height: 3.5625rem; }
+
+.icon-size-58 {
+  width: 3.625rem;
+  height: 3.625rem; }
+
+.icon-size-59 {
+  width: 3.6875rem;
+  height: 3.6875rem; }
+
+.icon-size-60 {
+  width: 3.75rem;
+  height: 3.75rem; }
+
+.icon-size-61 {
+  width: 3.8125rem;
+  height: 3.8125rem; }
+
+.icon-size-62 {
+  width: 3.875rem;
+  height: 3.875rem; }
+
+.icon-size-63 {
+  width: 3.9375rem;
+  height: 3.9375rem; }
+
+.icon-size-64 {
+  width: 4rem;
+  height: 4rem; }
+
+</style></template></dom-module>

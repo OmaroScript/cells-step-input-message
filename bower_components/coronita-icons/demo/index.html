@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>coronita-icons demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.disabled = true;
+  </script>
+
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="lazy-import" href="../coronita-icons.html">
+  <link rel="lazy-import" href="../../demo-iconset/demo-iconset.html">
+  <link rel="lazy-import" href="css/demo-style.html">
+</head>
+
+<body>
+  <cells-demo-helper resolution="tablet" breakpoints='{"tablet": { "width": 960, "height": 1024, "name": "Tablet" }}'>
+    <cells-demo-case heading="Basic" description="A basic example">
+      <template>
+        <demo-iconset iconset="coronita" show-total icon-size="36" class="fixed-search"></demo-iconset>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

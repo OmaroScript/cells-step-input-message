@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assemblies>
+  <assembly name="WCT Unit tests [chrome.85]" environment="chrome.85" test-framework="web-component-tester" run-date="2021-05-18" run-time="07:05:01" total="10" passed="10" failed="0" skipped="0">
+    <collection passed="10" failed="0" skipped="0">
+      <test name="no event is fired when selector icon is hidden" method="&lt;cells-select-modal>.when button is clicked.no event is fired when selector icon is hidden" type="test/cells-select-modal-test.html" result="Pass" time="1"/>
+      <test name="event is fired when selector icon is shown" method="&lt;cells-select-modal>.when button is clicked.event is fired when selector icon is shown" type="test/cells-select-modal-test.html" result="Pass" time="2"/>
+      <test name="event is fired with ID and value" method="&lt;cells-select-modal>.when button is clicked.event is fired with ID and value" type="test/cells-select-modal-test.html" result="Pass" time="1"/>
+      <test name="Should keep the value of &quot;image&quot; when &quot;defaultImage&quot; has no value" method="&lt;cells-select-modal>.Method _onImageError.Should keep the value of &quot;image&quot; when &quot;defaultImage&quot; has no value" type="test/cells-select-modal-test.html" result="Pass" time="20"/>
+      <test name="Should reset &quot;image&quot; to value of &quot;defaultImage&quot; when it has value" method="&lt;cells-select-modal>.Method _onImageError.Should reset &quot;image&quot; to value of &quot;defaultImage&quot; when it has value" type="test/cells-select-modal-test.html" result="Pass" time="7"/>
+      <test name="no event is fired when selector icon is hidden" method="&lt;cells-select-modal>.when button is clicked.no event is fired when selector icon is hidden" type="test/cells-select-modal-test.html" result="Pass" time="0"/>
+      <test name="event is fired when selector icon is shown" method="&lt;cells-select-modal>.when button is clicked.event is fired when selector icon is shown" type="test/cells-select-modal-test.html" result="Pass" time="1"/>
+      <test name="event is fired with ID and value" method="&lt;cells-select-modal>.when button is clicked.event is fired with ID and value" type="test/cells-select-modal-test.html" result="Pass" time="1"/>
+      <test name="Should keep the value of &quot;image&quot; when &quot;defaultImage&quot; has no value" method="&lt;cells-select-modal>.Method _onImageError.Should keep the value of &quot;image&quot; when &quot;defaultImage&quot; has no value" type="test/cells-select-modal-test.html" result="Pass" time="10"/>
+      <test name="Should reset &quot;image&quot; to value of &quot;defaultImage&quot; when it has value" method="&lt;cells-select-modal>.Method _onImageError.Should reset &quot;image&quot; to value of &quot;defaultImage&quot; when it has value" type="test/cells-select-modal-test.html" result="Pass" time="8"/>
+    </collection>
+  </assembly>
+</assemblies>

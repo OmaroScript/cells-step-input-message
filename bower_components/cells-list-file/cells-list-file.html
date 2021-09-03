@@ -1,0 +1,69 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../cells-icon-message/cells-icon-message.html">
+<link rel="import" href="../cells-atom-icon/cells-atom-icon.html">
+<link rel="import" href="../cells-checkbox-button/cells-checkbox-button.html">
+<link rel="import" href="cells-list-file-styles.html">
+
+<dom-module id="cells-list-file">
+  <template>
+    <style include="cells-list-file-styles cells-list-file-shared-styles"></style>
+    <dom-repeat items="[[list]]">
+      <template>
+
+        <div class$="[[_containsSeparator()]]">
+
+        <template is="dom-if" if="[[!selectable]]">
+          <div class$="list-file-container [[item.classList]]" role="link" tabindex="0" data-select$="[[item.dataSelect]]" data-id$="[[item.id]]">
+            <template is="dom-if" if="[[item.icon]]">
+              <div class="media" on-click="_handlerClick" data-id$="[[item.id]]">
+                <iron-icon class="media__icon" icon="[[item.icon]]"></iron-icon>
+              </div>
+            </template>
+            <div class="body">
+              <template is="dom-if" if="[[item.text]]">
+                <p class="body__text" on-click="_handlerClick" data-id$="[[item.id]]">[[t(item.text)]]</p>
+              </template>
+              <template is="dom-if" if="[[item.subText]]">
+                <p class="body__sub-text">[[t(item.subText)]]</p>
+              </template>
+            </div>
+            <template is="dom-if" if="[[showEdit]]">
+              <cells-atom-icon icon="coronita:edit" class="edit media__actionicon" data-id="[[item.id]]"
+                          on-click="_handleEvent" event="[[_events.edit]]"></cells-atom-icon>
+            </template>
+            <template is="dom-if" if="[[showDelete]]">
+              <cells-atom-icon icon="coronita:trash" class="delete media__actionicon" data-id="[[item.id]]"
+                          on-click="_handleEvent" event="[[_events.delete]]"></cells-atom-icon>
+            </template>
+          </div>
+        </template>
+
+        <template is="dom-if" if="[[selectable]]">
+          <cells-checkbox-button left-label
+          data-id="[[item.id]]"
+          left-icon="[[item.icon]]"
+          class="checkbox-selectable-item"
+          on-cells-checkbox-button-toggled="_checkItem">
+            [[t(item.text)]]
+            <template is="dom-if" if="[[item.subText]]">
+              <span slot="left-additional">[[t(item.subText)]]</span>
+            </template>
+          </cells-checkbox-button>
+        </template>
+
+        <slot name="feedback"></slot>
+        <template is="dom-if" if="[[item.message]]">
+          <cells-icon-message type="[[item.message.type]]" icon="[[item.message.icon]]" message="[[item.message.text]]"
+            icon-size="[[item.message.iconSize]]" class$="list-file__message message-input [[item.message.class]]">
+          </cells-icon-message>
+        </template>
+        <slot name="[[item.id]]"></slot>
+
+      </div>
+
+      </template>
+    </dom-repeat>
+  </template>
+  <script src="cells-list-file.js"></script>
+</dom-module>

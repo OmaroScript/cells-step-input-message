@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Demo cells-text-description</title>
+    <script>
+      window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true,
+        useNativeCSSProperties: true
+      };
+      window.I18nMsg = {};
+      window.I18nMsg.url = '../locales';
+    </script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="mock.js"></script>
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+    <link rel="import" href="../../cells-glomo-theme/cells-glomo-theme.html">
+    <link rel="lazy-import" href="../cells-text-description.html">
+    <link rel="lazy-import" href="css/demo-styles.html">
+  </head>
+  <body unresolved ontouchstart>
+    <cells-demo-helper i18n available-themes='["cells-glomo-theme", "cells-coronita-base-theme"]' events='["cells-text-description-title-icon-click", "cells-text-description-link-click"]' resolution="mobile" breakpoints='{"mobile": { "width": 320, "height": 568, "name": "Mobile" },"tablet": { "width": 768, "height": 640, "name": "Tablet" }, "desktop": { "width": 1024, "height": 600 , "name": "Desktop" }}'>
+      <cells-demo-case heading="Image Title and description" description="Example with image title and description">
+        <template>
+          <cells-text-description class="text-centered margin-top-m"
+            decorated-image="assets/checkbook.svg"
+            title="Activa la protección para tu cuenta cheques"
+            main-description="La protección es una característica gratuita de tu cuenta de cheques que te ayudará a:">
+        </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Title and description" description="Example with title and description">
+        <template>
+          <cells-text-description
+            title="Esta es tu propuesta de portafolio personalizado"
+            main-description="Te presentamos una propuesta de inversión simulada de acuerdo a tus objetivos y al perfil de inversión obtenido mediante tus respuestas al cuestionario.">
+        </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Title and description white" description="Example with title and description">
+        <template>
+          <cells-text-description
+            class="italic-centered-description color--bbva-white"
+            main-description="Te presentamos una propuesta de inversión simulada de acuerdo a tus objetivos y al perfil de inversión obtenido mediante tus respuestas al cuestionario.">
+        </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Title with icon" description="Example with title and icon button">
+          <template>
+            <cells-text-description
+              title="Esta es tu propuesta de portafolio personalizado"
+              title-icon="help"
+            >
+            </cells-text-description>
+          </template>
+        </cells-demo-case>
+      <cells-demo-case heading="With all properties" description="Example with all properties">
+        <template>
+          <cells-text-description
+            title="ALTA DE BENEFICIARIOS"
+            subtitle="Completa los datos para registrar tus beneficiarios"
+            main-description="Recuerda que puedes registrar un máximo de 6."
+            secondary-description="La suma de los porcentajes de los beneficiarios debera ser 100% para continuar.">
+          </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Without description" main-description="Example without description">
+        <template>
+          <cells-text-description
+            title="ALTA DE BENEFICIARIOS"
+            subtitle="Completa los datos para registrar tus beneficiarios">
+        </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="With large subtitle and main description" main-description="With large subtitle and main description">
+        <template>
+          <cells-text-description
+            title="CUENTA ASOCIADA A TU CONTRATO"
+            subtitle="Selecciona la cuenta de la que quieres retirar el monto de la inversión."
+            main-description="Recuerda mantener saldo suficiente en tu cuenta para poder realizar la operación, de lo contrario BBVA Bancomer no podrá efectuarla. Si el día elegido es inhábil, la operación se efectuará el día hábil posterior a la fecha programada.">
+        </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="With background grey" main-description="With background grey">
+        <template>
+          <cells-text-description class="background-grey"
+            title="CUENTA ASOCIADA A TU CONTRATO"
+            subtitle="Selecciona la cuenta de la que quieres retirar el monto de la inversión."
+            main-description="Recuerda mantener saldo suficiente en tu cuenta para poder realizar la operación, de lo contrario BBVA Bancomer no podrá efectuarla. Si el día elegido es inhábil, la operación se efectuará el día hábil posterior a la fecha programada.">
+        </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="With large top margin for subheader" main-description="With large top margin for subheader">
+          <template>
+              <cells-text-description class="marginTopHigh"
+              title="ALTA DE BENEFICIARIOS"
+              subtitle="Completa los datos para registrar tus beneficiarios"
+              main-description="Selecciona la cuenta de la que quieres retirar el monto de la inversión."
+              secondary-description="Recuerda mantener saldo suficiente en tu cuenta para poder realizar la operación, de lo contrario BBVA Bancomer no podrá efectuarla. Si el día elegido es inhábil, la operación se efectuará el día hábil posterior a la fecha programada.">
+            </cells-text-description>
+          </template>
+        </cells-demo-case>
+        <cells-demo-case heading="With italic title" description="Example with all properties">
+          <template>
+            <cells-text-description class="italic-title"
+              title="ALTA DE BENEFICIARIOS"
+              subtitle="Completa los datos para registrar tus beneficiarios"
+              main-description="Recuerda que puedes registrar un máximo de 6."
+              secondary-description="La suma de los porcentajes de los beneficiarios debera ser 100% para continuar.">
+            </cells-text-description>
+          </template>
+        </cells-demo-case>
+      <cells-demo-case heading="List of descriptions" main-description="List with more than one description">
+        <template>
+          <script>
+            document.addEventListener('WebComponentsReady', function() {
+              var el = document.getElementById('list');
+              /* global mock */
+              el.description = mock;
+            });
+          </script>
+          <cells-text-description id="list"></cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="With link" main-description="With link">
+        <template>
+            <script>
+              document.addEventListener('WebComponentsReady', function() {
+                var el = document.getElementById('list');
+                /* global mock */
+                el.link = {text: 'Navega a nueva alta'};
+                el.className = 'subtitle-ml subtitle-gap-bottom-m description-l';
+              });
+            </script>
+            <cells-text-description
+            id="list"
+            title="ALTA DE BENEFICIARIOS"
+            subtitle="Completa los datos para registrar tus beneficiarios"
+            main-description="Selecciona la cuenta de la que quieres retirar el monto de la inversión."
+            secondary-description="Recuerda mantener saldo suficiente en tu cuenta para poder realizar la operación, de lo contrario BBVA Bancomer no podrá efectuarla. Si el día elegido es inhábil, la operación se efectuará el día hábil posterior a la fecha programada."
+            >
+          </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="With link disabled" main-description="With link">
+        <template>
+            <script>
+              document.addEventListener('WebComponentsReady', function() {
+                var el = document.getElementById('list');
+                /* global mock */
+                el.link = {text: 'Navega a nueva alta', disabled: true};
+                el.className = 'subtitle-ml subtitle-gap-bottom-m description-l';
+              });
+            </script>
+            <cells-text-description
+            id="list"
+            title="ALTA DE BENEFICIARIOS"
+            subtitle="Completa los datos para registrar tus beneficiarios"
+            main-description="Selecciona la cuenta de la que quieres retirar el monto de la inversión."
+            secondary-description="Recuerda mantener saldo suficiente en tu cuenta para poder realizar la operación, de lo contrario BBVA Bancomer no podrá efectuarla. Si el día elegido es inhábil, la operación se efectuará el día hábil posterior a la fecha programada."
+            >
+          </cells-text-description>
+        </template>
+      </cells-demo-case>
+      <cells-demo-case heading="Title and html description" description="Example with title and html description">
+        <template>
+          <cells-text-description
+            title="Esta es tu propuesta de portafolio personalizado"
+            subtitle="Completa los datos para registrar tus beneficiarios"
+            html-description="Te presentamos</br> una propuesta de <strong>inversión simulada</strong> de acuerdo  a tus objetivos y al perfil de inversión obtenido mediante tus respuestas al cuestionario.">
+        </cells-text-description>
+        </template>
+      </cells-demo-case>
+    </cells-demo-helper>
+  </body>
+</html>

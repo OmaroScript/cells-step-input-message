@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es-ES">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>Demo cells-skeleton-item</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.disabled = true;
+  </script>
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="lazy-import" href="../cells-skeleton-item.html">
+  <link rel="lazy-import" href="css/demo-styles.html">
+</head>
+
+<body unresolved ontouchstart style="margin: 0;">
+  <cells-demo-helper available-themes='["cells-coronita-base-theme"]' resolution="tablet">
+
+    <cells-demo-case heading="With title">
+      <template>
+        <cells-skeleton-item show-title show-item></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="With header">
+      <template>
+        <cells-skeleton-item show-header show-item></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="With icon">
+      <template>
+        <cells-skeleton-item show-icon show-item></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="With indentation">
+      <template>
+        <cells-skeleton-item show-item></cells-skeleton-item>
+        <cells-skeleton-item first-indentation show-item></cells-skeleton-item>
+        <cells-skeleton-item second-indentation show-item></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="With background">
+      <template>
+        <cells-skeleton-item show-item show-background></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Single line">
+      <template>
+        <cells-skeleton-item show-single></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Single, thick line">
+      <template>
+        <cells-skeleton-item show-single thick-line></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Custom styles">
+      <template>
+        <custom-style>
+          <style>
+            cells-skeleton-item {
+              --cells-skeleton-item-box-bg-color: #adadad;
+              --cells-skeleton-item-box-xs-height: 1.2rem;
+            }
+          </style>
+        </custom-style>
+        <cells-skeleton-item show-header show-item></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="App header" description="Show avatar and bullets">
+      <template>
+        <custom-style>
+          <style>
+            cells-skeleton-item {
+              margin: 0;
+              padding: 16px 16px 32px 16px;
+              background: var(--bbva-core-blue, #004481);
+            }
+          </style>
+        </custom-style>
+        <cells-skeleton-item show-avatar show-bullets></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Show bullets" description="Show Bullets">
+      <template>
+        <custom-style>
+          <style>
+            cells-skeleton-item {
+              margin: 0;
+              padding: 24px 16px 24px 16px;
+              background: var(--bbva-core-blue, #004481);
+
+              --cells-skeleton-item-actions: {
+                margin-top: 0;
+              }
+            }
+          </style>
+        </custom-style>
+        <cells-skeleton-item show-bullets></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Custom Number bullets" description="Show Custom Number Bullets">
+      <template>
+        <custom-style>
+          <style>
+            cells-skeleton-item {
+              margin: 0;
+              padding: 24px 16px 24px 16px;
+              background: var(--bbva-core-blue, #004481);
+
+              --cells-skeleton-item-actions: {
+                margin-top: 0;
+              }
+            }
+          </style>
+        </custom-style>
+        <cells-skeleton-item number-skeleton-bullets="2" show-bullets></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+    <cells-demo-case heading="Amount group skeleton" description="Amount group skeleton">
+      <template>
+        <cells-skeleton-item show-skeleton-amount-group number-skeleton-amount-group-elements="4"></cells-skeleton-item>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

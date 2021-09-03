@@ -1,0 +1,65 @@
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../cells-atom-amount/cells-atom-amount.html">
+<link rel="import" href="../cells-atom-icon/cells-atom-icon.html">
+<link rel="import" href="../cells-molecule-mask/cells-molecule-mask.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="cells-key-values-styles.html">
+
+<dom-module id="cells-key-values">
+  <template strip-whitespace>
+    <style include="cells-key-values-styles cells-key-values-shared-styles"></style>
+
+    <div class="key">
+      <slot name="before-key"></slot>
+      <span data-selector="cells-key-values-key" class$="[[keyClass]]">[[t(key)]]</span>
+      <dom-if if="[[keyIcon]]">
+        <template>
+          <cells-atom-icon id="[[key]]" class="icon-size-20" icon=[[keyIcon]] on-click="_keyIconClicked"></cells-atom-icon>
+        </template>
+      </dom-if>
+      <slot name="after-key"></slot>
+    </div>
+    <div class="value">
+      <slot name="before-value"></slot>
+      <dom-if if="[[value]]">
+        <template>
+          <dom-repeat items="[[_toArray(value)]]" as="v" id="list">
+            <template>
+              <div class$="value-item value-item-[[index]]">
+                <dom-if if="[[_isAmount(v)]]">
+                  <template>
+                    <cells-atom-amount class$="[[_getAmountClass(v.class)]]" amount="[[v.amount]]" currency-code="[[v.currencyCode]]"
+                      decimals-hidden$="[[v.decimalsHidden]]" zero-decimals-hidden$="[[v.zeroDecimalsHidden]]"
+                      trailing-zero-decimals-hidden$="[[v.trailingZeroDecimalsHidden]]" scale="[[v.scale]]"
+                      local-currency="[[localCurrency]]" language="[[language]]" abbreviations="[[abbreviations]]"
+                      quantity-fractional="[[v.quantityFractional]]" show-all-decimals="[[v.showAllDecimals]]"
+                      data-selector$="cells-key-values-atom-amount-[[index]]" align-right="[[v.alignRight]]">
+                    </cells-atom-amount>
+                  </template>
+                </dom-if>
+                <dom-if if="[[_isPrimitive(v)]]">
+                  <template>
+                    <span class="value-simple" hidden$="[[masked]]">[[v]]</span>
+                    <dom-if if="[[masked]]">
+                      <template>
+                        <cells-molecule-mask class="value-mask" masked value="[[value]]" mask-chars="[[maskChars]]"
+                          visible-chars="[[visibleChars]]" icon-masked="[[iconMasked]]" icon-not-masked="[[iconNotMasked]]" show-full-mask="[[showFullMask]]">
+                        </cells-molecule-mask>
+                      </template>
+                    </dom-if>
+                  </template>
+                </dom-if>
+              </div>
+            </template>
+          </dom-repeat>
+        </template>
+      </dom-if>
+
+      <slot></slot>
+    </div>
+
+  </template>
+  <script src="cells-key-values.js"></script>
+</dom-module>

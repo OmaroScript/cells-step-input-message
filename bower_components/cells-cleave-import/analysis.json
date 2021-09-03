@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "# &lt;cells-cleave-import&gt;\n\n![Certificated](https://img.shields.io/badge/certificated-yes-brightgreen.svg) ![Polymer 2.x](https://img.shields.io/badge/Polymer-2.x-green.svg) *\n\nImports Cleave.js as an HTML import.\n\nExample:\n```html\n<cells-cleave-import></cells-cleave-import>\n```",
+      "summary": "",
+      "path": "cells-cleave-import.js",
+      "properties": [],
+      "methods": [],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 22,
+          "column": 2
+        },
+        "end": {
+          "line": 27,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "Polymer.Element",
+      "name": "CellsCleaveImport",
+      "attributes": [],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cells-cleave-import"
+    }
+  ]
+}

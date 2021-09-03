@@ -1,0 +1,504 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "# cells-switch\n\n[![Certificated](https://img.shields.io/badge/certificated-yes-brightgreen.svg)](https://catalogs.platform.bbva.com/cells) ![Polymer 2.x](https://img.shields.io/badge/Polymer-2.x-green.svg)\n\n[Demo of component in Cells Catalog](https://catalogs.platform.bbva.com/cells)\n\n`<cells-switch>` is a control component that toggles between two statuses: __checked__ and __unchecked__.\n\nUse `checked` property inherited from `Polymer.IronCheckedElementBehavior`, to give the status:\n\n  ```html\n  <cells-switch checked></cells-switch>\n  ```\n\nIt has two styling configurations according to the background it is on. To use it in a light background simply leave the component without the dark-bg property.\n\nBasic example in light background:\n\n```html\n<cells-switch></cells-switch>\n```\n\nThe other option is to use it with a dark background, to do this, simply add the `darkBg` property on the component.\n\nBasic example in dark background:\n\n```html\n<cells-switch dark-bg></cells-switch>\n```\n\nTo use it with icons, add the `withIcons` property in the component as well as the `iconOn` and `iconOff` properties.\n\nExample __with icons__:\n\n```html\n<cells-switch with-icons\n  icon-on=\"coronita:checkmark\"\n  icon-off=\"coronita:close\"></cells-switch>\n```\n\n## Icons\n\nSince this component uses icons, it will need an [iconset](https://bbva.cellsjs.com/guides/best-practices/cells-icons.html) in your project as an [application level dependency](https://bbva.cellsjs.com/guides/advanced-guides/application-level-dependencies.html). In fact, this component uses an iconset in its demo.\n\n## Styling\n\nThe following custom properties and mixins are available for styling:\n\n### Custom Properties\n| Custom Property                                       | Selector                                                        | CSS Property      | Value                   |\n| ----------------------------------------------------- | --------------------------------------------------------------- | ----------------- | ----------------------- |\n| --cells-fontDefault                                   | :host                                                           | font-family       |  sans-serif             |\n| --cells-switch-knob-size                              | :host                                                           | --knob-size       |  22                     |\n| --cells-switch-width                                  | :host                                                           | --switch-width    |  38                     |\n| --cells-switch-switcher-bg-color-off                  | .switcher                                                       | background-color  | --bbva-500              |\n| --cells-switch-knob-color-off                         | .knob                                                           | color             | --bbva-white            |\n| --cells-switch-knob-bg-color-off                      | .knob                                                           | background-color  | --bbva-white            |\n| --cells-switch-knob-icon-color-off                    | .knob cells-atom-icon                                           | color             | --bbva-green-medium     |\n| --cells-switch-dark-bg-switcher-bg-color-off          | :host([dark-bg]) .switcher                                      | background-color  | --bbva-white            |\n| --cells-switch-dark-bg-knob-bg-color-off              | :host([dark-bg]) .knob                                          | background-color  | --bbva-500              |\n| --cells-switch-with-icons-switcher-bg-color-off       | :host([with-icons]) .switcher                                   | background-color  | --bbva-500              |\n| --cells-switch-with-icons-knob-icon-color-off         | :host([with-icons]) .knob cells-atom-icon                       | color             | --bbva-500              |\n| --cells-switch-switcher-hover-bg-color-off            | :host(:hover:not([disabled])) .switcher                         | background-color  | --bbva-600              |\n| --cells-switch-knob-hover-bg-color-off                | :host(:hover:not([disabled])) .knob                             | background-color  | --bbva-white            |\n| --cells-switch-dark-bg-switcher-hover-bg-color-off    | :host(:hover:not([disabled])[dark-bg]) .switcher                | background-color  | --bbva-white            |\n| --cells-switch-dark-bg-knob-hover-bg-color-off        | :host(:hover:not([disabled])[dark-bg]) .knob                    | background-color  | --bbva-600              |\n| --cells-switch-with-icons-switcher-hover-bg-color-off | :host(:hover:not([disabled])[with-icons]) .switcher             | background-color  | --bbva-500              |\n| --cells-switch-with-icons-knob-hover-icon-color-off   | :host(:hover:not([disabled])[with-icons]) .knob cells-atom-icon | color             | --bbva-green-medium     |\n| --cells-switch-knob-focus-shadow-color-off            | :host(:focus:not([disabled])) .knob                             | box-shadow        | --bbva-core-sky-blue    |\n| --cells-switch-dark-bg-knob-focus-shadow-color-off    | :host(:focus:not([disabled])[dark-bg]) .knob                    | box-shadow        | --bbva-core-sky-blue    |\n| --cells-switch-with-icons-knob-focus-shadow-color-off | :host(:focus:not([disabled])[with-icons]) .knob                 | box-shadow        | --bbva-core-sky-blue    |\n| --cells-switch-disabled-opacity                       | :host([disabled])                                               | opacity           |  0.3                    |\n| --cells-switch-switcher-bg-color-on                   | :host([checked]) .switcher                                      | background-color  | --bbva-medium-blue      |\n| --cells-switch-knob-bg-color-on                       | :host([checked]) .knob                                          | background-color  | --bbva-white            |\n| --cells-switch-with-icons-switcher-bg-color-on        | :host([checked][with-icons]) .switcher                          | background-color  | --bbva-green-medium     |\n| --cells-switch-with-icons-knob-icon-color-on          | :host([checked][with-icons]) .knob cells-atom-icon              | color             | --bbva-green-medium     |\n| --cells-switch-dark-bg-switcher-bg-color-on           | :host([checked][dark-bg]) .switcher                             | background-color  | --bbva-white            |\n| --cells-switch-dark-bg-knob-bg-color-on               | :host([checked][dark-bg]) .knob                                 | background-color  | --bbva-medium-blue      |\n| --cells-switch-switcher-hover-bg-color-on             | :host([checked]:hover) .switcher                                | background-color  | --bbva-core-blue        |\n| --cells-switch-knob-hover-bg-color-on                 | :host([checked]:hover) .knob                                    | background-color  | --bbva-white            |\n| --cells-switch-dark-bg-switcher-hover-bg-color-on     | :host([checked]:hover[dark-bg]) .switcher                       | background-color  | --bbva-white            |\n| --cells-switch-dark-bg-knob-hover-bg-color-on         | :host([checked]:hover[dark-bg]) .knob                           | background-color  | --bbva-core-blue        |\n| --cells-switch-with-icons-switcher-hover-bg-color-on  | :host([checked]:hover[with-icons]) .switcher                    | background-color  | --bbva-green-medium     |\n| --cells-switch-with-icons-knob-hover-icon-color-on    | :host([checked]:hover[with-icons]) .knob cells-atom-icon        | color             | --bbva-500              |\n| --cells-switch-knob-focus-shadow-color-on             | :host([checked]:not([disabled]):focus) .knob                    | box-shadow        | --bbva-core-sky-blue    |\n| --cells-switch-dark-bg-knob-focus-shadow-color-on     | :host([checked]:not([disabled]):focus[dark-bg]) .knob           | box-shadow        | --bbva-dark-medium-blue |\n| --cells-switch-with-icons-knob-focus-shadow-color-on  | :host([checked]:not([disabled]):focus[with-icons]) .knob        | box-shadow        | --bbva-core-blue-sky    |\n### @apply\n| Mixins                   | Selector              | Value |\n| ------------------------ | --------------------- | ----- |\n| --cells-switch           | :host                 | {}    |\n| --cells-switch-switcher  | .switcher             | {}    |\n| --cells-switch-items     | .item                 | {}    |\n| --cells-switch-icons     | .item cells-atom-icon | {}    |\n| --cells-switch-knob      | .knob                 | {}    |\n| --cells-switch-knob-icon | .knob cells-atom-icon | {}    |",
+      "summary": "An element that toggles between two states",
+      "path": "cells-switch/cells-switch.js",
+      "properties": [
+        {
+          "name": "keyBindings",
+          "type": "?",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 178,
+              "column": 2
+            },
+            "end": {
+              "line": 182,
+              "column": 3
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "iconOn",
+          "type": "string | null | undefined",
+          "description": "ID of icon to display in the button that toggles.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 116,
+              "column": 6
+            },
+            "end": {
+              "line": 119,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "iconOff",
+          "type": "string | null | undefined",
+          "description": "ID of icon to display in the button that toggles.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 124,
+              "column": 6
+            },
+            "end": {
+              "line": 127,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "iconSize",
+          "type": "number | null | undefined",
+          "description": "Determines the size of the toggle icon.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 132,
+              "column": 6
+            },
+            "end": {
+              "line": 135,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          },
+          "defaultValue": "16"
+        },
+        {
+          "name": "withIcons",
+          "type": "boolean | null | undefined",
+          "description": "Set to true, when you are using icons",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 140,
+              "column": 6
+            },
+            "end": {
+              "line": 144,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "darkBg",
+          "type": "boolean | null | undefined",
+          "description": "Set to true, when you are using a dark background style",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 149,
+              "column": 6
+            },
+            "end": {
+              "line": 152,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | null | undefined",
+          "description": "Set to true to disable the switch",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 157,
+              "column": 6
+            },
+            "end": {
+              "line": 162,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_disabled\"",
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "_icon",
+          "type": "string | null | undefined",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 164,
+              "column": 6
+            },
+            "end": {
+              "line": 167,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "_target",
+          "type": "Object | null | undefined",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 169,
+              "column": 6
+            },
+            "end": {
+              "line": 174,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Object"
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "connectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 184,
+              "column": 2
+            },
+            "end": {
+              "line": 189,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_computeIcon",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 191,
+              "column": 2
+            },
+            "end": {
+              "line": 193,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "checked"
+            }
+          ]
+        },
+        {
+          "name": "_computeClass",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 195,
+              "column": 2
+            },
+            "end": {
+              "line": 197,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "checked"
+            }
+          ]
+        },
+        {
+          "name": "_disabled",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 199,
+              "column": 2
+            },
+            "end": {
+              "line": 203,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "disabled"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_onSpaceKeydown",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 205,
+              "column": 2
+            },
+            "end": {
+              "line": 212,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "toggle",
+          "description": "Toggles button state position and `checked` property\ntrue if component is checked and false if is unchecked",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 217,
+              "column": 2
+            },
+            "end": {
+              "line": 219,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_checkedChanged",
+          "description": "Overriding 'checked' observer from Polymer.IronCheckedElementBehavior;\non change, it toggles `.on` class of `#handler` node",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 225,
+              "column": 2
+            },
+            "end": {
+              "line": 245,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 106,
+          "column": 0
+        },
+        "end": {
+          "line": 246,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "Polymer.Element",
+      "name": "cellsSwitch",
+      "attributes": [
+        {
+          "name": "icon-on",
+          "description": "ID of icon to display in the button that toggles.",
+          "sourceRange": {
+            "start": {
+              "line": 116,
+              "column": 6
+            },
+            "end": {
+              "line": 119,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-off",
+          "description": "ID of icon to display in the button that toggles.",
+          "sourceRange": {
+            "start": {
+              "line": 124,
+              "column": 6
+            },
+            "end": {
+              "line": 127,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "icon-size",
+          "description": "Determines the size of the toggle icon.",
+          "sourceRange": {
+            "start": {
+              "line": 132,
+              "column": 6
+            },
+            "end": {
+              "line": 135,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "with-icons",
+          "description": "Set to true, when you are using icons",
+          "sourceRange": {
+            "start": {
+              "line": 140,
+              "column": 6
+            },
+            "end": {
+              "line": 144,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "dark-bg",
+          "description": "Set to true, when you are using a dark background style",
+          "sourceRange": {
+            "start": {
+              "line": 149,
+              "column": 6
+            },
+            "end": {
+              "line": 152,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "disabled",
+          "description": "Set to true to disable the switch",
+          "sourceRange": {
+            "start": {
+              "line": 157,
+              "column": 6
+            },
+            "end": {
+              "line": 162,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "cells-switch-changed",
+          "description": "Fired when `checked` value is changed,\nwith current status as payload",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "disabled-changed",
+          "description": "Fired when the `disabled` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "cells-switch"
+    }
+  ]
+}

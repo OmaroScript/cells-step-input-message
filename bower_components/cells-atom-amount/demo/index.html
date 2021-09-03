@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>Demo cells-atom-amount</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.url = './locales';
+  </script>
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+  <link rel="lazy-import" href="../cells-atom-amount.html">
+  <link rel="lazy-import" href="css/demo-style.html">
+</head>
+
+<body unresolved ontouchstart class="outer" style="margin: 0;">
+
+  <cells-demo-helper resolution="mobile" available-themes='["cells-coronita-base-theme", "cells-glomo-theme"]'>
+    <cells-demo-case heading="Sizes" description="">
+      <template>
+
+        <div class="div">
+          <h2 class="title">Default - inherit</h2>
+          <div class="container--demo">
+            <cells-atom-amount amount="12345" currency-code="EUR"></cells-atom-amount>
+          </div>
+        </div>
+
+        <div class="div">
+          <h2 class="title">All currency badges</h2>
+          <p>Size L - 18px [class="currency-l"]</p>
+          <div class="container--demo">
+            <cells-atom-amount class="currency-l" amount="12345.67" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <p>Size XL - 20px [class="currency-xl"]</p>
+          <div class="container--demo">
+            <cells-atom-amount class="currency-xl" amount="12345.67" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <p>Size 3XL - 24px [class="currency-xxxl"]</p>
+          <div class="container--demo">
+            <cells-atom-amount class="currency-xxxl" amount="12345.67" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <p>Size 4XL - 32px [class="currency-xxxxl"]</p>
+          <div class="container--demo">
+            <cells-atom-amount class="currency-xxxxl" amount="12345.67" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <p>Size 5XL - 48px [class="currency-xxxxxl"]</p>
+          <div class="container--demo">
+            <cells-atom-amount class="currency-xxxxxl" amount="12345.67" currency-code="EUR"></cells-atom-amount>
+          </div>
+        </div>
+
+
+
+        <div class="div">
+          <h2 class="title">Size medium - 16px</h2>
+          <p>[class*="amount-"]</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-" amount="12345" currency-code="EUR" local-currency="EUR"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-" amount="12345.67" currency-code="USD" local-currency="USD" language="en"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-" amount="150000.67" currency-code="PYG" language="es" local-currency="PYG"></cells-atom-amount>
+          </div>
+        </div>
+
+        <div class="div">
+          <h2 class="title">Size large - 20px</h2>
+          <p>class="amount-large"</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="150000.67" currency-code="PYG" language="es"></cells-atom-amount>
+          </div>
+          <p>class="amount-xl"</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-xl" amount="12345.67" currency-code="EUR"></cells-atom-amount>
+          </div>
+        </div>
+
+        <div class="div">
+          <h2 class="title">Size huge - 36px</h2>
+          <p>class="amount-huge"</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-huge" amount="12345" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-huge" amount="12345.67" currency-code="USD" local-currency="USD" language="en"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-huge" amount="150000" currency-code="PYG" language="es"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-huge" amount="32000.67" currency-code="PYG" language="es" align-right="false"></cells-atom-amount>
+          </div>
+        </div>
+        <div class="div">
+          <h2 class="title">Size huge (with big decimals) - 36px</h2>
+          <p>class="amount-huge-decimals"</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-huge-decimals" amount="12345" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-huge-decimals" amount="12345" currency-code="USD" local-currency="USD" language="en"></cells-atom-amount>
+          </div>
+        </div>
+
+        <!-- Modifies -->
+        <div class="div">
+          <h2 class="title">Classes Modifies</h2>
+          <p>[decimals-hidden]</p>
+          <div class="container--demo">
+            <cells-atom-amount class="" decimals-hidden amount="12345.67" currency-code="EUR" local-currency="EUR"></cells-atom-amount>
+          </div>
+          <p>class="spaced-currency"</p>
+          <div class="container--demo">
+            <cells-atom-amount class="spaced-currency" amount="12345.67" currency-code="EUR" local-currency="EUR"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="spaced-currency" amount="12345.67" currency-code="USD" local-currency="USD" language="en"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="spaced-currency" amount="150000.67" currency-code="PYG" language="es" local-currency="PYG"></cells-atom-amount>
+          </div>
+        </div>
+
+
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Negative values" description="">
+      <template>
+        <custom-style>
+          <style>
+            .negative {
+              color: var(--bbva-dark-red);
+            }
+          </style>
+        </custom-style>
+        <div class="div">
+          <p>The class "negative" is automatically added. (demo color: --bbva-dark-red)</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="-12345" currency-code="EUR"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount amount="-140249" currency-code="PYG" language="es" local-currency="PYG"></cells-atom-amount>
+          </div>
+        </div>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Align Currencies" description="">
+      <template>
+        <div class="div">
+          <p>Without align currency right</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="32000" currency-code="PYG" language="es" align-right="false"></cells-atom-amount>
+          </div>
+        </div>
+        <div class="div">
+          <p>With align currency right</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="15000" currency-code="PYG" language="es" align-right="true"></cells-atom-amount>
+          </div>
+        </div>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Currencies" description="">
+      <template>
+        <div class="div">
+          <p>Without Local Currency</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345" currency-code="USD"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345" currency-code="CLP"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345" currency-code="PEN"></cells-atom-amount>
+          </div>
+        </div>
+        <div class="div">
+          <p>With Local Currency</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345" currency-code="USD" local-currency="USD"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345" currency-code="CLP" local-currency="CLP"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345" currency-code="PEN" local-currency="PEN"></cells-atom-amount>
+          </div>
+        </div>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Language" description="The language property is set automatically from the document language if it exists and can be set explicitly to change
+    the amount separators according to the language.">
+      <template>
+        <div class="div">
+          <p>EURO - ES</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345678" currency-code="EUR" language="es"></cells-atom-amount>
+          </div>
+        </div>
+        <div class="div">
+          <p>EURO - EN</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345678" currency-code="EUR" language="en"></cells-atom-amount>
+          </div>
+        </div>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Without decimals" description="">
+      <template>
+        <div class="div">
+          <p>Use
+            <strong>decimals-hidden</strong> attribute to hide the decimal part regardless of its value.</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" decimals-hidden amount="12345.17" currency-code="EUR"></cells-atom-amount>
+          </div>
+        </div>
+        <div class="div">
+          <p>Use
+            <strong>zero-decimals-hidden</strong> attribute to hide the decimal part only if is zero.</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345.00" currency-code="EUR" zero-decimals-hidden></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345.17" currency-code="EUR" zero-decimals-hidden></cells-atom-amount>
+          </div>
+        </div>
+        <div class="div">
+          <p>Use
+            <strong>trailing-zero-decimals-hidden</strong> attribute to hide the decimal part if there is a trailing
+            zero</p>
+          <div class="container--demo">
+            <cells-atom-amount class="amount-large" amount="12345.502342340000" currency-code="EUR" trailing-zero-decimals-hidden> </cells-atom-amount>
+          </div>
+        </div>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Full decimals displayed" description="">
+        <template>
+          <div class="div">
+            <p>By default, without
+              <strong>show-all-decimals</strong> attribute, decimal part will be always truncated to two decimals.</p>
+            <div class="container--demo">
+              <cells-atom-amount class="amount-large" amount="1.234517" currency-code="EUR"></cells-atom-amount>
+            </div>
+            <div class="container--demo">
+              <cells-atom-amount amount="1.234517" currency-code="EUR"></cells-atom-amount>
+            </div>
+          </div>
+          <div class="div">
+            <p>Use
+              <strong>show-all-decimals="true"</strong> attribute to show entirely the decimals part.</p>
+            <div class="container--demo">
+              <cells-atom-amount class="amount-large" show-all-decimals="true" amount="1.234567" currency-code="EUR" ></cells-atom-amount>
+            </div>
+            <div class="container--demo">
+              <cells-atom-amount show-all-decimals="true" amount="1.234567" currency-code="EUR"></cells-atom-amount>
+            </div>
+          </div>
+        </template>
+      </cells-demo-case>
+
+    <cells-demo-case heading="Abbreviations" description="">
+      <template>
+        <div class="div">
+          <p>Default values - normalized </p>
+          <div class="container--demo">
+            <cells-atom-amount decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="1"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="2"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="3"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="6"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="9"></cells-atom-amount>
+          </div>
+        </div>
+        <div class="div">
+          <p>Custom abbreviations</p>
+          <div class="container--demo">
+            <cells-atom-amount class="custom-abbreviations" decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="2"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="custom-abbreviations" decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="3"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="custom-abbreviations" decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="4"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="custom-abbreviations" decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="6"></cells-atom-amount>
+          </div>
+          <div class="container--demo">
+            <cells-atom-amount class="custom-abbreviations" decimals-hidden amount="1234567890" currency-code="USD" local-currency="USD" scale="9"></cells-atom-amount>
+          </div>
+        </div>
+        <script>
+          /* eslint-disable */
+          document.addEventListener('WebComponentsReady', function() {
+            (function(elements) {
+              elements.forEach(function(element) {
+                element.abbreviations = {
+                  2: 'hundreds',
+                  3: 'thousands',
+                  4: 'tenthousands',
+                  6: 'Mill…',
+                  9: 'Bill…'
+                };
+              });
+            }(document.querySelectorAll('.custom-abbreviations')));
+          });
+          /* eslint-enable */
+        </script>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With error (wrong amount format)" description="The amount cannot be formatted">
+      <template>
+        <div class="div">
+          <p>Using a wrong amount sets <code>hasError</code> property / <code>has-error</code> attribute to <code>true</code></p>
+          <div class="container--demo">
+            <cells-atom-amount decimals-hidden amount="123,0a" currency-code="EUR" local-currency="EUR"></cells-atom-amount>
+          </div>
+        </div>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Without currency symbol" description="A basic example without currency symbol">
+      <template>
+        <div class="div">
+          <p>Amount without currency symbol</p>
+          <div class="container--demo">
+            <cells-atom-amount without-currency-symbol amount="123.45" currency-code="ARS" local-currency="ARS"></cells-atom-amount>
+          </div>
+        </div>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

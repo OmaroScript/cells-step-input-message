@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>Demo cells-switch</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.disabled = true;
+  </script>
+
+  <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+  <link rel="lazy-import" href="../../coronita-icons/coronita-icons.html">
+  <link rel="lazy-import" href="../cells-switch.html">
+  <link rel="lazy-import" href="css/demo-styles.html">
+</head>
+
+<body unresolved ontouchstart style="margin: 0;">
+  <cells-demo-helper resolution="mobile" available-themes='["cells-coronita-base-theme"]' events='["cells-switch-changed"]'>
+    <cells-demo-case heading="With light background" description="with checked initalized">
+      <template>
+        <custom-style>
+          <style>
+            body {
+              background-color: var(--bbva-100, #F4F4F4);
+            }
+          </style>
+        </custom-style>
+        <cells-switch checked></cells-switch>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With dark background" description="without checked initialized">
+      <template>
+        <custom-style>
+          <style>
+            body {
+              background-color: var(--bbva-dark-core-blue, #004481);
+            }
+          </style>
+        </custom-style>
+        <cells-switch dark-bg></cells-switch>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="With icons" description="with checked initialized">
+      <template>
+        <custom-style>
+          <style>
+            body {
+              background-color: var(--bbva-100, #F4F4F4);
+            }
+          </style>
+        </custom-style>
+        <cells-switch with-icons icon-on="coronita:checkmark" icon-off="coronita:close" checked></cells-switch>
+      </template>
+    </cells-demo-case>
+
+    <cells-demo-case heading="Disabled">
+      <template>
+        <custom-style>
+          <style>
+            body {
+              background: linear-gradient(to right, #F4F4F4 0%, #F4F4F4 50%, #004481 50%, #004481 100%);
+            }
+
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+          </style>
+        </custom-style>
+        <div class="container">
+          <cells-switch disabled></cells-switch>
+          <cells-switch dark-bg disabled></cells-switch>
+        </div>
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../cells-list-file.html">
+  <script src="mocks/mocks.js"></script>
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-list-file></cells-list-file>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('on item clicked', () => {
+      let el;
+
+      setup(() => {
+        el = fixture('default');
+      });
+
+      test('should fire an edit event with item id', (done) => {
+        const callback = sinon.spy();
+        el.addEventListener(mockEdit.action, callback, { once: true });
+        el.list = mockEdit.list;
+        el.showEdit = true;
+        el.showDelete = false;
+
+        flush(() => {
+          const button = el.shadowRoot.querySelector('.edit');
+          button.click();
+          expect(callback.called).to.be.true;
+          expect(callback.args[ 0 ][ 0 ].detail.id).to.be.equal(mockEdit.list[ 0 ].id);
+          expect(callback.args[ 0 ][ 0 ].type).to.be.equal(mockEdit.action);
+          done();
+        });
+      });
+
+      test('should fire an delete event with item id', (done) => {
+        const callback = sinon.spy();
+        el.addEventListener(mockDelete.action, callback, { once: true });
+        el.list = mockDelete.list;
+        el.showEdit = false;
+        el.showDelete = true;
+
+        flush(() => {
+          const button = el.shadowRoot.querySelector('.delete');
+          button.click();
+          expect(callback.called).to.be.true;
+          expect(callback.args[ 0 ][ 0 ].detail.id).to.be.equal(mockDelete.list[ 0 ].id);
+          expect(callback.args[ 0 ][ 0 ].type).to.be.equal(mockDelete.action);
+          done();
+        });
+      });
+
+      test('should fire an event with item id when item is checked', (done) => {
+        const callback = sinon.spy();
+        el.addEventListener('cells-list-file-selection-changed', callback, { once: true });
+        el.selectable = true;
+        el.list = mockList;
+
+        flush(() => {
+          const check = el.shadowRoot.querySelector('.checkbox-selectable-item');
+          check.click();
+          expect(callback.called).to.be.true;
+          expect(callback.args[ 0 ][ 0 ].detail[0].id).to.be.equal(mockList[ 0 ].id);
+          done();
+        });
+      });
+
+      test('should change container style when has separator', () => {
+        var style = el._containsSeparator();
+        expect(style).to.be.equal('');
+        el.separator = true;
+        style = el._containsSeparator();
+        expect(style).to.be.equal('container-items-with-separator');
+      });
+
+      test('should set default values when reset method is called', () => {
+        el.separator = true;
+        el.selectable = true;
+        el.list = mockList;
+        el.reset();
+        expect(el.list).to.be.an('array').that.is.empty;
+      });
+
+      test('method _checkItem should be called without errors with null event', () => {
+        el.selectable = true;
+        el.list = mockList;
+        el._checkItem();
+      });
+
+      test('method _handleEvent should be called without errors with null event', () => {
+        el.selectable = true;
+        el.list = mockList;
+        el._handleEvent();
+      });
+
+      test('should fire an event with item media icon is clicked', done => {
+        const callback = sinon.spy();
+
+        el.list = mockClick.list;
+        el.addEventListener(mockClick.action, callback, { once:true });
+
+        flush(() => {
+          const elementClicked = el.shadowRoot.querySelector('div.list-file-container .media');
+          elementClicked.click();
+
+          expect(callback.called).to.be.true;
+          expect(callback.args[0][0].detail.id).to.be.equal(mockClick.list[0].id);
+          done();
+        });
+      });
+
+      test('should fire an event with item name is clicked', done => {
+        const callback = sinon.spy();
+
+        el.list = mockClick.list;
+        el.addEventListener(mockClick.action, callback, { once:true });
+
+        flush(() => {
+          const elementClicked = el.shadowRoot.querySelector('div.list-file-container .body p');
+          elementClicked.click();
+
+          expect(callback.called).to.be.true;
+          expect(callback.args[0][0].detail.id).to.be.equal(mockClick.list[0].id);
+          done();
+        });
+      });
+
+    });
+  </script>
+</body>
+
+</html>

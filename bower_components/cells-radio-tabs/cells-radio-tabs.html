@@ -1,0 +1,30 @@
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../cells-i18n-behavior/cells-i18n-behavior.html">
+<link rel="import" href="../bbva-badge-notification/bbva-badge-notification.html">
+<link rel="import" href="cells-radio-tabs-styles.html">
+
+<dom-module id="cells-radio-tabs">
+  <template>
+    <style include="cells-radio-tabs-styles cells-radio-tabs-shared-styles"></style>
+
+    <dom-repeat items="[[options]]" id="options">
+      <template>
+        <button id$="[[_tabId(item)]]" active$="[[_computeChecked(selected, index)]]" on-tap="_setSelected" on-keydown="_setSelected" on-mouseenter="_onMouseEvent"
+          on-mouseleave="_onMouseEvent" name$="cells-radio-tabs-[[_uniqueID]]" role="tab" aria-selected$="[[_computeCheckedString(selected, index)]]" aria-controls$="[[_tabId(item)]]-tab" tabindex$="[[_tabindex(selected, index)]]">
+          <span class="tab-content">
+            <bbva-badge-notification class="icon" hidden$="[[!item.notifications]]" text="[[item.notifications]]"></bbva-badge-notification>
+            <iron-icon class="icon iron-icon" hidden$="[[!item.icon]]" icon="[[item.icon]]" style$="width: [[iconSize]]px; height: [[iconSize]]px;"></iron-icon>
+            <span class="label" aria-disabled$="[[_labelDisabled(selected, index)]]" hidden$="[[_hasLabels]]">[[t(item)]]</span>
+            <span class="label" aria-disabled$="[[_labelDisabled(selected, index)]]" hidden$="[[!_hasLabels]]">[[t(item.label)]]</span>
+            <span class="total" aria-disabled$="[[_labelDisabled(selected, index)]]" hidden$="[[!item.total]]">[[item.total]]</span>
+          </span>
+        </button>
+      </template>
+    </dom-repeat>
+    <div id="indicator" class="indicator"></div>
+  </template>
+  <script src="cells-radio-tabs.js"></script>
+</dom-module>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assemblies>
+  <assembly name="WCT Unit tests [chrome.85]" environment="chrome.85" test-framework="web-component-tester" run-date="2021-06-03" run-time="13:49:37" total="18" passed="18" failed="0" skipped="0">
+    <collection passed="18" failed="0" skipped="0">
+      <test name="Check default properties" method="&lt;cells-text-description>.Check default properties" type="test/cells-text-description-test.html" result="Pass" time="1"/>
+      <test name="Check _createInfoArray method if only one text description" method="&lt;cells-text-description>.Check _createInfoArray method if only one text description" type="test/cells-text-description-test.html" result="Pass" time="1"/>
+      <test name="Check _createInfoArray method if only one text description and no title" method="&lt;cells-text-description>.Check _createInfoArray method if only one text description and no title" type="test/cells-text-description-test.html" result="Pass" time="0"/>
+      <test name="that event gets triggered on title icon click" method="&lt;cells-text-description>.that event gets triggered on title icon click" type="test/cells-text-description-test.html" result="Pass" time="63"/>
+      <test name="if titleIcon is not set, do not show" method="&lt;cells-text-description>.if titleIcon is not set, do not show" type="test/cells-text-description-test.html" result="Pass" time="0"/>
+      <test name="icon attribute shows correctly" method="&lt;cells-text-description>.icon attribute shows correctly" type="test/cells-text-description-test.html" result="Pass" time="0"/>
+      <test name="if link clicked, event is fired" method="&lt;cells-text-description>.if link clicked, event is fired" type="test/cells-text-description-test.html" result="Pass" time="10"/>
+      <test name="if main description clicked, event is fired" method="&lt;cells-text-description>.if main description clicked, event is fired" type="test/cells-text-description-test.html" result="Pass" time="7"/>
+      <test name="if link has no text, cells-st-button doesnt exist" method="&lt;cells-text-description>.if link has no text, cells-st-button doesnt exist" type="test/cells-text-description-test.html" result="Pass" time="0"/>
+      <test name="Check default properties" method="&lt;cells-text-description>.Check default properties" type="test/cells-text-description-test.html" result="Pass" time="1"/>
+      <test name="Check _createInfoArray method if only one text description" method="&lt;cells-text-description>.Check _createInfoArray method if only one text description" type="test/cells-text-description-test.html" result="Pass" time="0"/>
+      <test name="Check _createInfoArray method if only one text description and no title" method="&lt;cells-text-description>.Check _createInfoArray method if only one text description and no title" type="test/cells-text-description-test.html" result="Pass" time="1"/>
+      <test name="that event gets triggered on title icon click" method="&lt;cells-text-description>.that event gets triggered on title icon click" type="test/cells-text-description-test.html" result="Pass" time="76"/>
+      <test name="if titleIcon is not set, do not show" method="&lt;cells-text-description>.if titleIcon is not set, do not show" type="test/cells-text-description-test.html" result="Pass" time="0"/>
+      <test name="icon attribute shows correctly" method="&lt;cells-text-description>.icon attribute shows correctly" type="test/cells-text-description-test.html" result="Pass" time="1"/>
+      <test name="if link clicked, event is fired" method="&lt;cells-text-description>.if link clicked, event is fired" type="test/cells-text-description-test.html" result="Pass" time="6"/>
+      <test name="if main description clicked, event is fired" method="&lt;cells-text-description>.if main description clicked, event is fired" type="test/cells-text-description-test.html" result="Pass" time="7"/>
+      <test name="if link has no text, cells-st-button doesnt exist" method="&lt;cells-text-description>.if link has no text, cells-st-button doesnt exist" type="test/cells-text-description-test.html" result="Pass" time="0"/>
+    </collection>
+  </assembly>
+</assemblies>

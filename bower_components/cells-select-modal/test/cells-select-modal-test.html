@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../cells-select-modal.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <cells-select-modal></cells-select-modal>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<cells-select-modal>', function() {
+      let el;
+      let button;
+      setup(function() {
+        el = fixture('default');
+        button = el.shadowRoot.querySelector('#documentTypeSelector');
+      });
+
+      suite('when button is clicked', () => {
+        test('no event is fired when selector icon is hidden', () => {
+          const callback = sinon.spy();
+          el.addEventListener('open-document-modal-selector', callback, { once: true });
+
+          el.hideSelectorIcon = true;
+
+          button.click();
+
+          expect(callback).not.called;
+        });
+
+        test('event is fired when selector icon is shown', () => {
+          const callback = sinon.spy();
+          el.addEventListener('open-document-modal-selector', callback, { once: true });
+
+          button.click();
+
+          expect(callback).called;
+        });
+
+        test('event is fired with ID and value', function(done) {
+          const expected = {
+            id: '1234',
+            itemSelected: 'Item Selected',
+            value: '001',
+          }
+
+          const handler = (response) => {
+            expect(response.detail).to.deep.equal({ id: expected.id, value: expected.value});
+            el.removeEventListener('open-document-modal-selector', handler)
+            done()
+          }
+
+          el.addEventListener('open-document-modal-selector', handler);
+          el.id = expected.id;
+          el.itemSelected = expected.itemSelected;
+          el.itemId = expected.value;
+          button.click();
+        });
+      });
+
+      suite('Method _onImageError', () => {
+        test('Should keep the value of "image" when "defaultImage" has no value', (done) => {
+          let img = 'images/flag-pe.sv';
+          el.image = img;
+          flush(() => {
+            el.shadowRoot.querySelector('#avatarImg').addEventListener('error', () => {
+              expect(el.image).to.be.equal(img);
+              done();
+            });
+          });
+        });
+
+        test('Should reset "image" to value of "defaultImage" when it has value', (done) => {
+          el.defaultImage = 'images/default-image.svg';
+          el.image = 'images/flag-pe.sv';
+          flush(() => {
+            el.shadowRoot.querySelector('#avatarImg').addEventListener('error', () => {
+              expect(el.image).to.be.equal(el.defaultImage);
+              done();
+            });
+          });
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
